@@ -1,0 +1,382 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Cocoa中的位与位运算 - Lancy's Blog</title>
+	<meta name="author" content="Lancy">
+
+	
+	<meta name="description" content="介绍 位操作是程序设计中对位模式或二进制数的一元和二元操作. 在许多古老的微处理器上, 位运算比加减运算略快, 通常位运算比乘除法运算要快很多. 在现代架构中, 情况并非如此:位运算的运算速度通常与加法运算相同(仍然快于乘法运算).（摘自wikipedia） OC作为c的扩展和超集， &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Lancy's Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Lancy's Blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="https://github.com/lancy/cyhelper">CYHelper</a></li>
+	<li><a href="/about">About Me</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="https://github.com/lancy/cyhelper">CYHelper</a></li>
+	<li><a href="/about">About Me</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:gracelancy.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="weibo" href="http://weibo.com/lancy1014"
+            title="Weibo">Weibo</a>
+		
+		
+		<a class="github" href="https://github.com/lancy" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:gracelancy.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Cocoa中的位与位运算</h2>
+	<div class="entry-content"><h2>介绍</h2>
+
+<p>位操作是程序设计中对位模式或二进制数的一元和二元操作. 在许多古老的微处理器上, 位运算比加减运算略快, 通常位运算比乘除法运算要快很多. 在现代架构中, 情况并非如此:位运算的运算速度通常与加法运算相同(仍然快于乘法运算).（摘自wikipedia）</p>
+
+<p>OC作为c的扩展和超集，位运算自然使用的是c的操作符。c提供了6个位操作符，$，|，^，~，&lt;&lt;，>>。本文不打算做位运算的基础教学，只介绍一些开发中能用到的场景。</p>
+
+<h2>提高运算速度</h2>
+
+<p>如前一段所说，位运算的运算速度是通常与加法速度相当，但是快于乘法运算的。故而如果我们的程序对性能有要求，我们可以使用位运算来提高运算速度。比如：</p>
+
+<ul>
+<li>乘以2：n &lt;&lt; 1;</li>
+<li>除以2：n >> 1;</li>
+<li>乘以2的m次方：n &lt;&lt; m;</li>
+<li>除以2的m次方：n >> m;</li>
+<li>判断奇偶：(n &amp; 1) == 1;</li>
+<li>求平均数：(a + b) >> 1;</li>
+<li>&hellip;&hellip;</li>
+</ul>
+
+
+<p>基于乘除法的位运算提速还有很多，这里不一一列举。需要注意的是，你应当只在遇到性能瓶颈的时候，并且瓶颈的确是计算的时候才这么做。因为使用位运算并不利于程序的可读性和可维护性。（科学计算除外）</p>
+
+<h2>压缩空间</h2>
+
+<p>以前接触过ACM的筒子们应该对状态压缩不陌生，状态压缩的目的在于把一个大数据用有限的内存空间来进行表示。比如 Programming Pearls 里面的一个经典示例：如何对最多有一千万条不重复的7位整数（电话号码）进行排序？且可使用的内存空间有大约1MB多。</p>
+
+<p>显而易见的常规做法既是做一个基于磁盘操作的外排序。然而如果转换一下思路，充分的使用内存中的每一个位，加上不存在重复的电话号码，以及不存在0和1开头的电话号码。我们只需要使用1000万个位（大约1.2mb），就能以集合的方式在内存里标记下所有的数据，从而轻松的实现位排序。此种方法大幅度的减少了IO时间，从而获得巨大的性能提升。</p>
+
+<p>ACM里面有大量的如果使用位来压缩空间的示例，状态压缩的动态规划等，此处不做展开，只告诉读者，充分的使用内存的每一个位，经常能带来意想不到的收获。但需要注意的是，状态的压缩和提取，都需要一定的计算量，有时一味的追求状态压缩，反而会降低效率。</p>
+
+<h2>表示数据</h2>
+
+<p>比较经典的一个应用场景，使用一串24位的十六机制数字来表现一个RGB颜色（或者32位来表示ARGB）。由于PS，Web以及各类取色器，都能快速的取出RGB的Hex值，但是UIColor没有对应的方法。故而我们可以写出下面这样一个UIColor的Category，来快速的用一个RGBHex生成一个UIColor。（源码在<a href="http://github.com/lancy/cyhelper">UIColor + CYHelper.h</a>）</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">+</span> <span class="p">(</span><span class="n">UIColor</span> <span class="o">*</span><span class="p">)</span><span class="nf">colorWithRGBHex:</span><span class="p">(</span><span class="n">UInt32</span><span class="p">)</span><span class="nv">hex</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nl">colorWithRGBHex:</span><span class="n">hex</span> <span class="nl">alpha:</span><span class="mf">1.0f</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">+</span> <span class="p">(</span><span class="n">UIColor</span> <span class="o">*</span><span class="p">)</span><span class="nf">colorWithRGBHex:</span><span class="p">(</span><span class="n">UInt32</span><span class="p">)</span><span class="nv">hex</span> <span class="nf">alpha:</span><span class="p">(</span><span class="n">CGFloat</span><span class="p">)</span><span class="nv">alpha</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="p">(</span><span class="n">hex</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">g</span> <span class="o">=</span> <span class="p">(</span><span class="n">hex</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="n">hex</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="p">[</span><span class="n">UIColor</span> <span class="nl">colorWithRed:</span><span class="n">r</span> <span class="o">/</span> <span class="mf">255.0f</span> <span class="nl">green:</span><span class="n">g</span> <span class="o">/</span> <span class="mf">255.0f</span> <span class="nl">blue:</span><span class="n">b</span> <span class="o">/</span> <span class="mf">255.0f</span> <span class="nl">alpha:</span><span class="n">alpha</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>状态与选项</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">typedef</span> <span class="nf">NS_OPTIONS</span><span class="p">(</span><span class="n">NSUInteger</span><span class="p">,</span> <span class="n">UIViewAnimationOptions</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionLayoutSubviews</span>            <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span>  <span class="mi">0</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionAllowUserInteraction</span>      <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span>  <span class="mi">1</span><span class="p">,</span> <span class="c1">// turn on user interaction while animating</span>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionBeginFromCurrentState</span>     <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span>  <span class="mi">2</span><span class="p">,</span> <span class="c1">// start all views from current value, not initial value</span>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionRepeat</span>                    <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span>  <span class="mi">3</span><span class="p">,</span> <span class="c1">// repeat animation indefinitely</span>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionAutoreverse</span>               <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span>  <span class="mi">4</span><span class="p">,</span> <span class="c1">// if repeat, run animation back and forth</span>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionOverrideInheritedDuration</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span>  <span class="mi">5</span><span class="p">,</span> <span class="c1">// ignore nested duration</span>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionOverrideInheritedCurve</span>    <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span>  <span class="mi">6</span><span class="p">,</span> <span class="c1">// ignore nested curve</span>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionAllowAnimatedContent</span>      <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span>  <span class="mi">7</span><span class="p">,</span> <span class="c1">// animate contents (applies to transitions only)</span>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionShowHideTransitionViews</span>   <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span>  <span class="mi">8</span><span class="p">,</span> <span class="c1">// flip to/from hidden state instead of adding/removing</span>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionOverrideInheritedOptions</span>  <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span>  <span class="mi">9</span><span class="p">,</span> <span class="c1">// do not inherit any options or animation type</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionCurveEaseInOut</span>            <span class="o">=</span> <span class="mi">0</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span> <span class="c1">// default</span>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionCurveEaseIn</span>               <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionCurveEaseOut</span>              <span class="o">=</span> <span class="mi">2</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionCurveLinear</span>               <span class="o">=</span> <span class="mi">3</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionTransitionNone</span>            <span class="o">=</span> <span class="mi">0</span> <span class="o">&lt;&lt;</span> <span class="mi">20</span><span class="p">,</span> <span class="c1">// default</span>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionTransitionFlipFromLeft</span>    <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">20</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionTransitionFlipFromRight</span>   <span class="o">=</span> <span class="mi">2</span> <span class="o">&lt;&lt;</span> <span class="mi">20</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionTransitionCurlUp</span>          <span class="o">=</span> <span class="mi">3</span> <span class="o">&lt;&lt;</span> <span class="mi">20</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionTransitionCurlDown</span>        <span class="o">=</span> <span class="mi">4</span> <span class="o">&lt;&lt;</span> <span class="mi">20</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionTransitionCrossDissolve</span>   <span class="o">=</span> <span class="mi">5</span> <span class="o">&lt;&lt;</span> <span class="mi">20</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionTransitionFlipFromTop</span>     <span class="o">=</span> <span class="mi">6</span> <span class="o">&lt;&lt;</span> <span class="mi">20</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">UIViewAnimationOptionTransitionFlipFromBottom</span>  <span class="o">=</span> <span class="mi">7</span> <span class="o">&lt;&lt;</span> <span class="mi">20</span><span class="p">,</span>
+</span><span class='line'><span class="p">}</span> <span class="n">NS_ENUM_AVAILABLE_IOS</span><span class="p">(</span><span class="mi">4</span><span class="n">_0</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>我们观察Apple在UIViewAnimationOptions的枚举变量，使用了一个NSUInteger就表示了UIViewAnimation所需的所有Option。其中0~9十个是互不影响的可同时存在option。16~19，20~24使用了4位来表示互斥的option。</p>
+
+<p>如此定义了之后，对UIViewAnimationOptions的赋值变得尤为简单，使用 | 操作符既可以获得一个给对应的option位赋值后的结果。例如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">UIView</span> <span class="nl">animateWithDuration:</span><span class="mf">1.0</span>
+</span><span class='line'>                      <span class="nl">delay:</span><span class="mi">0</span>
+</span><span class='line'>                    <span class="nl">options:</span><span class="n">UIViewAnimationOptionAllowUserInteraction</span>
+</span><span class='line'>                         <span class="o">|</span> <span class="n">UIViewAnimationOptionBeginFromCurrentState</span>
+</span><span class='line'>                         <span class="o">|</span> <span class="n">UIViewAnimationOptionCurveEaseIn</span>
+</span><span class='line'>                 <span class="nl">animations:</span><span class="p">{...}</span>
+</span><span class='line'>                 <span class="nl">completion:</span><span class="p">{...}];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>提取也比较简单，使用 &amp; 操作符 和 >> 操作符，就可以轻松判定某个位有没有被设置，以及提取某些状态位，例如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">UIViewAnimationOptions</span> <span class="n">option</span> <span class="o">=</span> <span class="n">UIViewAnimationOptionAllowUserInteraction</span>
+</span><span class='line'>                                <span class="o">|</span> <span class="n">UIViewAnimationOptionBeginFromCurrentState</span>
+</span><span class='line'>                                <span class="o">|</span> <span class="n">UIViewAnimationOptionCurveEaseIn</span>
+</span><span class='line'>                                <span class="o">|</span> <span class="n">UIViewAnimationOptionTransitionCrossDissolve</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">option</span> <span class="o">&amp;</span> <span class="n">UIViewAnimationOptionAllowUserInteraction</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;UIViewAnimationOptionAllowUserInteraction has been set&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">option</span> <span class="o">&amp;</span> <span class="n">UIViewAnimationOptionBeginFromCurrentState</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;UIViewAnimationOptionBeginFromCurrentState has been set&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="n">UInt8</span> <span class="n">optionCurve</span> <span class="o">=</span> <span class="n">option</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span> <span class="o">&amp;</span> <span class="mh">0xf</span><span class="p">;</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">optionCurve</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;UIViewAnimationOptionCurveEaseIn has been set&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="n">UInt8</span> <span class="n">optionTransition</span> <span class="o">=</span> <span class="n">option</span> <span class="o">&gt;&gt;</span> <span class="mi">20</span> <span class="o">&amp;</span> <span class="mh">0xf</span><span class="p">;</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="n">optionTransition</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;UIViewAnimationOptionTransitionCrossDissolve has been set&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这里最需要注意的地方就是，对互斥的状态的设置必须尤为小心，如果你这么写：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">UIViewAnimationOptions</span> <span class="n">badOption</span> <span class="o">=</span> <span class="n">UIViewAnimationOptionCurveEaseIn</span> <span class="o">|</span> <span class="n">UIViewAnimationOptionCurveEaseOut</span><span class="p">;</span>
+</span><span class='line'><span class="n">UInt8</span> <span class="n">oops</span> <span class="o">=</span> <span class="n">badOption</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span> <span class="o">&amp;</span> <span class="mh">0xf</span><span class="p">;</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Sorry, it&#39;s not UIViewAnimationOptionCurveEaseInOut&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;oops = %d, you got UIViewAnimationOptionCurveLinear&quot;</span><span class="p">,</span> <span class="n">oops</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>联系我</h2>
+
+<ul>
+<li>写邮件：lancy1014#gmail.com</li>
+<li>关注我的<a href="http://weibo.com/lancy1014/">微博</a></li>
+<li>Fo我的<a href="http://github.com/lancy">Github</a></li>
+<li>在这里写评论留言</li>
+</ul>
+
+
+<p>Lancy</p>
+
+<p>9.27</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-09-27T00:00:00+08:00" pubdate data-updated="true">Sep 27<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/ios/'>iOS</a>
+
+
+</div>
+	
+	<div class="comments"><a href="#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		
+		
+	</div>
+	
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2014
+
+    Lancy
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'gracelancy';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://gracelancy.com/blog/2013/09/27/bitwise-operation-in-cocoa/';
+        var disqus_url = 'http://gracelancy.com/blog/2013/09/27/bitwise-operation-in-cocoa/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</body>
+</html>

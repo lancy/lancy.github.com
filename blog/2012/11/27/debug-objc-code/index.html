@@ -1,0 +1,436 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>从一段奇葩的objc代码看代码规范的重要性 - Lancy's Blog</title>
+	<meta name="author" content="Lancy">
+
+	
+	<meta name="description" content="背景介绍 昨天，在和我一个朋友讨论，到底是用self.propertyName还是_propertyName来访问property，我认为应该使用self.propertyName，因为我在听Stanford
+Open
+Course的时候，苹果的工程师告诫要使用self.propertyName， &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Lancy's Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Lancy's Blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="https://github.com/lancy/cyhelper">CYHelper</a></li>
+	<li><a href="/about">About Me</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="https://github.com/lancy/cyhelper">CYHelper</a></li>
+	<li><a href="/about">About Me</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:gracelancy.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="weibo" href="http://weibo.com/lancy1014"
+            title="Weibo">Weibo</a>
+		
+		
+		<a class="github" href="https://github.com/lancy" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:gracelancy.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">从一段奇葩的objc代码看代码规范的重要性</h2>
+	<div class="entry-content"><h2>背景介绍</h2>
+
+<p>昨天，在和我一个朋友讨论，到底是用<code>self.propertyName</code>还是<code>_propertyName</code>来访问property，我认为应该使用<code>self.propertyName</code>，因为我在听Stanford
+Open
+Course的时候，苹果的工程师告诫要使用<code>self.propertyName</code>，不要使用<code>_propertyName</code>。而朋友认为应该使用<code>_propertyName</code>，因为google
+objc code style认为最好不要用<code>self.propertyName</code>。</p>
+
+<p>我没看过google objc code style，我只看过objective c programming
+guide。在我的理解里property的作用在于根据参数生成相应的getter和setter。<code>self.propertyName</code>本质上既是调用getter函数的，而<code>_propertyName</code>直接访问成员函数，因为相应参数生成的getter和setter是不会被调用的。</p>
+
+<p>再说，我还是决定相信apple，而不是google，毕竟Objc还是apple在支持和维护。</p>
+
+<h2>上代码</h2>
+
+<p>重点来了，朋友为了说服我<code>self.property</code>是有问题的，发了一段代码过来，这段代码非常奇葩，可以点<a href="http://lancy.applesysu.com/wp-content/uploads/2012/11/FuckTableView.zip">这里</a>下载，或者直接看代码，代码不算很长，简单的说，是要实现一个功能，一个tableview右上角有一个刷新按钮，每次刷新会改变dataArray（setupData），然后刷新tableview。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#import &quot;ViewController.h&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@interface</span> <span class="nc">ViewController</span> <span class="p">()</span> <span class="o">&lt;</span><span class="n">UITableViewDataSource</span><span class="p">,</span> <span class="n">UITableViewDelegate</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">UITableView</span> <span class="o">*</span><span class="n">tableView</span><span class="p">;</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSArray</span> <span class="o">*</span><span class="n">dataArray</span><span class="p">;</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="kt">BOOL</span> <span class="n">flag</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@implementation</span> <span class="nc">ViewController</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">initWithNibName:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">nibNameOrNil</span> <span class="nf">bundle:</span><span class="p">(</span><span class="n">NSBundle</span> <span class="o">*</span><span class="p">)</span><span class="nv">nibBundleOrNil</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="nl">initWithNibName:</span><span class="n">nibNameOrNil</span> <span class="nl">bundle:</span><span class="n">nibBundleOrNil</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">self</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">//按这个按钮本来是tableview会变化的，但是现在调用了reloadData之后，不会调用cellForRowAtIndexPath这个方法。</span>
+</span><span class='line'>        <span class="n">UIBarButtonItem</span> <span class="o">*</span><span class="n">rightItem</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIBarButtonItem</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithBarButtonSystemItem:</span><span class="n">UIBarButtonSystemItemEdit</span> <span class="nl">target:</span><span class="n">self</span> <span class="nl">action:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">add:</span><span class="p">)];</span>
+</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">rightBarButtonItem</span> <span class="o">=</span> <span class="n">rightItem</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">//设置数据源</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span> <span class="n">setupData</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">super</span> <span class="n">viewDidLoad</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">addSubview:</span><span class="n">self</span><span class="p">.</span><span class="n">tableView</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#pragma mark - getter &amp; setter</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nf">tableView</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">_tableView</span> <span class="o">==</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">_tableView</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UITableView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame:</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">bounds</span>
+</span><span class='line'>                                                  <span class="nl">style:</span><span class="n">UITableViewStyleGrouped</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">_tableView</span><span class="p">.</span><span class="n">autoresizingMask</span> <span class="o">=</span> <span class="n">UIViewAutoresizingFlexibleHeight</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">_tableView</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">_tableView</span><span class="p">.</span><span class="n">dataSource</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">_tableView</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#pragma mark - UITableView Delegate &amp; Datasource</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">numberOfRowsInSection:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">dataArray</span><span class="p">.</span><span class="n">count</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">UITableViewCell</span> <span class="o">*</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">cellForRowAtIndexPath:</span><span class="p">(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">static</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">identifier</span> <span class="o">=</span> <span class="s">@&quot;settingcell&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">UITableViewCell</span> <span class="o">*</span><span class="n">cell</span> <span class="o">=</span> <span class="p">[</span><span class="n">tableView</span> <span class="nl">dequeueReusableCellWithIdentifier:</span><span class="n">identifier</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">cell</span> <span class="o">==</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">cell</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UITableViewCell</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithStyle:</span><span class="n">UITableViewCellStyleDefault</span> <span class="nl">reuseIdentifier:</span><span class="n">identifier</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">cell</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">dataArray</span> <span class="nl">objectAtIndex:</span><span class="p">[</span><span class="n">indexPath</span> <span class="n">row</span><span class="p">]];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">cell</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setupData</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">flag</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">dataArray</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSArray</span> <span class="nl">arrayWithObjects:</span><span class="s">@&quot;1&quot;</span><span class="p">,</span> <span class="s">@&quot;2&quot;</span><span class="p">,</span> <span class="s">@&quot;3&quot;</span><span class="p">,</span> <span class="s">@&quot;fuck&quot;</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">dataArray</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSArray</span> <span class="nl">arrayWithObjects:</span><span class="s">@&quot;1&quot;</span><span class="p">,</span> <span class="s">@&quot;2&quot;</span><span class="p">,</span> <span class="s">@&quot;3&quot;</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">tableView</span> <span class="n">reloadData</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">add:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">self</span><span class="p">.</span><span class="n">flag</span> <span class="o">=</span> <span class="o">!</span><span class="n">self</span><span class="p">.</span><span class="n">flag</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="n">setupData</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>问题</h3>
+
+<p>这段代码是无效的，按下按钮之后，<code>setupData</code>被调用了，已经log确定<code>dataArray</code>已经改变，<code>tableview</code>的<code>delegate</code>和<code>datasource</code>都设置正确，确定<code>numberOfRowsInSection</code>被调用，奇葩的是<code>cellForRowAtIndexPath</code>没有调用，故而<code>tableview</code>没有改变。</p>
+
+<h4>奇葩的来了</h4>
+
+<p>朋友跟我说，你只要把<code>[self.tableview reloadData]</code>改成<code>[_tableview
+reloadData]</code>，他就生效了。是的，他就生效了。你设一个断点在这个地方，然后把<code>self.tableview</code>和<code>_tableview</code>po出来，发现他们的指针是一样的。朋友说写这个代码的那货折腾了一天，百思不得其解，最后得出结论<code>self.propertyName</code>就是坑爹。</p>
+
+<h2>生效的修改方法</h2>
+
+<p>朋友提供的：</p>
+
+<ol>
+<li>前面说的讲把<code>[self.tableview reloadData]</code>改成<code>[_tableview reloadData]</code></li>
+<li><p>把<code>tableview</code>的getter函数的<code>init</code>里面的<code>self.view.bounds</code>改成<code>CGReckMake(0,0,
+320, 480)</code></p></li>
+</ol>
+
+
+<p>朋友试图用这个两个方法来说明，<code>self.property</code>是坑爹的。</p>
+
+<p>我在初步debug的时候，由于我是property的拥护者，property自动生成setter和getter函数，我是不支持重写getter函数的，所以我将getter函数删掉，把初始化代码移到<code>viewdidload</code>里面。然后代码就生效了。</p>
+
+<p>但是即使代码生效了，还是没有找到问题的关键，仍然没办法解释为什么<code>[self.tableview
+reloadData]</code>改成<code>[_tableview reloadData]</code>就能运行了，因为po出来的指针是完全一样的，这不科学。</p>
+
+<h2>真正的问题所在</h2>
+
+<p>在各种Stackoverflow，google无果之后，我还是着手准备深入debug。</p>
+
+<p>通过各种断点和gdb，最后打印函数调用栈才让我发现了真正的问题所在。</p>
+
+<p>整个程序的执行顺序是这样的：</p>
+
+<ol>
+<li><code>initWithNibName</code>（执行到<code>[self setupData]</code>，没执行完） &ndash;></li>
+<li>第一次setupData(执行到<code>[self.tableView reloadData]</code>，没执行完) &ndash;></li>
+<li>第一次执行tableview getter（到init，调用<code>self.view</code>，没执行完）-></li>
+<li><code>viewDidLoad</code>(到<code>addSubview:self.tableView</code>, 没执行完) &ndash;></li>
+<li>第二次执行tableview getter（问题在这里！第一次执行的时候没有init玩，所以又会执行一次！）-></li>
+<li>回到4.viewDidLoad，这是add的subview是第二次的init而先init完的tableview &ndash;></li>
+<li>回到3.第一次执行getter，（又alloc了一次tableView，这是<code>self.property</code>指向的是第一次init而后init完成的tableview））</li>
+</ol>
+
+
+<p>所以，显示在界面上的tableview根本不是<code>self.tableview</code>指向的tableview，故而根本没法刷新（<code>cellForRowAtIndexPath</code>，是当需要显示的时候才会调用的）。</p>
+
+<p>那为什么把<code>[self.tableview reloadData]</code>改成<code>[_tableview
+reloadData]</code>就能生效了呢？因为这样在<code>initWithNibName</code>的第一次调用setupData，就不会在reload的时候调用tableview
+getter，也就不会有后面一连串的连锁反应。之后顺利在<code>viewdidload</code>的时候只调用一次，完成init。</p>
+
+<p>知道了问题的关键，还能有各种各样让他生效的方法，就不吐槽了。</p>
+
+<h2>正确的写法</h2>
+
+<p>这段奇葩代码带给我最大的感触就是，不好好写规范的代码，各种问题都会坑死你。我认为规范的写法应该是</p>
+
+<ol>
+<li>不要重写getter和setter函数，使用property生成的getter和setter</li>
+<li>不要在vc的init的函数里面初始化，尤其是初始化视图。而应该在viewdidload里面初始化，保证self.view已经生成。</li>
+<li>应该使用自顶向下的程序设计方法，保证程序的顺序执行和层次关系。不应该出现如上程序的跳来跳去的调用。</li>
+</ol>
+
+
+<h2>后记</h2>
+
+<p>帮人debug这种事情真心蛋疼，看不规范的代码像噩梦。</p>
+
+<p>P.S.好想看objc和cocoa源码。。</p>
+
+<p>Lancy</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-27T00:00:00+08:00" pubdate data-updated="true">Nov 27<span>th</span>, 2012</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/ios/'>iOS</a>
+
+
+</div>
+	
+	<div class="comments"><a href="#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		
+		
+	</div>
+	
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2014
+
+    Lancy
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'gracelancy';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://gracelancy.com/blog/2012/11/27/debug-objc-code/';
+        var disqus_url = 'http://gracelancy.com/blog/2012/11/27/debug-objc-code/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</body>
+</html>

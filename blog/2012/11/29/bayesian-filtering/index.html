@@ -1,0 +1,268 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Bayesian Filtering - Lancy's Blog</title>
+	<meta name="author" content="Lancy">
+
+	
+	<meta name="description" content="About 贝叶斯过滤算法是一种基于统计学的过滤算法，它使用贝叶斯分类来进行特定类别文本的判别和过滤。 Naive Bayes classifier 朴素贝叶斯分类器是一种应用基于独立假设的贝叶斯定理的简单概率分类器，这种潜在的概率模型称为独立特性原型。
+简单的说， &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Lancy's Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Lancy's Blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="https://github.com/lancy/cyhelper">CYHelper</a></li>
+	<li><a href="/about">About Me</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="https://github.com/lancy/cyhelper">CYHelper</a></li>
+	<li><a href="/about">About Me</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:gracelancy.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="weibo" href="http://weibo.com/lancy1014"
+            title="Weibo">Weibo</a>
+		
+		
+		<a class="github" href="https://github.com/lancy" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:gracelancy.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Bayesian Filtering</h2>
+	<div class="entry-content"><h2>About</h2>
+
+<p>贝叶斯过滤算法是一种基于统计学的过滤算法，它使用贝叶斯分类来进行特定类别文本的判别和过滤。</p>
+
+<h2>Naive Bayes classifier</h2>
+
+<p>朴素贝叶斯分类器是一种应用基于独立假设的贝叶斯定理的简单概率分类器，这种潜在的概率模型称为独立特性原型。
+简单的说，朴素贝叶斯分类器假设样本的每个特征都是独立的与其他特征不相关的，尽管这些特征可能存在相互依赖，或者一些特征由其他特征而决定。</p>
+
+<h3>概率模型（源自贝叶斯定理）</h3>
+
+<h4>公式</h4>
+
+<p>公式一
+<code>Pr(H | T) = Pr(T | H)·Pr(H) / [Pr(T | H)·Pr(H) + Pr(T | M)·Pr(M)]</code></p>
+
+<p>其中:</p>
+
+<ul>
+<li>Pr(H | T)代表当一条文本有token T存在的时候，命中指定类别文本的概率</li>
+<li>Pr(H)代表对于任意一条文本，命中指定类别文本的概率</li>
+<li>Pr(T | H)代表token T出现在命中指定类别文本中的概率</li>
+<li>Pr(M)代表对于任意一条文本，非命中指定类别文本的概率</li>
+<li>Pr(W | H)代表token T出现在非命中指定类别文本重的概率</li>
+</ul>
+
+
+<p>通常情况下，我们会假定Pr(H) = Pr(M) = 0.5，即普遍命中概率和普遍非命中概率相等，这种假定是因为我们不想对出现的文本产生偏见关注。在这个假定下，我们可以将公式化简为：</p>
+
+<p>公式一（简）
+<code>Pr(H | T) = Pr(T | H) / [Pr(T | H) + Pr( T | M)]</code></p>
+
+<h4>合并独立概率</h4>
+
+<p>朴素贝叶斯分类器假定每个特征（该应用中为token）都是独立的，则我们可以使用合并概率公式：</p>
+
+<p>公示二
+<code>P = P2·P2···Pn / [P1·P2···Pn + (1 - P1)(1 - P2)···(1 - Pn)]</code></p>
+
+<p>其中：</p>
+
+<ul>
+<li>P 即为该文本命中指定类别文本的概率</li>
+<li>Pi (i = 1..n)当文本中出现某一token i，的时候，该文本命中指定类别文本的概率。（上面的Pr(H | T)）</li>
+</ul>
+
+
+<h2>实现案例——贝叶斯过滤算法在抽奖微博识别的应用</h2>
+
+<h3>功能</h3>
+
+<p>鉴别给定的微博，判断其是否为抽奖微博，从而为后续操作，比如过滤或者自动参与抽奖，提供基础。</p>
+
+<h3>程序设计</h3>
+
+<ol>
+<li><p>首先收集一定数量的抽奖微博和非抽奖微博，存在不同的两个文件（<code>hitFileName.txt</code>;
+<code>misFileName.txt</code>）</p></li>
+<li>将两个文件分别读入两个List（<code>hitStringList</code>, <code>misStringList</code>）</li>
+<li><p>对List里的每个string，进行tokenization，并加到对应的两个countTable(dict)，（<code>hitCountTable</code>,
+<code>misCountTable</code>），countTable用于统计每个token出现的次数。</p>
+
+<ul>
+<li>例：<code>hitCountTable[token]</code>表示token在命中文本中出现的次数）</li>
+</ul>
+</li>
+<li>将<code>countTable</code>转换为对应的<code>probabilityTable</code>，（<code>hitProbabilityTable</code>,
+<code>misProbabilityTable</code>）:单个token出现的次数 / 整个表所有token出现的次数）
+
+<ul>
+<li>例：<code>hitProbabilityTable[token]</code>表示token在命中文本重出现的概率</li>
+</ul>
+</li>
+<li><p>用公式一，由<code>hitProbabilityTable</code>和<code>misProbabilityTable</code>求得<code>tokensProbabilityTable</code></p>
+
+<ul>
+<li><code>tokensProbabilityTable[token]</code>表示当一条文本有token存在的时候，命中指定类别文本的概率</li>
+</ul>
+</li>
+<li>由给定string，分词后，找出它们其在<code>tokensProbabilityTable</code>的概率，用公式二，既可以求出该文本命中指定类型文本的概率</li>
+</ol>
+
+
+<h3>代码</h3>
+
+<p>代码在Github开源托管<a href="https://github.com/lancy/Bayesian">传送门</a></p>
+
+<h2>Contact Me</h2>
+
+<ul>
+<li><a href="https://github.com/lancy">Follow my github</a></li>
+<li><a href="http://weibo.com/lancy1014">Follow my weibo</a></li>
+<li><a href="https://github.com/lancy/Bayesian/issues">Write an issue</a></li>
+<li>Send Email to me: <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#108;&#x61;&#x6e;&#99;&#121;&#x31;&#x30;&#x31;&#x34;&#x40;&#x67;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;">&#x6c;&#97;&#x6e;&#x63;&#x79;&#x31;&#48;&#x31;&#52;&#64;&#103;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;</a></li>
+</ul>
+
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-29T00:00:00+08:00" pubdate data-updated="true">Nov 29<span>th</span>, 2012</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/ren-gong-zhi-neng/'>人工智能</a>
+
+
+</div>
+	
+	<div class="comments"><a href="#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		
+		
+	</div>
+	
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2014
+
+    Lancy
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'gracelancy';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://gracelancy.com/blog/2012/11/29/bayesian-filtering/';
+        var disqus_url = 'http://gracelancy.com/blog/2012/11/29/bayesian-filtering/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</body>
+</html>

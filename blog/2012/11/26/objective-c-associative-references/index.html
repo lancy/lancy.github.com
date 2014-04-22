@@ -1,0 +1,290 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Objective-C Associative References(关联引用) - Lancy's Blog</title>
+	<meta name="author" content="Lancy">
+
+	
+	<meta name="description" content="About 在研究Objc的运行时特性的时候，发现了一个有意思的东东，Associative Reference关联引用。使用关联引用，能够模拟添加一个对象实例到一个已有的类中，能够添加存储到一个对象中而不需要改变类的定义。这个技术在你不能访问源码的时候有用，或者你只是觉得动态的增加关联很好玩。 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Lancy's Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Lancy's Blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="https://github.com/lancy/cyhelper">CYHelper</a></li>
+	<li><a href="/about">About Me</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="https://github.com/lancy/cyhelper">CYHelper</a></li>
+	<li><a href="/about">About Me</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:gracelancy.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="weibo" href="http://weibo.com/lancy1014"
+            title="Weibo">Weibo</a>
+		
+		
+		<a class="github" href="https://github.com/lancy" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:gracelancy.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Objective-C Associative References(关联引用)</h2>
+	<div class="entry-content"><h2>About</h2>
+
+<p>在研究Objc的运行时特性的时候，发现了一个有意思的东东，Associative Reference关联引用。使用关联引用，能够模拟添加一个对象实例到一个已有的类中，能够添加存储到一个对象中而不需要改变类的定义。这个技术在你不能访问源码的时候有用，或者你只是觉得动态的增加关联很好玩。</p>
+
+<h2>创建关联</h2>
+
+<p>可以使用 objc_setAssociatedObject 来创建关联引用。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">static</span> <span class="kt">char</span> <span class="n">overviewKey</span><span class="p">;</span>
+</span><span class='line'><span class="n">NSArray</span> <span class="o">*</span><span class="n">array</span> <span class="o">=</span> <span class="err">@</span><span class="p">[</span><span class="s">@&quot;One&quot;</span><span class="p">,</span> <span class="s">@&quot;Two&quot;</span><span class="p">,</span> <span class="s">@&quot;Three&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">overview</span> <span class="o">=</span> <span class="s">@&quot;First three numbers&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">objc_setAssociatedObject</span> <span class="p">(</span>
+</span><span class='line'>                          <span class="n">array</span><span class="p">,</span>
+</span><span class='line'>                          <span class="o">&amp;</span><span class="n">overviewKey</span><span class="p">,</span>
+</span><span class='line'>                          <span class="n">overview</span><span class="p">,</span>
+</span><span class='line'>                          <span class="n">OBJC_ASSOCIATION_RETAIN</span>
+</span><span class='line'>                          <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>key是一个 void 指针，对于每个关联，key必须唯一，通常可以使用一个 static variable.</li>
+<li>police 用来指定，关联的对象是 assigned, retained, copied, 还有是否是atomically.
+
+<ul>
+<li><strong>OBJC_ASSOCIATION_ASSIGN</strong>
+Specifies a weak reference to the associated object.</li>
+<li><strong>OBJC_ASSOCIATION_RETAIN_NONATOMIC</strong>
+Specifies a strong reference to the associated object, and that the association is not made atomically.</li>
+<li><strong>OBJC_ASSOCIATION_COPY_NONATOMIC</strong>
+Specifies that the associated object is copied, and that the association is not made atomically.</li>
+<li><strong>OBJC_ASSOCIATION_RETAIN</strong>
+Specifies a strong reference to the associated object, and that the association is made atomically.</li>
+<li><strong>OBJC_ASSOCIATION_COPY</strong>
+Specifies that the associated object is copied, and that the association is made atomically.</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>取回关联对象</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">associatedObject</span> <span class="o">=</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">objc_getAssociatedObject</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">overviewKey</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>取消关联</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">objc_setAssociatedObject</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">overviewKey</span><span class="p">,</span> <span class="nb">nil</span><span class="p">,</span> <span class="n">OBJC_ASSOCIATION_ASSIGN</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>policy可以任意设置</p>
+
+<p>另外还可以使用 objc_removeAssociatedObjects，不过这是不被赞成的，因为他打破了所有用户的所有关联。</p>
+
+<h2>完整的样例代码</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#import &lt;objc/runtime.h&gt;</span>
+</span><span class='line'><span class="err">……</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">static</span> <span class="kt">char</span> <span class="n">overviewKey</span><span class="p">;</span>
+</span><span class='line'><span class="n">NSArray</span> <span class="o">*</span><span class="n">array</span> <span class="o">=</span> <span class="err">@</span><span class="p">[</span><span class="s">@&quot;One&quot;</span><span class="p">,</span> <span class="s">@&quot;Two&quot;</span><span class="p">,</span> <span class="s">@&quot;Three&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">overview</span> <span class="o">=</span> <span class="s">@&quot;First three numbers&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">objc_setAssociatedObject</span> <span class="p">(</span>
+</span><span class='line'>        <span class="n">array</span><span class="p">,</span>
+</span><span class='line'>        <span class="o">&amp;</span><span class="n">overviewKey</span><span class="p">,</span>
+</span><span class='line'>        <span class="n">overview</span><span class="p">,</span>
+</span><span class='line'>        <span class="n">OBJC_ASSOCIATION_RETAIN</span>
+</span><span class='line'>        <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">associatedObject</span> <span class="o">=</span>
+</span><span class='line'><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span> <span class="n">objc_getAssociatedObject</span> <span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">overviewKey</span><span class="p">);</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;associatedObject: %@&quot;</span><span class="p">,</span> <span class="n">associatedObject</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">objc_setAssociatedObject</span> <span class="p">(</span>
+</span><span class='line'>        <span class="n">array</span><span class="p">,</span>
+</span><span class='line'>        <span class="o">&amp;</span><span class="n">overviewKey</span><span class="p">,</span>
+</span><span class='line'>        <span class="nb">nil</span><span class="p">,</span>
+</span><span class='line'>        <span class="n">OBJC_ASSOCIATION_ASSIGN</span>
+</span><span class='line'>        <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意：本样例代码使用了Objc2.0语法和ARC，更详细的信息，请参考官方文档。</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-26T00:00:00+08:00" pubdate data-updated="true">Nov 26<span>th</span>, 2012</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/ios/'>iOS</a>
+
+
+</div>
+	
+	<div class="comments"><a href="#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		
+		
+	</div>
+	
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2014
+
+    Lancy
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'gracelancy';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://gracelancy.com/blog/2012/11/26/objective-c-associative-references/';
+        var disqus_url = 'http://gracelancy.com/blog/2012/11/26/objective-c-associative-references/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</body>
+</html>

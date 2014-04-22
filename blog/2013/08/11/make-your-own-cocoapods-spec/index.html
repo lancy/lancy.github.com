@@ -1,0 +1,256 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>制作自己的CocoaPods spec - Lancy's Blog</title>
+	<meta name="author" content="Lancy">
+
+	
+	<meta name="description" content="前言 关于CocoaPods，相信不用我介绍更多了。本文主要介绍如何制作自己的CocoaPods spec。 步骤 首先你要会用git，还要有一个托管在云端的repo，本文以Github为例，Git和Github的使用方式参照Github Help
+在你的repo下面，使用Git的tag功能， &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Lancy's Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Lancy's Blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="https://github.com/lancy/cyhelper">CYHelper</a></li>
+	<li><a href="/about">About Me</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="https://github.com/lancy/cyhelper">CYHelper</a></li>
+	<li><a href="/about">About Me</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:gracelancy.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="weibo" href="http://weibo.com/lancy1014"
+            title="Weibo">Weibo</a>
+		
+		
+		<a class="github" href="https://github.com/lancy" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:gracelancy.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">制作自己的CocoaPods Spec</h2>
+	<div class="entry-content"><h2>前言</h2>
+
+<p>关于CocoaPods，相信不用我介绍更多了。本文主要介绍如何制作自己的CocoaPods spec。</p>
+
+<h2>步骤</h2>
+
+<ol>
+<li>首先你要会用git，还要有一个托管在云端的repo，本文以Github为例，Git和Github的使用方式参照<a href="http://github.com/help">Github Help</a></li>
+<li><p>在你的repo下面，使用Git的tag功能，给你的某个commit添加一个tag(比如1.1.0），并push到Github.</p>
+
+<pre><code> // 本地添加一个标签:
+ $ git tag -a 1.1.0 -m "Version 1.1.0 Stable"
+ // Push tag to GitHub:
+ $ git push --tags
+</code></pre></li>
+<li><p>Folk <a href="https://github.com/CocoaPods/Specs">CocoaPods/Specs</a> 并 Clone 到本地。</p></li>
+<li><p>在Clone下来的Specs/创建一个自己的spec的目录，再创建一个版本目录。比如：</p>
+
+<pre><code> Specs/CYHelper/1.1.0
+</code></pre></li>
+<li><p>在该目录下创建一个spec档案，并编辑：</p>
+
+<pre><code> $ pod spec create CYHelper
+ $ vi CYHelper.podspec
+</code></pre>
+
+<p> pod创建模板会有相关的说明，按指引一步一步填即可。例如，CYHelper的spec配置如下:</p>
+
+<pre><code> Pod::Spec.new do |s|
+   s.name         = "CYHelper"
+   s.version      = "1.1.0"
+   s.summary      = "CYHelper is an Objective-C library for iOS developers."
+   s.homepage     = "https://github.com/lancy/CYHelper"
+   s.license      = 'MIT (LICENSE)'
+   s.author       = { "lancy" =&gt; "lancy1014@gmail.com" }
+   s.source       = { :git =&gt; "https://github.com/lancy/CYHelper.git", :tag =&gt; "1.1.0" }
+   s.platform     = :ios, '5.0'
+
+   s.source_files = 'CYHelper', 'CYHelper/**/*.{h,m}'
+   s.exclude_files = 'CYHelperDemo'
+
+   s.frameworks = 'Foundation', 'CoreGraphics', 'UIKit'
+   s.requires_arc = true
+ end
+</code></pre></li>
+<li><p>验证podspec</p>
+
+<pre><code> pod spec lint CYHelper.podspec        
+</code></pre>
+
+<p> 如果验证成功的话，会有这样的提示</p>
+
+<pre><code> Analyzed 1 podspec.
+
+ CYHelper.podspec passed validation.
+</code></pre></li>
+<li><p>最后去Github上发一个PullRequest，等待一段时间的审核和Merge，之后就可以像别的pod那样用CocoaPods来管理了：</p>
+
+<pre><code> // Podfile
+ platform :ios, '6.0'
+ pod 'CYHelper' 
+
+ $ pod install       
+</code></pre></li>
+</ol>
+
+
+<p>Have Fun!</p>
+
+<h2>后注</h2>
+
+<ul>
+<li><a href="https://github.com/lancy/cyhelper">CYHelper在这里，欢迎试用</a></li>
+<li><a href="https://github.com/lancy">顺便求fo我的github</a></li>
+</ul>
+
+
+<p>这里有唐巧和王轲写的两篇相关的文章，可以作为扩展阅读：</p>
+
+<ul>
+<li><a href="http://blog.devtang.com/blog/2012/12/02/use-cocoapod-to-manage-ios-lib-dependency/">使用CocoaPods来做iOS程序的包依赖管理</a></li>
+<li><a href="http://www.iwangke.me/2013/04/18/advanced-cocoapods/">CocoaPods进阶：本地包管理</a></li>
+</ul>
+
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-11T00:00:00+08:00" pubdate data-updated="true">Aug 11<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/ios/'>iOS</a>
+
+
+</div>
+	
+	<div class="comments"><a href="#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		
+		
+	</div>
+	
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2014
+
+    Lancy
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'gracelancy';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://gracelancy.com/blog/2013/08/11/make-your-own-cocoapods-spec/';
+        var disqus_url = 'http://gracelancy.com/blog/2013/08/11/make-your-own-cocoapods-spec/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</body>
+</html>

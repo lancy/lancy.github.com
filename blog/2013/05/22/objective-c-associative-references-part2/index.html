@@ -1,0 +1,281 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Objective-C Associative References(关联引用) 续：相关实践 - Lancy's Blog</title>
+	<meta name="author" content="Lancy">
+
+	
+	<meta name="description" content="About 我之前写了一篇博文Objective-C Associative References(关联引用)，介绍我在在研究objc runtime的有趣的发现，但当时我并没有意识到这个技术应该使用在何处。在一些实践之后，小结一下有关关联引用的一些相关实践吧。 &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Lancy's Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Lancy's Blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="https://github.com/lancy/cyhelper">CYHelper</a></li>
+	<li><a href="/about">About Me</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="https://github.com/lancy/cyhelper">CYHelper</a></li>
+	<li><a href="/about">About Me</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:gracelancy.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="weibo" href="http://weibo.com/lancy1014"
+            title="Weibo">Weibo</a>
+		
+		
+		<a class="github" href="https://github.com/lancy" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:gracelancy.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Objective-C Associative References(关联引用) 续：相关实践</h2>
+	<div class="entry-content"><h2>About</h2>
+
+<p>我之前写了一篇博文<a href="http://gracelancy.com/?p=82">Objective-C Associative References(关联引用)</a>，介绍我在在研究objc runtime的有趣的发现，但当时我并没有意识到这个技术应该使用在何处。在一些实践之后，小结一下有关关联引用的一些相关实践吧。</p>
+
+<h2>Category中使用关联引用来添加property</h2>
+
+<p>我们知道category是不能创建实例变量的，但我们可以通过关联引用来达到这样的目的。特别是当你不持有这个类，比如说系统的类，而你又的确需要添加一个property。</p>
+
+<p>你可以这样做：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#import &lt;objc/runtime.h&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@interface</span> <span class="nc">Person</span> <span class="nl">(EmailAddress)</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">readwrite</span><span class="p">,</span> <span class="n">copy</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">emailAddress</span><span class="p">;</span>
+</span><span class='line'><span class="k">@end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@implementation</span> <span class="nc">Person</span> <span class="nl">(EmailAddress)</span>
+</span><span class='line'><span class="k">static</span> <span class="kt">char</span> <span class="n">emailAddressKey</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nf">emailAddress</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">objc_getAssociatedObject</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">emailAddressKey</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setEmailAddress:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">emailAddress</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">objc_setAssociatedObject</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">emailAddressKey</span><span class="p">,</span> <span class="n">emailAddress</span><span class="p">,</span> <span class="n">OBJC_ASSOCIATION_COPY</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>给UI控件关联上相关对象</h2>
+
+<p>比如UIAlert只有一个tag属性用来做标记，我们经常需要根据Tag属性在找出对应需要操作的对象。但使用关联对象，我们可以把UIAlert和某个对象关联，简化这个过程。</p>
+
+<p>比如你可以这样做：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="kt">id</span> <span class="n">interestingObject</span> <span class="o">=</span> <span class="p">...;</span>
+</span><span class='line'><span class="n">UIAlertView</span> <span class="o">*</span><span class="n">alert</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIAlertView</span> <span class="n">alloc</span><span class="p">]</span>
+</span><span class='line'>                     <span class="nl">initWithTitle:</span><span class="err">@”</span><span class="n">Alert</span><span class="err">”</span> <span class="nl">message:</span><span class="nb">nil</span>
+</span><span class='line'>                     <span class="nl">delegate:</span><span class="n">self</span>
+</span><span class='line'>                     <span class="nl">cancelButtonTitle:</span><span class="err">@”</span><span class="n">OK</span><span class="err">”</span>
+</span><span class='line'>                     <span class="nl">otherButtonTitles:</span><span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="n">objc_setAssociatedObject</span><span class="p">(</span><span class="n">alert</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">kRepresentedObject</span><span class="p">,</span>
+</span><span class='line'>                        <span class="n">interestingObject</span><span class="p">,</span>
+</span><span class='line'>                     <span class="n">OBJC_ASSOCIATION_RETAIN_NONATOMIC</span><span class="p">);</span>
+</span><span class='line'><span class="p">[</span><span class="n">alert</span> <span class="n">show</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在alertView的delegate方法里面这样操作:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">alertView:</span><span class="p">(</span><span class="n">UIAlertView</span> <span class="o">*</span><span class="p">)</span><span class="nv">alertView</span>
+</span><span class='line'><span class="nf">clickedButtonAtIndex:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">buttonIndex</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">UIButton</span> <span class="o">*</span><span class="n">sender</span> <span class="o">=</span> <span class="n">objc_getAssociatedObject</span><span class="p">(</span><span class="n">alertView</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">kRepresentedObject</span><span class="p">);</span>
+</span><span class='line'>    <span class="n">self</span><span class="p">.</span><span class="n">buttonLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[[</span><span class="n">sender</span> <span class="n">titleLabel</span><span class="p">]</span> <span class="n">text</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>结合以上两者的最佳实践</h2>
+
+<p>在Cocoa里面，我们经常会见到user info这样一个属性，（比如NSNotification.userinfo），代表用户自定义的payload数据。</p>
+
+<p>同时一般而言，显式的使用objc的runtime特性并不是一个良好的编程习惯，故而我们可以使用category给UIAlert添加一个user info的property，以将objc的runtime代码进行隐藏。</p>
+
+<p>代码与前面给出的类似，你可以在Github下载到完整Demo。
+<a href="https://github.com/lancy/UIAlertViewUserinfo">传送门</a></p>
+
+<p>使用效果：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">UIAlertView</span> <span class="o">*</span><span class="n">alert</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIAlertView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithTitle:</span><span class="s">@&quot;Alert One&quot;</span> <span class="nl">message:</span><span class="s">@&quot;I gonna show the userinfo&quot;</span> <span class="nl">delegate:</span><span class="n">self</span> <span class="nl">cancelButtonTitle:</span><span class="s">@&quot;OK&quot;</span> <span class="nl">otherButtonTitles:</span> <span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="p">[</span><span class="n">alert</span> <span class="nl">setUserinfo:</span><span class="err">@</span><span class="p">{</span><span class="s">@&quot;message&quot;</span><span class="o">:</span> <span class="s">@&quot;I&#39;m userinfo of alert one&quot;</span><span class="p">}];</span>
+</span><span class='line'><span class="p">[</span><span class="n">alert</span> <span class="n">show</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-22T00:00:00+08:00" pubdate data-updated="true">May 22<span>nd</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/ios/'>iOS</a>
+
+
+</div>
+	
+	<div class="comments"><a href="#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		
+		
+	</div>
+	
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2014
+
+    Lancy
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'gracelancy';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://gracelancy.com/blog/2013/05/22/objective-c-associative-references-part2/';
+        var disqus_url = 'http://gracelancy.com/blog/2013/05/22/objective-c-associative-references-part2/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</body>
+</html>

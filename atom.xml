@@ -1,100 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
-<!DOCTYPE HTML>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>Lancy's Blog</title>
-	<meta name="author" content="Lancy">
-
-	
-	<meta name="description" content="什么是 Toll-Free Bridging 有一些数据类型是能够在 Core Foundation Framework 和 Foundation Framework 之间交换使用的。这意味着，对于同一个数据类型，你既可以将其作为参数传入 Core Foundation 函数， &hellip;">
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-	<link href="/atom.xml" rel="alternate" title="Lancy's Blog" type="application/atom+xml">
-	<link rel="canonical" href="">
-	<link href="/favicon.png" rel="shortcut icon">
-	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	
-</head>
-
-
-<body>
-	<header id="header" class="inner"><h1><a href="/">Lancy's Blog</a></h1>
-<nav id="main-nav"><ul class="main">
-	<li><a href="/">Blog</a></li>
-	<li><a href="/blog/archives">Archives</a></li>
-	<li><a href="https://github.com/lancy/cyhelper">CYHelper</a></li>
-	<li><a href="/about">About Me</a></li>
-</ul>
-</nav>
-<nav id="mobile-nav">
-	<div class="alignleft menu">
-		<a class="button">Menu</a>
-		<div class="container"><ul class="main">
-	<li><a href="/">Blog</a></li>
-	<li><a href="/blog/archives">Archives</a></li>
-	<li><a href="https://github.com/lancy/cyhelper">CYHelper</a></li>
-	<li><a href="/about">About Me</a></li>
-</ul>
-</div>
-	</div>
-	<div class="alignright search">
-		<a class="button"></a>
-		<div class="container">
-			<form action="http://google.com/search" method="get">
-				<input type="text" name="q" results="0">
-				<input type="hidden" name="q" value="site:gracelancy.com">
-			</form>
-		</div>
-	</div>
-</nav>
-<nav id="sub-nav" class="alignright">
-	<div class="social">
-		
-		
-		
-		
-		<a class="weibo" href="http://weibo.com/lancy1014"
-            title="Weibo">Weibo</a>
-		
-		
-		<a class="github" href="https://github.com/lancy" title="GitHub">GitHub</a>
-		
+  <title><![CDATA[Lancy's Blog]]></title>
+  <link href="http://gracelancy.com/atom.xml" rel="self"/>
+  <link href="http://gracelancy.com/"/>
+  <updated>2014-04-22T16:49:20+08:00</updated>
+  <id>http://gracelancy.com/</id>
+  <author>
+    <name><![CDATA[Lancy]]></name>
     
-		
-		
-		
-		
-		
-		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
-		
-    
-	</div>
-	<form class="search" action="http://google.com/search" method="get">
-		<input class="alignright" type="text" name="q" results="0">
-		<input type="hidden" name="q" value="site:gracelancy.com">
-	</form>
-</nav>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
 
-</header>
-	
-		
-	
-	<div id="content" class="inner">
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2014/04/21/toll-free-bridging/">
-		
-			Toll-Free Bridging</a>
-	</h2>
-	<div class="entry-content">
-		<h2>什么是 Toll-Free Bridging</h2>
+  
+  <entry>
+    <title type="html"><![CDATA[Toll-Free Bridging]]></title>
+    <link href="http://gracelancy.com/blog/2014/04/21/toll-free-bridging/"/>
+    <updated>2014-04-21T13:44:00+08:00</updated>
+    <id>http://gracelancy.com/blog/2014/04/21/toll-free-bridging</id>
+    <content type="html"><![CDATA[<h2>什么是 Toll-Free Bridging</h2>
 
 <p>有一些数据类型是能够在 Core Foundation Framework 和 Foundation Framework 之间交换使用的。这意味着，对于同一个数据类型，你既可以将其作为参数传入 Core Foundation 函数，也可以将其作为接收者对其发送 Objective-C 消息（即调用ObjC类方法）。这种在 Core Foundation 和 Foundation 之间交换使用数据类型的技术就叫 Toll-Free Bridging.</p>
 
@@ -297,55 +221,21 @@
 <p>Lancy</p>
 
 <p>4.21</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
+]]></content>
+  </entry>
   
-
-
-<time datetime="2014-04-21T13:44:00+08:00" pubdate data-updated="true">Apr 21<span>st</span>, 2014</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/ios/'>iOS</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2014/04/21/toll-free-bridging/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/10/19/WordHacker/">
-		
-			如何做一个Letterpress拼词器</a>
-	</h2>
-	<div class="entry-content">
-		<p><img src="/assets/post/wordhacker0.png" alt="Drawing" style="width: 200px;"/></p>
+  <entry>
+    <title type="html"><![CDATA[如何做一个Letterpress拼词器]]></title>
+    <link href="http://gracelancy.com/blog/2013/10/19/WordHacker/"/>
+    <updated>2013-10-19T00:00:00+08:00</updated>
+    <id>http://gracelancy.com/blog/2013/10/19/WordHacker</id>
+    <content type="html"><![CDATA[<p><img src="http://gracelancy.com/assets/post/wordhacker0.png" alt="Drawing" style="width: 200px;"/></p>
 
 <h2>故事</h2>
 
 <p>哥哥家的猫咪有一天迷上了风靡全球的拼词游戏Letterpress，但是贪吃的小猫咪只认识“food”和“milk”这样的词语，所以经常被对面的玩家欺负。可怜的小猫咪向哥哥求助：“喵呜~哥哥~哥哥，他欺负我！”，于是充满爱心和正义感的哥哥就踏上了拯救猫咪的道路。</p>
 
-<p><img src="/assets/post/wordhacker1.jpg" alt="image" /></p>
+<p><img src="http://gracelancy.com/assets/post/wordhacker1.jpg" alt="image" /></p>
 
 <h2>开始拯救世界</h2>
 
@@ -629,7 +519,7 @@
 
 <p>以本文最开始的截图为例：</p>
 
-<p><img src="/assets/post/wordhacker2.png" alt="image" /></p>
+<p><img src="http://gracelancy.com/assets/post/wordhacker2.png" alt="image" /></p>
 
 <p>可以看到我们已经成功的截出了第一个字母，并把其转为二值化图片。</p>
 
@@ -1000,7 +890,7 @@
 
 <p>做成下面这样就可以了：</p>
 
-<p><img src="/assets/post/wordhacker3.png" alt="image" /></p>
+<p><img src="http://gracelancy.com/assets/post/wordhacker3.png" alt="image" /></p>
 
 <p>界面细节大家就去看源码吧~写不动了~哥哥要和猫咪玩乐去了~</p>
 
@@ -1008,8 +898,8 @@
 
 <p>全部的代码在Github开源托管：<a href="https://github.com/lancy/letterfun">点这里</a></p>
 
-<p><img src="/assets/post/wordhacker4.png" alt="Drawing" style="width: 200px;"/>
-<img src="/assets/post/wordhacker5.png" alt="Drawing" style="width: 200px;"/></p>
+<p><img src="http://gracelancy.com/assets/post/wordhacker4.png" alt="Drawing" style="width: 200px;"/>
+<img src="http://gracelancy.com/assets/post/wordhacker5.png" alt="Drawing" style="width: 200px;"/></p>
 
 <h2>还有一件事</h2>
 
@@ -1028,49 +918,15 @@
 <p>Lancy</p>
 
 <p>20 Oct.</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
+]]></content>
+  </entry>
   
-
-
-<time datetime="2013-10-19T00:00:00+08:00" pubdate data-updated="true">Oct 19<span>th</span>, 2013</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/ios/'>ios</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2013/10/19/WordHacker/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/09/27/bitwise-operation-in-cocoa/">
-		
-			Cocoa中的位与位运算</a>
-	</h2>
-	<div class="entry-content">
-		<h2>介绍</h2>
+  <entry>
+    <title type="html"><![CDATA[Cocoa中的位与位运算]]></title>
+    <link href="http://gracelancy.com/blog/2013/09/27/bitwise-operation-in-cocoa/"/>
+    <updated>2013-09-27T00:00:00+08:00</updated>
+    <id>http://gracelancy.com/blog/2013/09/27/bitwise-operation-in-cocoa</id>
+    <content type="html"><![CDATA[<h2>介绍</h2>
 
 <p>位操作是程序设计中对位模式或二进制数的一元和二元操作. 在许多古老的微处理器上, 位运算比加减运算略快, 通常位运算比乘除法运算要快很多. 在现代架构中, 情况并非如此:位运算的运算速度通常与加法运算相同(仍然快于乘法运算).（摘自wikipedia）</p>
 
@@ -1281,49 +1137,15 @@
 <p>Lancy</p>
 
 <p>9.27</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
+]]></content>
+  </entry>
   
-
-
-<time datetime="2013-09-27T00:00:00+08:00" pubdate data-updated="true">Sep 27<span>th</span>, 2013</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/ios/'>iOS</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2013/09/27/bitwise-operation-in-cocoa/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/08/11/make-your-own-cocoapods-spec/">
-		
-			制作自己的CocoaPods Spec</a>
-	</h2>
-	<div class="entry-content">
-		<h2>前言</h2>
+  <entry>
+    <title type="html"><![CDATA[制作自己的CocoaPods spec]]></title>
+    <link href="http://gracelancy.com/blog/2013/08/11/make-your-own-cocoapods-spec/"/>
+    <updated>2013-08-11T00:00:00+08:00</updated>
+    <id>http://gracelancy.com/blog/2013/08/11/make-your-own-cocoapods-spec</id>
+    <content type="html"><![CDATA[<h2>前言</h2>
 
 <p>关于CocoaPods，相信不用我介绍更多了。本文主要介绍如何制作自己的CocoaPods spec。</p>
 
@@ -1407,49 +1229,15 @@
 <li><a href="http://www.iwangke.me/2013/04/18/advanced-cocoapods/">CocoaPods进阶：本地包管理</a></li>
 </ul>
 
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
+]]></content>
+  </entry>
   
-
-
-<time datetime="2013-08-11T00:00:00+08:00" pubdate data-updated="true">Aug 11<span>th</span>, 2013</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/ios/'>iOS</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2013/08/11/make-your-own-cocoapods-spec/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/06/04/singletons-in-cocoa-are-they-evil/">
-		
-			Singletons in Cocoa, Are They Evil?</a>
-	</h2>
-	<div class="entry-content">
-		<h2>故事</h2>
+  <entry>
+    <title type="html"><![CDATA[Singletons in Cocoa, are they evil?]]></title>
+    <link href="http://gracelancy.com/blog/2013/06/04/singletons-in-cocoa-are-they-evil/"/>
+    <updated>2013-06-04T00:00:00+08:00</updated>
+    <id>http://gracelancy.com/blog/2013/06/04/singletons-in-cocoa-are-they-evil</id>
+    <content type="html"><![CDATA[<h2>故事</h2>
 
 <p>这事是这样的，去年我在上课的时候，和老师讨论了一下关于架构的问题，我是开发Cocoa/iOS的，老师是开发Web的，而老师是一个坚定的singletons are evil的拥护者，我和他说了我的App的架构，直接被他一顿猛劈，强烈的谴责了我使用Singletons，我回应说，这个pattern在Cocoa里是大量使用的，结果被搞了一句“用的多的就是对的么？你回去多学习一下再来讨论吧”。</p>
 
@@ -1631,49 +1419,15 @@
 <p>而在本文的这个@synchronized(self)里的self，总是会指向同一个对象，即那个特殊的类实例。（class也是一个对象），故而此处可以使用self。</p>
 
 <p>lancy</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
+]]></content>
+  </entry>
   
-
-
-<time datetime="2013-06-04T00:00:00+08:00" pubdate data-updated="true">Jun 4<span>th</span>, 2013</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/ios/'>iOS</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2013/06/04/singletons-in-cocoa-are-they-evil/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/06/02/constant-pointer-and-pointer-to-constant/">
-		
-			OBJC中声明字符串常量的一个常见错误（常量指针和指针常量）</a>
-	</h2>
-	<div class="entry-content">
-		<p>我们知道，NSNotification是Cocoa中观察模式最易用的实现方法，比起直接使用KVO（Key-Value Observing）他更加容易实现也更好理解。一个样例：</p>
+  <entry>
+    <title type="html"><![CDATA[OBJC中声明字符串常量的一个常见错误（常量指针和指针常量）]]></title>
+    <link href="http://gracelancy.com/blog/2013/06/02/constant-pointer-and-pointer-to-constant/"/>
+    <updated>2013-06-02T00:00:00+08:00</updated>
+    <id>http://gracelancy.com/blog/2013/06/02/constant-pointer-and-pointer-to-constant</id>
+    <content type="html"><![CDATA[<p>我们知道，NSNotification是Cocoa中观察模式最易用的实现方法，比起直接使用KVO（Key-Value Observing）他更加容易实现也更好理解。一个样例：</p>
 
 <h4>Poster.h</h4>
 
@@ -1767,49 +1521,15 @@
 
 
 <p>在此例中：我们知道，NSString永远是immutable的，所以NSString * const 是有效的，而const NSString * 则是无效的。而使用错误的写法，则无法阻止修改该指针指向的地址，使得本应该是常量的值能被修改，造成了隐患。这是需要注意的一个常见错误。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
+]]></content>
+  </entry>
   
-
-
-<time datetime="2013-06-02T00:00:00+08:00" pubdate data-updated="true">Jun 2<span>nd</span>, 2013</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/ios/'>iOS</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2013/06/02/constant-pointer-and-pointer-to-constant/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/05/22/objective-c-associative-references-part2/">
-		
-			Objective-C Associative References(关联引用) 续：相关实践</a>
-	</h2>
-	<div class="entry-content">
-		<h2>About</h2>
+  <entry>
+    <title type="html"><![CDATA[Objective-C Associative References(关联引用) 续：相关实践]]></title>
+    <link href="http://gracelancy.com/blog/2013/05/22/objective-c-associative-references-part2/"/>
+    <updated>2013-05-22T00:00:00+08:00</updated>
+    <id>http://gracelancy.com/blog/2013/05/22/objective-c-associative-references-part2</id>
+    <content type="html"><![CDATA[<h2>About</h2>
 
 <p>我之前写了一篇博文<a href="http://gracelancy.com/?p=82">Objective-C Associative References(关联引用)</a>，介绍我在在研究objc runtime的有趣的发现，但当时我并没有意识到这个技术应该使用在何处。在一些实践之后，小结一下有关关联引用的一些相关实践吧。</p>
 
@@ -1919,49 +1639,15 @@
 </span><span class='line'><span class="p">[</span><span class="n">alert</span> <span class="n">show</span><span class="p">];</span>
 </span></code></pre></td></tr></table></div></figure>
 
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
+]]></content>
+  </entry>
   
-
-
-<time datetime="2013-05-22T00:00:00+08:00" pubdate data-updated="true">May 22<span>nd</span>, 2013</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/ios/'>iOS</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2013/05/22/objective-c-associative-references-part2/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/05/16/use-corelocation-to-track-travel-distance/">
-		
-			使用CoreLocation来跟踪用户距离</a>
-	</h2>
-	<div class="entry-content">
-		<h1>使用CoreLocation来跟踪用户距离</h1>
+  <entry>
+    <title type="html"><![CDATA[使用CoreLocation来跟踪用户距离]]></title>
+    <link href="http://gracelancy.com/blog/2013/05/16/use-corelocation-to-track-travel-distance/"/>
+    <updated>2013-05-16T00:00:00+08:00</updated>
+    <id>http://gracelancy.com/blog/2013/05/16/use-corelocation-to-track-travel-distance</id>
+    <content type="html"><![CDATA[<h1>使用CoreLocation来跟踪用户距离</h1>
 
 <h2>背景</h2>
 
@@ -1991,49 +1677,15 @@
 <h2>联系我</h2>
 
 <p>如果你对这个程序有疑问，请联系我</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
+]]></content>
+  </entry>
   
-
-
-<time datetime="2013-05-16T00:00:00+08:00" pubdate data-updated="true">May 16<span>th</span>, 2013</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/ios/'>iOS</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2013/05/16/use-corelocation-to-track-travel-distance/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/05/02/OSX-iOS-Threading-Programming/">
-		
-			OS X/iOS 多线程编程小结</a>
-	</h2>
-	<div class="entry-content">
-		<h2>前言</h2>
+  <entry>
+    <title type="html"><![CDATA[OS X/iOS 多线程编程小结]]></title>
+    <link href="http://gracelancy.com/blog/2013/05/02/OSX-iOS-Threading-Programming/"/>
+    <updated>2013-05-02T00:00:00+08:00</updated>
+    <id>http://gracelancy.com/blog/2013/05/02/OSX-iOS-Threading-Programming</id>
+    <content type="html"><![CDATA[<h2>前言</h2>
 
 <p>我来填坑了。欠下的多线程，趁着假期无聊，赶紧码了。</p>
 
@@ -2142,49 +1794,15 @@
 <h2>线程同步 详解</h2>
 
 <h2>Cocoa的线程安全</h2>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
+]]></content>
+  </entry>
   
-
-
-<time datetime="2013-05-02T00:00:00+08:00" pubdate data-updated="true">May 2<span>nd</span>, 2013</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/ios/'>iOS</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2013/05/02/OSX-iOS-Threading-Programming/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/03/05/modern-objective-c/">
-		
-			Modern Objective-C</a>
-	</h2>
-	<div class="entry-content">
-		<h2>前言</h2>
+  <entry>
+    <title type="html"><![CDATA[Modern Objective-C]]></title>
+    <link href="http://gracelancy.com/blog/2013/03/05/modern-objective-c/"/>
+    <updated>2013-03-05T00:00:00+08:00</updated>
+    <id>http://gracelancy.com/blog/2013/03/05/modern-objective-c</id>
+    <content type="html"><![CDATA[<h2>前言</h2>
 
 <p>Objective-C已经出道了30多年，即使是iOS，也已经面世了5年之久，期间Objective-C和LLVM Clang都已经有了巨大的变化，这篇文章主要是描述一下Modern Objective-C Style。</p>
 
@@ -2279,77 +1897,1905 @@
 
 
 <p>此时在类内部可以对该变量进行修改，但在类外部修改会被编译器报错为readonly。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
+]]></content>
+  </entry>
   
+  <entry>
+    <title type="html"><![CDATA[OS X/iOS 并发编程小结]]></title>
+    <link href="http://gracelancy.com/blog/2013/02/19/OSX-iOS-Concurrency-Programming/"/>
+    <updated>2013-02-19T00:00:00+08:00</updated>
+    <id>http://gracelancy.com/blog/2013/02/19/OSX-iOS-Concurrency-Programming</id>
+    <content type="html"><![CDATA[<h2>简洁</h2>
+
+<p>这里不讨论传统的多线程编程，而讨论OS X/iOS特有的异步技术，GCD和Operation Queue。</p>
+
+<ul>
+<li><strong>Grand Central Dispatch (GCD)：</strong> C语言的系统管理线程，不需要编写线程代码，只需要定义需要执行的任务，然后以block的形式添加到适当的dispatch queue中，系统就会负责线程的创建和任务调度。</li>
+<li><strong>Operation Queue：</strong> Cocoa的系统管理线程，与GCD类似。</li>
+</ul>
 
 
-<time datetime="2013-03-05T00:00:00+08:00" pubdate data-updated="true">Mar 5<span>th</span>, 2013</time></div>
-	<div class="tags">
+<h2>Operation Queues</h2>
+
+<p>基于cocoa的应用通常会使用Operation Queues</p>
+
+<h3>Operation Objects</h3>
+
+<p>NSOperation是抽象基类，需要实现相应子类。不过Cocoa提供了两个具体的子类NSInvocationOperation和NSBlockOperation。其中NSInvocationOperation以@selector来创建operation object；NSBlockOperation以block来创建operation object.(这里暂且不讨论自己实现NSOperation).</p>
+
+<p>所有的operation objects都支持这些特性：</p>
+
+<ul>
+<li>依赖关系，可以阻塞某个operation，直到他所依赖的所有operation都已经完成</li>
+<li>可以设置completion block</li>
+<li>可以通过KVO来监控operation的状态</li>
+<li>可以设置operation的优先级</li>
+<li>可以取消</li>
+</ul>
 
 
-	<a class='category' href='/blog/categories/ios/'>iOS</a>
+<p>创建operation object之后，加入到适当的operation queue即会立刻开始执行。</p>
+
+<h3>Operaton queue</h3>
+
+<ul>
+<li>可以设置并发执行的operation 数量，设为1，即为串行队列</li>
+<li>可以暂时挂起，继续，等待直到完成</li>
+</ul>
 
 
-</div>
-	
-	<div class="comments"><a href="/blog/2013/03/05/modern-objective-c/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
+<h2>Dispatch Queues</h2>
 
-<nav id="pagenavi">
-    
-    
-        <a href="/blog/page/2/" class="next">Next</a>
-    
-    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
-</nav>
-</div>
-	<footer id="footer" class="inner">Copyright &copy; 2014
+<p>GCD使用block来创建任务，切任务总是以添加的顺序开始顺序执行。有串行队列，也有并发队列，还有主线程队列。</p>
 
-    Lancy
+<p>注：GCD相关技术还有，Dispatch group：监控一组block对象完成；Dispatch semaphore：类似于传统的信号量；Dispatch source：在特定类型的系统事件发生时产生通知。</p>
 
-</footer>
-	<script src="/javascripts/slash.js"></script>
-<script src="/javascripts/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-	$('.fancybox').fancybox();
-})(jQuery);
-</script> <!-- Delete or comment this line to disable Fancybox -->
+<h3>管理和创建Dispatch Queue</h3>
+
+<ul>
+<li>dispatch_get_global_queue 获得全局共享并发队列</li>
+<li>dispatch_queue_create 创建串行队列</li>
+<li>可以通过dispatch_set_context和dispatch_get_context来管理自定义的上下文信息，finalizer可以销毁上下文。</li>
+<li>dispatch_async 异步添加任务到queue，dispatch_sync同步添加（尽量少用）</li>
+<li>据说可以添加completed block，但是实际上就是再添加一个block，（感觉略无力，不敢用）</li>
+<li>dispatch_apply可以执行循环迭代</li>
+</ul>
 
 
-<script type="text/javascript">
-      var disqus_shortname = 'gracelancy';
-      
-        
-        var disqus_script = 'count.js';
-      
-    (function () {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = '//go.disqus.com/' + disqus_script;
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    }());
-</script>
+<h3>Dispatch Semaphore</h3>
+
+<ol>
+<li>dispatch_semaphore_create创建信号量，指定可用资源数</li>
+<li>dispatch_semaphore_wait等待可用资源数</li>
+<li>dispatch_semaphore_signal释放信号量</li>
+</ol>
+
+
+<h3>Dispatch group</h3>
+
+<ol>
+<li>dispatch_group_create 创建group</li>
+<li>dispatch_group_async 添加到group</li>
+<li>dispatch_group_wait 阻塞线程直到group完成</li>
+</ol>
+
+
+<h3>Dispatch source</h3>
+
+<p>略</p>
+
+<hr />
+
+<p>备注：queue 不是替代线程的万能药!queue 提供的异步编程模型适合 于延迟无关紧要的场合。虽然 queue 提供配置任务执行优先级的方法, 但更高的优先级也不能确保任务一定能在特定时间得到执行。因此线程 仍然是实现最小延迟的适当选择,例如音频和视频 playback 等场合。</p>
+
+<p>（上面这一条让我吐死。。看了几十页的文档，写了n多代码。。发现real time是不适用的。。然后开始用多线程。。过两天在补一个多线程编程小结。。）</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Cocoa代码规范官方指南（要点与简译）]]></title>
+    <link href="http://gracelancy.com/blog/2012/12/15/cocoa-coding-guideline/"/>
+    <updated>2012-12-15T00:00:00+08:00</updated>
+    <id>http://gracelancy.com/blog/2012/12/15/cocoa-coding-guideline</id>
+    <content type="html"><![CDATA[<h1>背景</h1>
+
+<p>我一年前的时候看这篇的时候，对cocoa还处在刚入门阶段，很多细节并没有留下太深刻的影响。如今经常阅读别人的代码了之后，越来越体会到代码规范的重要性，故而重新找回这一篇，又仔细读了一遍，收获颇丰。本着善待别人就是善待自己的原则，就顺手翻译了一遍，希望每个人都有收获，能写规范的代码，让别人看得舒服。</p>
+
+<p>英文好的同学，建议直接看英文，因为很多东西我都不知道怎么翻译，这一篇原名叫 Coding Guidelines for Cocoa</p>
+
+<h1>命名基础</h1>
+
+<h2>一般原则</h2>
+
+<h3>清楚</h3>
+
+<ul>
+<li>在保证清楚的前提下才能简化</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> Code </th>
+<th> Commentary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>insertObject: atIndex:</td>
+<td>Good.|</td>
+</tr>
+<tr>
+<td></td>
+<td>insert:at: </td>
+<td> Not clear; what is being inserted? what does “at” signify?|</td>
+</tr>
+<tr>
+<td></td>
+<td>removeObjectAtIndex: </td>
+<td> Good.|</td>
+</tr>
+<tr>
+<td></td>
+<td>removeObject: </td>
+<td> Good, because it removes object referred to in argument.|</td>
+</tr>
+<tr>
+<td></td>
+<td>remove: </td>
+<td> Not clear; what is being removed?|</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>一般来说，不要使用缩写，即使他的全称很长</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Code </th>
+<th> Commentary </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>destinationSelection</td>
+<td>Good.|</td>
+</tr>
+<tr>
+<td></td>
+<td>destSel</td>
+<td>Not clear.|</td>
+</tr>
+<tr>
+<td></td>
+<td>setBackgroundColor:</td>
+<td>Good.|</td>
+</tr>
+<tr>
+<td></td>
+<td>setBkgdColor:</td>
+<td>Not clear.|</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>只有一些少数的缩写的确是为绝大多数人所知的，可以继续使用（见附录）</li>
+<li>避免含糊不清API命名，比如能够以一种以上的方式进行解释的名称</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Code</th>
+<th>Commentary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>sendPort</td>
+<td>Does it send the port or return it?|</td>
+</tr>
+<tr>
+<td></td>
+<td>displayName</td>
+<td>Does it display a name or return the receiver’s title in the user interface?|</td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>一致性</h3>
+
+<ul>
+<li>使用和cocoa一致的命名风格，如果你不确定，可以参看头文件和文档</li>
+<li>一致性在你的类方法使用了多态性的情况下尤为重要，不同类却做相同事的方法应该有相同的名字</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> Code </th>
+<th> Commentary </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> &ndash; (NSInteger)tag </td>
+<td> Defined in NSView, NSCell, NSControl. |</td>
+</tr>
+<tr>
+<td></td>
+<td> <code>- (void)setStringValue:(NSString *)</code> </td>
+<td> Defined in a number of Cocoa classes. |</td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>不要自参考（No self-reference）</h3>
+
+<ul>
+<li>命名不要自参考</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> Code </th>
+<th> Commentary </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>NSString </td>
+<td> Okay. |</td>
+</tr>
+<tr>
+<td></td>
+<td>NSStringObject </td>
+<td> Self-referential.|</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>常量是这个原则的例外，比如mask，比如notification，（译者注：比如encoding）</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> Code </th>
+<th> Commentary </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> NSUnderlineByWordMask </td>
+<td> Okay. |</td>
+</tr>
+<tr>
+<td></td>
+<td> NSTableViewColumnDidMoveNotification </td>
+<td> Okay. |</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>前缀</h2>
+
+<p>因为没有命名空间，所以前缀是很必要的</p>
+
+<ul>
+<li>前缀也有指定的格式，两到三个字母的大写缩写，不要使用下划线</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> Prefix </th>
+<th> Cocoa Framework </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> NS </td>
+<td> Foundation |</td>
+</tr>
+<tr>
+<td></td>
+<td> NS </td>
+<td> Application Kit |</td>
+</tr>
+<tr>
+<td></td>
+<td> AB </td>
+<td> Address Book |</td>
+</tr>
+<tr>
+<td></td>
+<td> IB </td>
+<td> Interface Builder |</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>命名类，协议，函数（译者注：这里是指c-style函数），常量，typedef结构使用前缀。命名类方法时不要使用前缀，因为class已经定义了他们。也不要在命名the fields of structure使用前缀。（译者注：不知道如何翻译，求各路大神指点）</li>
+</ul>
+
+
+<h2>命名约定</h2>
+
+<ul>
+<li><p>使用驼峰法命名，即不要使用任何分隔符，而使用单词首字符大写的方式来分割。要额外注意下面两点：</p>
+
+<ul>
+<li><p>方法首字母小写，不要使用前缀</p>
+
+<p>  <code>objective-c
+￼￼fileExistsAtPath:isDirectory:    
+ </code>
+一个例外，当使用广为人之的缩写的作为方法开头时，比如TIFFRepresentation (NSImage).</p></li>
+<li><p>定义方法和常量的时候，使用相关前缀并第一个单词首字母大写</p>
+
+<p>  <code>objective-c
+  NSRunAlertPanel
+  NSCellDisabled
+ </code></p></li>
+</ul>
+</li>
+<li><p>不要使用下划线来标记私有方法，这是苹果的保留字段。冒然使用会导致不可知的冲突。（译者注：或者上不了架）</p></li>
+</ul>
+
+
+<h2>类和协议的命名</h2>
+
+<p>类的名字应该包含一个名词，用来指明这个类（或者这个类的对象）表示什么，或者做了什么。类名需包含一个适当的前缀</p>
+
+<p>协议的命名取决于协议如何组织行为</p>
+
+<ul>
+<li>大多数协议将一些相关的方法组合在一起，但是又不关联特定的类，这样的协议命名需要注意不被误认为一个类，通常的做法，是使用动名词形式（-ing）</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> Code </th>
+<th> Commentary </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> NSLocking </td>
+<td>  Good. |</td>
+</tr>
+<tr>
+<td></td>
+<td> NSLock </td>
+<td> Poor (seems like a name for a class). |</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>有一些协议将一些不相关的方法组合在一起，却是为了指向特定的类，这时可以将协议命名为于类名相同。一个例子就是NSObject protocol。（译者注：这个情况有点像java里的interface，应用这种协议的方式就能达到相同接口不同实现的效果。虽然我从没见过有人这么做。如果这里我有理解错的地方，各路大神请斧正）</li>
+</ul>
+
+
+<h2>头文件</h2>
+
+<ul>
+<li>声明一个单独的类或协议，比如NSLocale.h 声明 The NSLocale class.</li>
+<li>声明关联的类和协议，比如NSString.h 声明 NSString and NSMutableString classes；再比如NSLock.h 生命了NSLocking protocol and NSLock, NSConditionLock, and NSRecursiveLock classes.</li>
+<li>包含框架头文件，比如Foundation.h包含Foundation.framework.</li>
+<li>添加API到另一个框架的类，If you declare methods in one framework that are in a category on a class in another framework, append “Additions” to the name of the original class; an example is the NSBundleAdditions.h header file of the Application Kit.</li>
+<li>相关的函数或者类型，If you have a group of related functions, constants, structures, and other data types, put them in an appropriately named header file such as NSGraphics.h (Application Kit).</li>
+</ul>
+
+
+<h1>方法命名</h1>
+
+<h2>一般原则</h2>
+
+<ul>
+<li>首字母小写，驼峰命名法，不要使用前缀</li>
+<li>对于对某个对象进行操作的方法，以一个动词开头，比如</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">invokeWithTarget:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">target</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">selectTabViewItem:</span><span class="p">(</span><span class="n">NSTabViewItem</span> <span class="o">*</span><span class="p">)</span><span class="nv">tabViewItem</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>  不要使用do和does，因为他们没有添加任何说明意义，也不要在动词前加副词和形容词</p>
+
+<ul>
+<li>如果方法返回一个属性，则可以以属性为开头命名方法名，“get”是不必要的，除非是间接的返回。</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSSize</span><span class="p">)</span><span class="nf">cellSize</span><span class="p">;</span>  <span class="c1">//Right.</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSSize</span><span class="p">)</span><span class="nf">calcCellSize</span><span class="p">;</span> <span class="c1">//Wrong.</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSSize</span><span class="p">)</span><span class="nf">getCellSize</span><span class="p">;</span> <span class="c1">//Wrong.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在所有参数前使用关键词</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">sendAction:</span><span class="p">(</span><span class="kt">SEL</span><span class="p">)</span><span class="nv">aSelector</span> <span class="nf">to:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">anObject</span> <span class="nf">forAllCells:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">flag</span><span class="p">;</span> <span class="c1">// Right</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">sendAction:</span><span class="p">(</span><span class="kt">SEL</span><span class="p">)</span><span class="nv">aSelector</span> <span class="o">:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="n">anObject</span> <span class="o">:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="n">flag</span><span class="p">;</span> <span class="c1">// Wrong</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>使用描述性的关键字描述参数</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">viewWithTag:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">aTag</span><span class="p">;</span> <span class="c1">//Right.</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">taggedView:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="nv">aTag</span><span class="p">;</span> <span class="c1">// Wrong.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>在子类里面扩展父类已有的方法时，再原来的方法后面添加关键字，比如：</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">initWithFrame:</span><span class="p">(</span><span class="n">CGRect</span><span class="p">)</span><span class="nv">frameRect</span><span class="p">;</span> <span class="c1">//NSView, UIView.</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">initWithFrame:</span><span class="p">(</span><span class="n">NSRect</span><span class="p">)</span><span class="nv">frameRect</span>
+</span><span class='line'><span class="nf">mode:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="nv">aMode</span> <span class="nf">cellClass:</span><span class="p">(</span><span class="n">Class</span><span class="p">)</span><span class="nv">factoryId</span>
+</span><span class='line'><span class="nf">numberOfRows:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="nv">rowsHigh</span>
+</span><span class='line'><span class="nf">numberOfColumns:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="nv">colsWide</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// NSMatrix, a subclass of NSView </span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>参数之间不要使用“and”连接</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="nf">runModalForDirectory:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">path</span> <span class="nf">file:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span>
+</span><span class='line'><span class="n">name</span> <span class="nl">types:</span><span class="p">(</span><span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="n">fileTypes</span><span class="p">;</span>        <span class="c1">//Right.</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="nf">runModalForDirectory:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">path</span> <span class="nf">andFile:</span><span class="p">(</span><span class="n">NSString</span>
+</span><span class='line'><span class="o">*</span><span class="p">)</span><span class="n">name</span> <span class="nl">andTypes:</span><span class="p">(</span><span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="n">fileTypes</span><span class="p">;</span>   <span class="c1">//Wrong.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>当一个方法执行两个不同操作时，使用“and”</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">openFile:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">fullPath</span> <span class="nf">withApplication:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">appName</span> <span class="nf">andDeactivate:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">flag</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>属性访问方法</h2>
+
+<ul>
+<li>如果property表现为一个名词，则</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">type</span><span class="p">)</span><span class="nf">noun</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setNoun:</span><span class="p">(</span><span class="n">type</span><span class="p">)</span><span class="nv">aNoun</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>如果property是形容词，则</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">isEditable</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setEditable:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">flag</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>如果property是动词，则</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">verbObject</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setVerbObject:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">flag</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>不要把动词分词形式当初形容词用，例如：</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setAcceptsGlyphInfo:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">flag</span><span class="p">;</span> <span class="c1">//Right.</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">acceptsGlyphInfo</span><span class="p">;</span> <span class="c1">//Right.</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setGlyphInfoAccepted:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">flag</span><span class="p">;</span> <span class="c1">//Wrong.</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">glyphInfoAccepted</span><span class="p">;</span> <span class="c1">//Wrong.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>可以使用情态动词（can，show，will等），但是不要使用do，does</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setCanHide:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">flag</span><span class="p">;</span> <span class="c1">//Right.</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">canHide</span><span class="p">;</span> <span class="c1">//Right.</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setShouldCloseDocument:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">flag</span><span class="p">;</span> <span class="c1">//Right.</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">shouldCloseDocument</span><span class="p">;</span> <span class="c1">//Right.</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setDoesAcceptGlyphInfo:</span><span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nv">flag</span><span class="p">;</span> <span class="c1">//Wrong.</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">doesAcceptGlyphInfo</span><span class="p">;</span> <span class="c1">//Wrong.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>&ldquo;get&#8221;只用于间接返回对象或数值，你应该只在需要返回多个值的适合使用这样的形式：</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">getLineDash:</span><span class="p">(</span><span class="kt">float</span> <span class="o">*</span><span class="p">)</span><span class="nv">pattern</span> <span class="nf">count:</span><span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span><span class="nv">count</span> <span class="nf">phase:</span><span class="p">(</span><span class="kt">float</span> <span class="o">*</span><span class="p">)</span><span class="nv">phase</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在这样的方法里，你应该允许接受NULL作为参数，当呼叫者不关心多个返回值时。</p>
+
+<h2>代理方法</h2>
+
+<ul>
+<li>用能指明发送信息的类的名字作为delegate方法名的开头</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="n">NSTableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">shouldSelectRow:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="nv">row</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">application:</span><span class="p">(</span><span class="n">NSApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span> <span class="nf">openFile:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">filename</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>其他的参数在附在前一条的后面，除非只有一个参数the sender</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nf">applicationOpenUntitledFile:</span><span class="p">(</span><span class="n">NSApplication</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>post notification的方法为例外，这时，单个参数为notification对象</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">windowDidChangeScreen:</span><span class="p">(</span><span class="n">NSNotification</span> <span class="o">*</span><span class="p">)</span><span class="nv">notification</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>用“did”和“will”来表示某些事已经发生或即将发生</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">browserDidScroll:</span><span class="p">(</span><span class="n">NSBrowser</span> <span class="o">*</span><span class="p">)</span><span class="nv">sender</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSUndoManager</span> <span class="o">*</span><span class="p">)</span><span class="nf">windowWillReturnUndoManager:</span><span class="p">(</span><span class="n">NSWindow</span> <span class="o">*</span><span class="p">)</span><span class="nv">window</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>询问delegate，某事要发生时是否允许，使用should</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="err">￼</span><span class="o">-</span> <span class="p">(</span><span class="kt">BOOL</span><span class="p">)</span><span class="nl">windowShouldClose:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="n">sender</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>容器方法（collection methods）</h2>
+
+<ul>
+<li>一般形式</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">addElement:</span><span class="p">(</span><span class="n">elementType</span><span class="p">)</span><span class="nv">anObj</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">removeElement:</span><span class="p">(</span><span class="n">elementType</span><span class="p">)</span><span class="nv">anObj</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="nf">elements</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>如果容器是明显无序的，返回NSSet来替代NSArray。</li>
+<li>插入和删除</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">insertLayoutManager:</span><span class="p">(</span><span class="n">NSLayoutManager</span> <span class="o">*</span><span class="p">)</span><span class="nv">obj</span> <span class="nf">atIndex:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="nv">index</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">removeLayoutManagerAtIndex:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="nv">index</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>实现细节上的注意事项：
+
+<ul>
+<li>一般来说，插入的对象包涵所有关系，所以在你插入对象的时候，应该retain他们，删掉他们的时候，应该release。</li>
+<li>If the inserted objects need to have a pointer back to the main object, you do this (typically) with a set&hellip; method that sets the back pointer but does not retain. In the case of the insertLayoutManager:atIndex: method, the NSLayoutManager class does this in these methods:</li>
+</ul>
+</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setTextStorage:</span><span class="p">(</span><span class="n">NSTextStorage</span> <span class="o">*</span><span class="p">)</span><span class="nv">textStorage</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSTextStorage</span> <span class="o">*</span><span class="p">)</span><span class="nf">textStorage</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You would normally not call setTextStorage: directly, but might want to override it. (译者注：这个情况我也不是很熟悉，为避免让人误解，故保留原文，有大神准确的明白这里指什么的，请指教)</p>
+
+<h2>方法参数</h2>
+
+<p>对于方法的参数的命名，有一般原则：</p>
+
+<ul>
+<li>小写开头的驼峰命名(for example, removeObject:(id)anObject).</li>
+<li>不要使用“pointer”或“ptr”，让参数的类型来说明这些</li>
+<li>避免一个火两个字母的参数</li>
+<li>避免使用不必要的缩写</li>
+</ul>
+
+
+<p>cocoa的惯例命名如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="err">￼</span><span class="p">...</span><span class="nl">action:</span><span class="p">(</span><span class="kt">SEL</span><span class="p">)</span><span class="n">aSelector</span>
+</span><span class='line'><span class="p">...</span><span class="nl">alignment:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">mode</span>
+</span><span class='line'><span class="p">...</span><span class="nl">atIndex:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">index</span>
+</span><span class='line'><span class="p">...</span><span class="nl">content:</span><span class="p">(</span><span class="n">NSRect</span><span class="p">)</span><span class="n">aRect</span>
+</span><span class='line'><span class="p">...</span><span class="nl">doubleValue:</span><span class="p">(</span><span class="kt">double</span><span class="p">)</span><span class="n">aDouble</span>
+</span><span class='line'><span class="p">...</span><span class="nl">floatValue:</span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="n">aFloat</span>
+</span><span class='line'><span class="p">...</span><span class="nl">font:</span><span class="p">(</span><span class="n">NSFont</span> <span class="o">*</span><span class="p">)</span><span class="n">fontObj</span>
+</span><span class='line'><span class="p">...</span><span class="nl">frame:</span><span class="p">(</span><span class="n">NSRect</span><span class="p">)</span><span class="n">frameRect</span>
+</span><span class='line'><span class="p">...</span><span class="nl">intValue:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">anInt</span>
+</span><span class='line'><span class="p">...</span><span class="nl">keyEquivalent:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">charCode</span>
+</span><span class='line'><span class="p">...</span><span class="nl">length:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">numBytes</span>
+</span><span class='line'><span class="p">...</span><span class="nl">point:</span><span class="p">(</span><span class="n">NSPoint</span><span class="p">)</span><span class="n">aPoint</span>
+</span><span class='line'><span class="p">...</span><span class="nl">stringValue:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">aString</span>
+</span><span class='line'><span class="p">...</span><span class="nl">tag:</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">anInt</span>
+</span><span class='line'><span class="p">...</span><span class="nl">target:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="n">anObject</span>
+</span><span class='line'><span class="p">...</span><span class="nl">title:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">aString</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>私有方法</h2>
+
+<p>大部分情况下，私有方法的命名和共有方法一样，然而，一个常见的惯例是给私有方法前加一个前缀来标示这是一个私有方法。Coca frameworks里使用下划线前缀来标示私有。因此，</p>
+
+<ul>
+<li>不要使用下划线作为前缀来标示你自己实现的私有方法，苹果已经保留了这种形式</li>
+<li>如果你继承了一个Cocoa framework class，为了确保你的私有方法与其不一样，你应该加上你自己的前缀。前缀应该尽量唯一化，一般来说为“XX_”，XX可以是你的公司或项目缩写。</li>
+</ul>
+
+
+<p>虽说这里使用前缀违反了前面说的，类方法不要使用前缀，而是由类本身作为命名空间的原则，但，在这里的意图不一样，这里的意图是为了避免非故意的重写父类的私有方法。
+（译者注：OBJC没有真正意义上的私有，即使是使用了如上这样的标示方法，也只是提醒他人这个函数是私有函数，并没有强制的保证别人无法访问。另一种常用的标示私有的做法，是把私有方法的声明放在m文件，而不是h文件）</p>
+
+<h1>函数命名</h1>
+
+<p>一般原则</p>
+
+<ul>
+<li>函数的命名和方法相似，不过又一些例外
+
+<ul>
+<li>使用和类名或常量相同的前缀</li>
+<li>前缀后第一个字母大写</li>
+</ul>
+</li>
+<li>大多数函数以动词开头来描述函数的功能：</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSHighlightRect</span>
+</span><span class='line'><span class="n">NSDeallocateObject</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>请求属性的函数，有另一些规则
+* 如果函数返回一个来自其第一个参数的属性，则省略动词</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="kt">unsigned</span> <span class="kt">int</span> <span class="n">NSEventMaskFromType</span><span class="p">(</span><span class="n">NSEventType</span> <span class="n">type</span><span class="p">)</span>
+</span><span class='line'><span class="kt">float</span> <span class="n">NSHeight</span><span class="p">(</span><span class="n">NSRect</span> <span class="n">aRect</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>如果返回的值是引用，则使用“get”</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">NSGetSizeAndAlignment</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">typePtr</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">*</span><span class="n">sizep</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="kt">int</span> <span class="o">*</span><span class="n">alignp</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>如果返回的值是bool，</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="err">￼￼</span><span class="kt">BOOL</span> <span class="n">NSDecimalIsNotANumber</span><span class="p">(</span><span class="k">const</span> <span class="n">NSDecimal</span> <span class="o">*</span><span class="n">decimal</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>属性和数据类型命名</h1>
+
+<h2>属性和实例变量</h2>
+
+<p>一般来说和属性访问方法的原则相同，例如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">title</span><span class="p">;</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">)</span> <span class="kt">BOOL</span> <span class="n">showsAlpha</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果是形容词，可以这样</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">getter</span><span class="o">=</span><span class="n">isEditable</span><span class="p">)</span> <span class="kt">BOOL</span> <span class="n">editable</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>变量命名需简明的描述储存的属性。一般来说，你不应该直接访问变量，而是使用访问方法，（你只在init和dealloc里面直接访问变量）。</p>
+
+<p>There are a few considerations to keep in mind when adding instance variables to a class:
+* Avoid explicitly declaring public instance variables.
+Developers should concern themselves with an object’s interface, not with the details of how it stores its data. You can avoid declaring instance variables explicitly by using declared properties and synthesizing the corresponding instance variable.
+* If you need to declare an instance variable, explicitly declare it with either @private or @protected.
+If you expect that your class will be subclassed, and that these subclasses will require direct access to the
+data, use the @protected directive.
+* If an instance variable is to be an accessible attribute of instances of the class, make sure you write accessor
+methods for it (when possible, use declared properties).</p>
+
+<p>（译者注：在这部分上我持保留意见，这应该不是现代的做法，事实上，我还没有见过有人使用@private，@protected，我自己尝试在代码里面使用这个关键词却被编译器报错。为避免引起人误解，这里保留原文，欢迎大家讨论）</p>
+
+<h2>常量</h2>
+
+<h3>枚举常量</h3>
+
+<ul>
+<li>用枚举来给组合一组相关的常量，其类型通常为int</li>
+<li>使用和函数命名相同的规则，如</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">typedef</span> <span class="k">enum</span> <span class="n">_NSMatrixMode</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">NSRadioModeMatrix</span> <span class="o">=</span> <span class="mi">0</span><span class="err">，</span>
+</span><span class='line'>    <span class="n">NSHighlightModeMatrix</span> <span class="o">=</span> <span class="mi">1</span><span class="err">，</span>
+</span><span class='line'>    <span class="n">NSListModeMatrix</span> <span class="o">=</span> <span class="mi">2</span><span class="err">，</span>
+</span><span class='line'>    <span class="n">NSTrackModeMatrix</span> <span class="o">=</span> <span class="mi">3</span>
+</span><span class='line'><span class="p">}</span> <span class="n">NSMatrixMode</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意这里的 typedef 标签并不是必须的。
+* 可以创建没有命名的枚举</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">enum</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">NSBorderlessWindowMask</span>      <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">NSTitledWindowMask</span>          <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">NSClosableWindowMask</span>        <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">NSMiniaturizableWindowMask</span>  <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">,</span>
+</span><span class='line'>    <span class="n">NSResizableWindowMask</span>       <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>const常量</h3>
+
+<ul>
+<li>Use const to create constants for floating point values. You can use const to create an integer constant if the constant is unrelated to other constants; otherwise, use enumeration.</li>
+<li>使用和函数命名相同的规则
+
+<h3>其他类型的常量</h3></li>
+<li>一般来说不要使用 #define 来创建常量</li>
+<li>使用大写字母来进行预处理标示，判断一个代码块是否需要处理，比如</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="err">￼#</span><span class="n">ifdef</span> <span class="n">DEBUG</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>macro使用两个下划线前缀和后缀，比如：</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">__MACH__</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Define constants for strings used for such purposes as notification names and dictionary keys. By using string constants, you are ensuring that the compiler verifies the proper value is specified (that is, it performs spellchecking).TheCocoa frameworks provide many examples of string constants, such as:
+  <code>objective-c
+  APPKIT_EXTERN NSString *NSPrintCopies;
+ </code>
+The actual NSString value is assigned to the constant in an implementation file. (Note that the APPKIT_EXTERN macro evaluates to extern for Objective-C.)
+(译者注：我没法使用APPKIT_EXTERN，查看了一下cocoa头文件，发现其使用的是FOUNDATION_EXPORT，为避免引起误解，这里也保留原文)</li>
+</ul>
+
+
+<h2>通知和异常</h2>
+
+<h3>通知</h3>
+
+<p>Global NSString objects</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">Name</span> <span class="n">of</span> <span class="n">associated</span> <span class="n">class</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">Did</span> <span class="o">|</span> <span class="n">Will</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">UniquePartOfName</span><span class="p">]</span> <span class="o">+</span> <span class="n">Notification</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>例如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSApplicationDidBecomeActiveNotification</span>
+</span><span class='line'><span class="n">NSWindowDidMiniaturizeNotification</span>
+</span><span class='line'><span class="n">NSTextViewDidChangeSelectionNotification</span>
+</span><span class='line'><span class="n">NSColorPanelColorDidChangeNotification</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>异常</h3>
+
+<p>Global NSString objecsts</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="p">[</span><span class="n">Prefix</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">UniquePartOfName</span><span class="p">]</span> <span class="o">+</span> <span class="n">Exception</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>例如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSColorListIOException</span>
+</span><span class='line'><span class="n">NSColorListNotEditableException</span>
+</span><span class='line'><span class="n">NSDraggingException</span>
+</span><span class='line'><span class="n">NSFontUnavailableException</span>
+</span><span class='line'><span class="n">NSIllegalSelectorException</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>接受的缩写</h1>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th> Abbreviation </th>
+<th> Meaning and comments </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td> alloc </td>
+<td> Allocate. |</td>
+</tr>
+<tr>
+<td></td>
+<td> alt </td>
+<td> Alternate. |</td>
+</tr>
+<tr>
+<td></td>
+<td> app </td>
+<td> Application. For example, NSApp the global application object. However, “application” is spelled out in delegate methods, notifications, and so on. |</td>
+</tr>
+<tr>
+<td></td>
+<td> calc </td>
+<td> Calculate. |</td>
+</tr>
+<tr>
+<td></td>
+<td> dealloc </td>
+<td> Deallocate. |</td>
+</tr>
+<tr>
+<td></td>
+<td> func </td>
+<td> Function. |</td>
+</tr>
+<tr>
+<td></td>
+<td> horiz </td>
+<td> Horizontal. |</td>
+</tr>
+<tr>
+<td></td>
+<td> info </td>
+<td> Information. |</td>
+</tr>
+<tr>
+<td></td>
+<td> init </td>
+<td> Initialize (for methods that initialize new objects). |</td>
+</tr>
+<tr>
+<td></td>
+<td> int </td>
+<td> Integer (in the context of a C int—for an NSInteger value, use integer). |</td>
+</tr>
+<tr>
+<td></td>
+<td> max </td>
+<td> Maximum. |</td>
+</tr>
+<tr>
+<td></td>
+<td> min </td>
+<td> Minimum. |</td>
+</tr>
+<tr>
+<td></td>
+<td> msg </td>
+<td> Message. |</td>
+</tr>
+<tr>
+<td></td>
+<td> nib </td>
+<td> Interface Builder archive. </td>
+</tr>
+<tr>
+<td></td>
+<td> pboard </td>
+<td> Pasteboard (but only in constants). |</td>
+</tr>
+<tr>
+<td></td>
+<td> rect </td>
+<td> Rectangle. |</td>
+</tr>
+<tr>
+<td></td>
+<td> Rep </td>
+<td> Representation (used in class name such as NSBitmapImageRep). |</td>
+</tr>
+<tr>
+<td></td>
+<td> temp </td>
+<td> Temporary. |</td>
+</tr>
+<tr>
+<td></td>
+<td> vert </td>
+<td> Vertical. |</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>接受的大写缩写词：
+ASCII PDF XML HTML URL RTF HTTP TIFF JPG PNG GIF LZW ROM RGB CMYK MIDI FTP</p>
+
+<h1>Tips and Techniques for Framework Developers</h1>
+
+<p>frameworks的开发者需要比其他的开发者更小心。许多用户应用都可能会连接到这些framework，因正因为如此framework的任何都不足，都将被放大。接下来描述的技术可以用于保证你的框架的效率和可靠性。
+注意：其中的一些技术不单单适于用框架，你也可以用于应用开发。
+（译者注：这一节比较复杂，因为我没开发过frameworks，所以就不冒然翻译了，待我研究清楚后，另开一篇详说。有兴趣的，也可以自行查看原文）</p>
+
+<h1>Contact Me</h1>
+
+<ul>
+<li><a href="https://github.com/lancy">Follow my github</a></li>
+<li><a href="http://weibo.com/lancy1014">Follow my weibo</a></li>
+<li>Send Email to me: <a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#x6f;&#58;&#x6c;&#97;&#110;&#x63;&#121;&#49;&#x30;&#x31;&#x34;&#64;&#103;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#111;&#109;">&#108;&#x61;&#110;&#99;&#x79;&#49;&#x30;&#x31;&#52;&#x40;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Bayesian Filtering]]></title>
+    <link href="http://gracelancy.com/blog/2012/11/29/bayesian-filtering/"/>
+    <updated>2012-11-29T00:00:00+08:00</updated>
+    <id>http://gracelancy.com/blog/2012/11/29/bayesian-filtering</id>
+    <content type="html"><![CDATA[<h2>About</h2>
+
+<p>贝叶斯过滤算法是一种基于统计学的过滤算法，它使用贝叶斯分类来进行特定类别文本的判别和过滤。</p>
+
+<h2>Naive Bayes classifier</h2>
+
+<p>朴素贝叶斯分类器是一种应用基于独立假设的贝叶斯定理的简单概率分类器，这种潜在的概率模型称为独立特性原型。
+简单的说，朴素贝叶斯分类器假设样本的每个特征都是独立的与其他特征不相关的，尽管这些特征可能存在相互依赖，或者一些特征由其他特征而决定。</p>
+
+<h3>概率模型（源自贝叶斯定理）</h3>
+
+<h4>公式</h4>
+
+<p>公式一
+<code>Pr(H | T) = Pr(T | H)·Pr(H) / [Pr(T | H)·Pr(H) + Pr(T | M)·Pr(M)]</code></p>
+
+<p>其中:</p>
+
+<ul>
+<li>Pr(H | T)代表当一条文本有token T存在的时候，命中指定类别文本的概率</li>
+<li>Pr(H)代表对于任意一条文本，命中指定类别文本的概率</li>
+<li>Pr(T | H)代表token T出现在命中指定类别文本中的概率</li>
+<li>Pr(M)代表对于任意一条文本，非命中指定类别文本的概率</li>
+<li>Pr(W | H)代表token T出现在非命中指定类别文本重的概率</li>
+</ul>
+
+
+<p>通常情况下，我们会假定Pr(H) = Pr(M) = 0.5，即普遍命中概率和普遍非命中概率相等，这种假定是因为我们不想对出现的文本产生偏见关注。在这个假定下，我们可以将公式化简为：</p>
+
+<p>公式一（简）
+<code>Pr(H | T) = Pr(T | H) / [Pr(T | H) + Pr( T | M)]</code></p>
+
+<h4>合并独立概率</h4>
+
+<p>朴素贝叶斯分类器假定每个特征（该应用中为token）都是独立的，则我们可以使用合并概率公式：</p>
+
+<p>公示二
+<code>P = P2·P2···Pn / [P1·P2···Pn + (1 - P1)(1 - P2)···(1 - Pn)]</code></p>
+
+<p>其中：</p>
+
+<ul>
+<li>P 即为该文本命中指定类别文本的概率</li>
+<li>Pi (i = 1..n)当文本中出现某一token i，的时候，该文本命中指定类别文本的概率。（上面的Pr(H | T)）</li>
+</ul>
+
+
+<h2>实现案例——贝叶斯过滤算法在抽奖微博识别的应用</h2>
+
+<h3>功能</h3>
+
+<p>鉴别给定的微博，判断其是否为抽奖微博，从而为后续操作，比如过滤或者自动参与抽奖，提供基础。</p>
+
+<h3>程序设计</h3>
+
+<ol>
+<li><p>首先收集一定数量的抽奖微博和非抽奖微博，存在不同的两个文件（<code>hitFileName.txt</code>;
+<code>misFileName.txt</code>）</p></li>
+<li>将两个文件分别读入两个List（<code>hitStringList</code>, <code>misStringList</code>）</li>
+<li><p>对List里的每个string，进行tokenization，并加到对应的两个countTable(dict)，（<code>hitCountTable</code>,
+<code>misCountTable</code>），countTable用于统计每个token出现的次数。</p>
+
+<ul>
+<li>例：<code>hitCountTable[token]</code>表示token在命中文本中出现的次数）</li>
+</ul>
+</li>
+<li>将<code>countTable</code>转换为对应的<code>probabilityTable</code>，（<code>hitProbabilityTable</code>,
+<code>misProbabilityTable</code>）:单个token出现的次数 / 整个表所有token出现的次数）
+
+<ul>
+<li>例：<code>hitProbabilityTable[token]</code>表示token在命中文本重出现的概率</li>
+</ul>
+</li>
+<li><p>用公式一，由<code>hitProbabilityTable</code>和<code>misProbabilityTable</code>求得<code>tokensProbabilityTable</code></p>
+
+<ul>
+<li><code>tokensProbabilityTable[token]</code>表示当一条文本有token存在的时候，命中指定类别文本的概率</li>
+</ul>
+</li>
+<li>由给定string，分词后，找出它们其在<code>tokensProbabilityTable</code>的概率，用公式二，既可以求出该文本命中指定类型文本的概率</li>
+</ol>
+
+
+<h3>代码</h3>
+
+<p>代码在Github开源托管<a href="https://github.com/lancy/Bayesian">传送门</a></p>
+
+<h2>Contact Me</h2>
+
+<ul>
+<li><a href="https://github.com/lancy">Follow my github</a></li>
+<li><a href="http://weibo.com/lancy1014">Follow my weibo</a></li>
+<li><a href="https://github.com/lancy/Bayesian/issues">Write an issue</a></li>
+<li>Send Email to me: <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#108;&#x61;&#x6e;&#99;&#121;&#x31;&#x30;&#x31;&#x34;&#x40;&#x67;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;">&#x6c;&#97;&#x6e;&#x63;&#x79;&#x31;&#48;&#x31;&#52;&#64;&#103;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[从一段奇葩的objc代码看代码规范的重要性]]></title>
+    <link href="http://gracelancy.com/blog/2012/11/27/debug-objc-code/"/>
+    <updated>2012-11-27T00:00:00+08:00</updated>
+    <id>http://gracelancy.com/blog/2012/11/27/debug-objc-code</id>
+    <content type="html"><![CDATA[<h2>背景介绍</h2>
+
+<p>昨天，在和我一个朋友讨论，到底是用<code>self.propertyName</code>还是<code>_propertyName</code>来访问property，我认为应该使用<code>self.propertyName</code>，因为我在听Stanford
+Open
+Course的时候，苹果的工程师告诫要使用<code>self.propertyName</code>，不要使用<code>_propertyName</code>。而朋友认为应该使用<code>_propertyName</code>，因为google
+objc code style认为最好不要用<code>self.propertyName</code>。</p>
+
+<p>我没看过google objc code style，我只看过objective c programming
+guide。在我的理解里property的作用在于根据参数生成相应的getter和setter。<code>self.propertyName</code>本质上既是调用getter函数的，而<code>_propertyName</code>直接访问成员函数，因为相应参数生成的getter和setter是不会被调用的。</p>
+
+<p>再说，我还是决定相信apple，而不是google，毕竟Objc还是apple在支持和维护。</p>
+
+<h2>上代码</h2>
+
+<p>重点来了，朋友为了说服我<code>self.property</code>是有问题的，发了一段代码过来，这段代码非常奇葩，可以点<a href="http://lancy.applesysu.com/wp-content/uploads/2012/11/FuckTableView.zip">这里</a>下载，或者直接看代码，代码不算很长，简单的说，是要实现一个功能，一个tableview右上角有一个刷新按钮，每次刷新会改变dataArray（setupData），然后刷新tableview。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#import &quot;ViewController.h&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@interface</span> <span class="nc">ViewController</span> <span class="p">()</span> <span class="o">&lt;</span><span class="n">UITableViewDataSource</span><span class="p">,</span> <span class="n">UITableViewDelegate</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">UITableView</span> <span class="o">*</span><span class="n">tableView</span><span class="p">;</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">strong</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="n">NSArray</span> <span class="o">*</span><span class="n">dataArray</span><span class="p">;</span>
+</span><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">assign</span><span class="p">,</span> <span class="n">nonatomic</span><span class="p">)</span> <span class="kt">BOOL</span> <span class="n">flag</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@implementation</span> <span class="nc">ViewController</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">initWithNibName:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">nibNameOrNil</span> <span class="nf">bundle:</span><span class="p">(</span><span class="n">NSBundle</span> <span class="o">*</span><span class="p">)</span><span class="nv">nibBundleOrNil</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">self</span> <span class="o">=</span> <span class="p">[</span><span class="n">super</span> <span class="nl">initWithNibName:</span><span class="n">nibNameOrNil</span> <span class="nl">bundle:</span><span class="n">nibBundleOrNil</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">self</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="c1">//按这个按钮本来是tableview会变化的，但是现在调用了reloadData之后，不会调用cellForRowAtIndexPath这个方法。</span>
+</span><span class='line'>        <span class="n">UIBarButtonItem</span> <span class="o">*</span><span class="n">rightItem</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UIBarButtonItem</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithBarButtonSystemItem:</span><span class="n">UIBarButtonSystemItemEdit</span> <span class="nl">target:</span><span class="n">self</span> <span class="nl">action:</span><span class="k">@selector</span><span class="p">(</span><span class="nl">add:</span><span class="p">)];</span>
+</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">navigationItem</span><span class="p">.</span><span class="n">rightBarButtonItem</span> <span class="o">=</span> <span class="n">rightItem</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">//设置数据源</span>
+</span><span class='line'>        <span class="p">[</span><span class="n">self</span> <span class="n">setupData</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">viewDidLoad</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">super</span> <span class="n">viewDidLoad</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">view</span> <span class="nl">addSubview:</span><span class="n">self</span><span class="p">.</span><span class="n">tableView</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#pragma mark - getter &amp; setter</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nf">tableView</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">_tableView</span> <span class="o">==</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">_tableView</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UITableView</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithFrame:</span><span class="n">self</span><span class="p">.</span><span class="n">view</span><span class="p">.</span><span class="n">bounds</span>
+</span><span class='line'>                                                  <span class="nl">style:</span><span class="n">UITableViewStyleGrouped</span><span class="p">];</span>
+</span><span class='line'>        <span class="n">_tableView</span><span class="p">.</span><span class="n">autoresizingMask</span> <span class="o">=</span> <span class="n">UIViewAutoresizingFlexibleHeight</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">_tableView</span><span class="p">.</span><span class="n">delegate</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'>        <span class="n">_tableView</span><span class="p">.</span><span class="n">dataSource</span> <span class="o">=</span> <span class="n">self</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">_tableView</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#pragma mark - UITableView Delegate &amp; Datasource</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">numberOfRowsInSection:</span><span class="p">(</span><span class="n">NSInteger</span><span class="p">)</span><span class="nv">section</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">dataArray</span><span class="p">.</span><span class="n">count</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">UITableViewCell</span> <span class="o">*</span><span class="p">)</span><span class="nf">tableView:</span><span class="p">(</span><span class="n">UITableView</span> <span class="o">*</span><span class="p">)</span><span class="nv">tableView</span> <span class="nf">cellForRowAtIndexPath:</span><span class="p">(</span><span class="n">NSIndexPath</span> <span class="o">*</span><span class="p">)</span><span class="nv">indexPath</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">static</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">identifier</span> <span class="o">=</span> <span class="s">@&quot;settingcell&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">UITableViewCell</span> <span class="o">*</span><span class="n">cell</span> <span class="o">=</span> <span class="p">[</span><span class="n">tableView</span> <span class="nl">dequeueReusableCellWithIdentifier:</span><span class="n">identifier</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">cell</span> <span class="o">==</span> <span class="nb">nil</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="n">cell</span> <span class="o">=</span> <span class="p">[[</span><span class="n">UITableViewCell</span> <span class="n">alloc</span><span class="p">]</span> <span class="nl">initWithStyle:</span><span class="n">UITableViewCellStyleDefault</span> <span class="nl">reuseIdentifier:</span><span class="n">identifier</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">cell</span><span class="p">.</span><span class="n">textLabel</span><span class="p">.</span><span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">dataArray</span> <span class="nl">objectAtIndex:</span><span class="p">[</span><span class="n">indexPath</span> <span class="n">row</span><span class="p">]];</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">return</span> <span class="n">cell</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">setupData</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">flag</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">dataArray</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSArray</span> <span class="nl">arrayWithObjects:</span><span class="s">@&quot;1&quot;</span><span class="p">,</span> <span class="s">@&quot;2&quot;</span><span class="p">,</span> <span class="s">@&quot;3&quot;</span><span class="p">,</span> <span class="s">@&quot;fuck&quot;</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'>        <span class="n">self</span><span class="p">.</span><span class="n">dataArray</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSArray</span> <span class="nl">arrayWithObjects:</span><span class="s">@&quot;1&quot;</span><span class="p">,</span> <span class="s">@&quot;2&quot;</span><span class="p">,</span> <span class="s">@&quot;3&quot;</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">tableView</span> <span class="n">reloadData</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="nf">add:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>    <span class="n">self</span><span class="p">.</span><span class="n">flag</span> <span class="o">=</span> <span class="o">!</span><span class="n">self</span><span class="p">.</span><span class="n">flag</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span> <span class="n">setupData</span><span class="p">];</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>问题</h3>
+
+<p>这段代码是无效的，按下按钮之后，<code>setupData</code>被调用了，已经log确定<code>dataArray</code>已经改变，<code>tableview</code>的<code>delegate</code>和<code>datasource</code>都设置正确，确定<code>numberOfRowsInSection</code>被调用，奇葩的是<code>cellForRowAtIndexPath</code>没有调用，故而<code>tableview</code>没有改变。</p>
+
+<h4>奇葩的来了</h4>
+
+<p>朋友跟我说，你只要把<code>[self.tableview reloadData]</code>改成<code>[_tableview
+reloadData]</code>，他就生效了。是的，他就生效了。你设一个断点在这个地方，然后把<code>self.tableview</code>和<code>_tableview</code>po出来，发现他们的指针是一样的。朋友说写这个代码的那货折腾了一天，百思不得其解，最后得出结论<code>self.propertyName</code>就是坑爹。</p>
+
+<h2>生效的修改方法</h2>
+
+<p>朋友提供的：</p>
+
+<ol>
+<li>前面说的讲把<code>[self.tableview reloadData]</code>改成<code>[_tableview reloadData]</code></li>
+<li><p>把<code>tableview</code>的getter函数的<code>init</code>里面的<code>self.view.bounds</code>改成<code>CGReckMake(0,0,
+320, 480)</code></p></li>
+</ol>
+
+
+<p>朋友试图用这个两个方法来说明，<code>self.property</code>是坑爹的。</p>
+
+<p>我在初步debug的时候，由于我是property的拥护者，property自动生成setter和getter函数，我是不支持重写getter函数的，所以我将getter函数删掉，把初始化代码移到<code>viewdidload</code>里面。然后代码就生效了。</p>
+
+<p>但是即使代码生效了，还是没有找到问题的关键，仍然没办法解释为什么<code>[self.tableview
+reloadData]</code>改成<code>[_tableview reloadData]</code>就能运行了，因为po出来的指针是完全一样的，这不科学。</p>
+
+<h2>真正的问题所在</h2>
+
+<p>在各种Stackoverflow，google无果之后，我还是着手准备深入debug。</p>
+
+<p>通过各种断点和gdb，最后打印函数调用栈才让我发现了真正的问题所在。</p>
+
+<p>整个程序的执行顺序是这样的：</p>
+
+<ol>
+<li><code>initWithNibName</code>（执行到<code>[self setupData]</code>，没执行完） &ndash;></li>
+<li>第一次setupData(执行到<code>[self.tableView reloadData]</code>，没执行完) &ndash;></li>
+<li>第一次执行tableview getter（到init，调用<code>self.view</code>，没执行完）-></li>
+<li><code>viewDidLoad</code>(到<code>addSubview:self.tableView</code>, 没执行完) &ndash;></li>
+<li>第二次执行tableview getter（问题在这里！第一次执行的时候没有init玩，所以又会执行一次！）-></li>
+<li>回到4.viewDidLoad，这是add的subview是第二次的init而先init完的tableview &ndash;></li>
+<li>回到3.第一次执行getter，（又alloc了一次tableView，这是<code>self.property</code>指向的是第一次init而后init完成的tableview））</li>
+</ol>
+
+
+<p>所以，显示在界面上的tableview根本不是<code>self.tableview</code>指向的tableview，故而根本没法刷新（<code>cellForRowAtIndexPath</code>，是当需要显示的时候才会调用的）。</p>
+
+<p>那为什么把<code>[self.tableview reloadData]</code>改成<code>[_tableview
+reloadData]</code>就能生效了呢？因为这样在<code>initWithNibName</code>的第一次调用setupData，就不会在reload的时候调用tableview
+getter，也就不会有后面一连串的连锁反应。之后顺利在<code>viewdidload</code>的时候只调用一次，完成init。</p>
+
+<p>知道了问题的关键，还能有各种各样让他生效的方法，就不吐槽了。</p>
+
+<h2>正确的写法</h2>
+
+<p>这段奇葩代码带给我最大的感触就是，不好好写规范的代码，各种问题都会坑死你。我认为规范的写法应该是</p>
+
+<ol>
+<li>不要重写getter和setter函数，使用property生成的getter和setter</li>
+<li>不要在vc的init的函数里面初始化，尤其是初始化视图。而应该在viewdidload里面初始化，保证self.view已经生成。</li>
+<li>应该使用自顶向下的程序设计方法，保证程序的顺序执行和层次关系。不应该出现如上程序的跳来跳去的调用。</li>
+</ol>
+
+
+<h2>后记</h2>
+
+<p>帮人debug这种事情真心蛋疼，看不规范的代码像噩梦。</p>
+
+<p>P.S.好想看objc和cocoa源码。。</p>
+
+<p>Lancy</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Objective-C Associative References(关联引用)]]></title>
+    <link href="http://gracelancy.com/blog/2012/11/26/objective-c-associative-references/"/>
+    <updated>2012-11-26T00:00:00+08:00</updated>
+    <id>http://gracelancy.com/blog/2012/11/26/objective-c-associative-references</id>
+    <content type="html"><![CDATA[<h2>About</h2>
+
+<p>在研究Objc的运行时特性的时候，发现了一个有意思的东东，Associative Reference关联引用。使用关联引用，能够模拟添加一个对象实例到一个已有的类中，能够添加存储到一个对象中而不需要改变类的定义。这个技术在你不能访问源码的时候有用，或者你只是觉得动态的增加关联很好玩。</p>
+
+<h2>创建关联</h2>
+
+<p>可以使用 objc_setAssociatedObject 来创建关联引用。</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">static</span> <span class="kt">char</span> <span class="n">overviewKey</span><span class="p">;</span>
+</span><span class='line'><span class="n">NSArray</span> <span class="o">*</span><span class="n">array</span> <span class="o">=</span> <span class="err">@</span><span class="p">[</span><span class="s">@&quot;One&quot;</span><span class="p">,</span> <span class="s">@&quot;Two&quot;</span><span class="p">,</span> <span class="s">@&quot;Three&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">overview</span> <span class="o">=</span> <span class="s">@&quot;First three numbers&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">objc_setAssociatedObject</span> <span class="p">(</span>
+</span><span class='line'>                          <span class="n">array</span><span class="p">,</span>
+</span><span class='line'>                          <span class="o">&amp;</span><span class="n">overviewKey</span><span class="p">,</span>
+</span><span class='line'>                          <span class="n">overview</span><span class="p">,</span>
+</span><span class='line'>                          <span class="n">OBJC_ASSOCIATION_RETAIN</span>
+</span><span class='line'>                          <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>key是一个 void 指针，对于每个关联，key必须唯一，通常可以使用一个 static variable.</li>
+<li>police 用来指定，关联的对象是 assigned, retained, copied, 还有是否是atomically.
+
+<ul>
+<li><strong>OBJC_ASSOCIATION_ASSIGN</strong>
+Specifies a weak reference to the associated object.</li>
+<li><strong>OBJC_ASSOCIATION_RETAIN_NONATOMIC</strong>
+Specifies a strong reference to the associated object, and that the association is not made atomically.</li>
+<li><strong>OBJC_ASSOCIATION_COPY_NONATOMIC</strong>
+Specifies that the associated object is copied, and that the association is not made atomically.</li>
+<li><strong>OBJC_ASSOCIATION_RETAIN</strong>
+Specifies a strong reference to the associated object, and that the association is made atomically.</li>
+<li><strong>OBJC_ASSOCIATION_COPY</strong>
+Specifies that the associated object is copied, and that the association is made atomically.</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>取回关联对象</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">associatedObject</span> <span class="o">=</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="n">objc_getAssociatedObject</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">overviewKey</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>取消关联</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="n">objc_setAssociatedObject</span><span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">overviewKey</span><span class="p">,</span> <span class="nb">nil</span><span class="p">,</span> <span class="n">OBJC_ASSOCIATION_ASSIGN</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>policy可以任意设置</p>
+
+<p>另外还可以使用 objc_removeAssociatedObjects，不过这是不被赞成的，因为他打破了所有用户的所有关联。</p>
+
+<h2>完整的样例代码</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#import &lt;objc/runtime.h&gt;</span>
+</span><span class='line'><span class="err">……</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">static</span> <span class="kt">char</span> <span class="n">overviewKey</span><span class="p">;</span>
+</span><span class='line'><span class="n">NSArray</span> <span class="o">*</span><span class="n">array</span> <span class="o">=</span> <span class="err">@</span><span class="p">[</span><span class="s">@&quot;One&quot;</span><span class="p">,</span> <span class="s">@&quot;Two&quot;</span><span class="p">,</span> <span class="s">@&quot;Three&quot;</span><span class="p">];</span>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">overview</span> <span class="o">=</span> <span class="s">@&quot;First three numbers&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="n">objc_setAssociatedObject</span> <span class="p">(</span>
+</span><span class='line'>        <span class="n">array</span><span class="p">,</span>
+</span><span class='line'>        <span class="o">&amp;</span><span class="n">overviewKey</span><span class="p">,</span>
+</span><span class='line'>        <span class="n">overview</span><span class="p">,</span>
+</span><span class='line'>        <span class="n">OBJC_ASSOCIATION_RETAIN</span>
+</span><span class='line'>        <span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">associatedObject</span> <span class="o">=</span>
+</span><span class='line'><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span> <span class="n">objc_getAssociatedObject</span> <span class="p">(</span><span class="n">array</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">overviewKey</span><span class="p">);</span>
+</span><span class='line'><span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;associatedObject: %@&quot;</span><span class="p">,</span> <span class="n">associatedObject</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">objc_setAssociatedObject</span> <span class="p">(</span>
+</span><span class='line'>        <span class="n">array</span><span class="p">,</span>
+</span><span class='line'>        <span class="o">&amp;</span><span class="n">overviewKey</span><span class="p">,</span>
+</span><span class='line'>        <span class="nb">nil</span><span class="p">,</span>
+</span><span class='line'>        <span class="n">OBJC_ASSOCIATION_ASSIGN</span>
+</span><span class='line'>        <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注意：本样例代码使用了Objc2.0语法和ARC，更详细的信息，请参考官方文档。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Mac OS X 高端果粉进阶指南]]></title>
+    <link href="http://gracelancy.com/blog/2012/11/22/Mac-Tips/"/>
+    <updated>2012-11-22T00:00:00+08:00</updated>
+    <id>http://gracelancy.com/blog/2012/11/22/Mac-Tips</id>
+    <content type="html"><![CDATA[<h2>前言</h2>
+
+<p>这一篇的tip主要是介绍Mac OS X自带功能，我没有说的，一定是因为我觉得没什么用，或者是太简单了，大家都会。然后再挖一个坑，以后再写一篇介绍mac下的高效APP。</p>
+
+<h2>基础类</h2>
+
+<h4>1. 截图</h4>
+
+<ul>
+<li>shift+command+3全屏截图到桌面文件</li>
+<li>shift+command+4选择截图到桌面文件</li>
+<li>shift+control+command+3</li>
+<li>shift+control+command+4到剪切板</li>
+<li>选择截图的时候按住option有不一样的效果</li>
+</ul>
+
+
+<h4>2. 窗口控制</h4>
+
+<p>command+tab可以切换程序
+command+· 可以在程序内切换窗口
+mission control和app expose就不多说了，还有各种手势操作要开足，默认是没有四指的。</p>
+
+<h4>3. 登陆项</h4>
+
+<p>在用户控制里面，另外在dock上右键也可以找到“登录时打开”</p>
+
+<h4>4. Finder path</h4>
+
+<pre><code>defaults write com.apple.finder PathBarRootAtHome -bool TRUE;killall Finder
+</code></pre>
+
+<h4>5. Lock files</h4>
+
+<p>cmd+i，可以lock files
+打开文件，点击窗口最上面的文件名，也可以lock</p>
+
+<h4>6. 拷贝文字样式</h4>
+
+<ul>
+<li>opt+cmd+c</li>
+<li>opt+cmd+v</li>
+</ul>
+
+
+<h2>效率类</h2>
+
+<h4>1. 全屏模式下使用dock</h4>
+
+<p>把鼠标移动到dock原先在的边缘，停顿，再往边缘推一下</p>
+
+<h4>2. 把窗口移到另一个桌面</h4>
+
+<p>拖动窗口，到屏幕边缘，停顿一秒，就会切换桌面。delay的时间还可以改变用如下命令改变</p>
+
+<pre><code>defaults write com.apple.dock workspaces-edge-delay -float 0.15;killall Dock
+</code></pre>
+
+<p>也可以用如下命令取消</p>
+
+<pre><code>defaults delete com.apple.dock workspaces-edge-delay;killall Dock
+</code></pre>
+
+<h4>3.多手势操作，惯性拖动</h4>
+
+<p>其他的不多说，设置里面的trackpad里面有视频演示。重点说一个我觉得很好用的，大家知道三个手指能拖动窗口（物体），如果你三个手指抓住之后，往一个方向甩出去，同时变成一个手指，就会发现移动带上了惯性。这个tip在使用双屏幕的时候，尤其好用，手指一甩，窗口就飞到另一个屏幕，还有惯性动画，碉堡了</p>
+
+<h4>4. 通知中心,Do not disturb me</h4>
+
+<p>打开通知中心，往下拖一下，就能看见那个开关了。也可以option然后点击通知中心的按钮。</p>
+
+<h4>5. Mission Control 也可以快速查看</h4>
+
+<p>mission control 状态下，也是可以按space来进行快速预览的，还可以双指（鼠标滚轮）向上滑动查看同一个应用的多个窗口</p>
+
+<h4>6. 一次显示多个文件的信息</h4>
+
+<p>cmd+i显示文件信息; opt+cmd+i显示多个文件的信息</p>
+
+<h4>7. 给文件加tag</h4>
+
+<p>这是一个牛逼的功能啦，打开一个文件的信息页面(cmd+i)，有一个spotlight注释。</p>
+
+<h4>8. 给文件加label</h4>
+
+<p>右键可以给文件加颜色label，然后在spotlight中输入：label:blue（或 label:蓝色）就可以看见相应的文件，支持智能文件夹。</p>
+
+<h4>9. 拖动文件时，立即打开文件夹</h4>
+
+<p>拖动文件到另一个文件夹的时候，如果停在上面一会儿，就会打开该文件夹，如果你等不及，可以按一下space，就会立刻打开。</p>
+
+<h4>10. 高端mac pdf用户</h4>
+
+<p>preview app是可以annotating pdf的，而且还可以通过摄像头提取签名附近去。他还可以将不同的pdf合并在一起，添加图片，和密码保护。</p>
+
+<h4>11. focus single windows</h4>
+
+<p>这是一个有意思的tip，能让你点击dock上的icon，就会自动隐藏其他的app，这样，同时就只会有一个app在最前面。对于注意力难以集中，发现其他的东西分散了你的注意力的用户可以尝试，（其实也可以使用全屏模式）。</p>
+
+<pre><code>defaults write com.apple.dock single-app -bool TRUE;killall Dock 
+//关闭
+defaults delete com.apple.dock single-app;killall Dock 
+</code></pre>
+
+<h4>12. 让quick look能看更多的文件格式</h4>
+
+<p><a href="http://qlplugins.com/">http://qlplugins.com/</a></p>
+
+<h4>13. 一个秘密的手势，回到前一个桌面</h4>
+
+<p>四指轻拍两下切换最近桌面，（老实说不是很好用。。）</p>
+
+<pre><code>defaults write com.apple.dock double-tap-jump-back -bool TRUE;killall Dock
+</code></pre>
+
+<h2>美化类</h2>
+
+<h4>1. 给任何文件换图标</h4>
+
+<p>非常简单，用预览打开一个图片，command+a, command+c。然后选中你想换图标的文件command+i显示信息，选中最上面的图标（会有高亮框），然后command+v！
+或者干脆直接把文件直接拖到信息界面的icon哪里！</p>
+
+<h4>2. 给dock的文件夹加高亮框</h4>
+
+<pre><code>//开启
+defaults write com.apple.dock mouse-over-hilite-stack -bool TRUE;killall Dock
+//关闭
+defaults delete com.apple.dock mouse-over-hilite-stack;killall Dock
+</code></pre>
+
+<h4>3. 替换Dashboard和Mission control的壁纸</h4>
+
+<pre><code>/System/Library/CoreService/Dock.app/Contents/Resource
+</code></pre>
+
+<p>替换这个defaultdesktop.png和pirelli.png
+PS:注意安全，最好上备份，Time Machine</p>
+
+<h4>4. 在桌面播放动态屏保</h4>
+
+<pre><code>nohup /System/Library/Frameworks/ScreenSaver.framework/Resources/ScreenSaverEngine.app/Contents/MacOS/ScreenSaverEngine -module Arabesque -background
+</code></pre>
+
+<p>其中Arabesque可以替换为/System/Library/Screen Savers里面的任意</p>
+
+<p>这样关掉</p>
+
+<pre><code>killall ScreenSaverEngine 
+</code></pre>
+
+<p>PS.不会开机启动，想启动载入的可以写个脚本</p>
+
+<h4>5. 更改登陆界面壁纸</h4>
+
+<pre><code>/System/Library/Frameworks/AppKit.framework/Versions/C/Resources/NSTexturedFullScreenBackgroundColor.png
+</code></pre>
+
+<h4>6. 第三种最小化动画</h4>
+
+<pre><code>defaults write com.apple.dock mineffect -string suck;killall Dock
+
+defaults delte com.apple.dock mineffect;killall Dock
+</code></pre>
+
+<h2>安全类</h2>
+
+<h4>1. 可以用硬盘工具disk utility制作带密码保护的u盘</h4>
+
+<p>打开disk utility你就知道了</p>
+
+<h4>2. 安全倾倒垃圾箱</h4>
+
+<p>按住command右键垃圾箱，这样就不能用软件恢复了</p>
+
+<h4>3. 管理员密码非常重要</h4>
+
+<p>呵呵呵呵呵，我发现很多人对电脑的管理员密码是无动于衷的，甚至我认识不少大牛都这样，把密码设成一位，或者随意告诉别人。你们难道不知道keychain里面是存有你们所有的密码的么？可以通过鉴定显示所有密码哦~safari也可以哦~你的gmail，支付宝，网银全部都在里面哦</p>
+
+<h4>4. 一个牛逼的功能FileVault</h4>
+
+<p>国防级别的实时档案加密，保证你的硬盘不会被破解，没有你的密码，即使把硬盘拆了放到另一个电脑上也读取不出任何内容。
+PS. 用这个功能会降低运行速度（因为是实时加密），所以如果你没有什么不可告人的秘密，还是别蛋疼了。</p>
+
+<h4>5. Time machine备份时间设定</h4>
+
+<pre><code>sudo defaults write /System/Library/LaunchDaemons/com.apple.backupd-auto StartInterval -int 7200
+// 调回默认
+sudo defaults delete /System/Library/LaunchDaemons/com.apple.backupd-auto StartInterval
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[iPhone交互设计心得点滴]]></title>
+    <link href="http://gracelancy.com/blog/2012/11/19/iPhone-Interaction-design/"/>
+    <updated>2012-11-19T00:00:00+08:00</updated>
+    <id>http://gracelancy.com/blog/2012/11/19/iPhone-Interaction-design</id>
+    <content type="html"><![CDATA[<ul>
+<li> 移动应用之所以被称为移动应用正是因为用户正在移动，地铁，咖啡店，排队，候车等任何时候都有可能让用户打开你的APP，也同时有可能打断。你的用户不可能像设计师你一样全神贯注的把玩你的应用，周围的环境（还有其他的应用推送，来电，短信）随时都在争夺用户的注意力，所以移动应用的设计，不论是视觉设计，还是应用的交互设计，都必须简洁简洁再简洁，less is more。</li>
+<li> 移动应用的上下文环境，即移动场景是一个考量用户需求的重要因素，用户启动一个APP的动机和心态无非三种1.我有个小任务要做；2.我想看看附近的情况；3。我无聊（不要再欺骗自己了，你真的很无聊）</li>
+<li> 你可能会说，我的应用比他的好，为什么用户不来用我的？那是因为用户有他自身的习惯，改变习惯是要付出代价的，除非你的应用足够好到抵消这个代价。我们常常想要做出与众不同的设计，但是交互设计和艺术设计最大的区别就在于我们更关心的是用户，用户习惯是必须要考量的因素，不要为了设计而设计。</li>
+<li> 单手操作是iPhone之所以是3.5寸屏幕的重要原因，因为iPhone就是被设计出来单手操作的，你的另一只手，或者另一半大脑还要处理一些周围环境的事情。所以将重要的经常需要使用的按钮放在单手拇指最容易操作的地方是一个设计的技巧。对于右手来说，这个地方是屏幕中间到左下角。然而一个需要注意的是事实是，你完全不能确定用户会用哪一只手来操作，对此有一种设计，就是横跨整个屏幕宽的按钮。</li>
+<li> 一个保持应用良好形象的方法就是不使用滚动条，这样会让你的应用更象实体设备。而你恐怕不会知道用户对滚动的信息注意力有多低，实际上每一次滚动都需要多费一次脑，一次力。当然你知道我的意思不是完全抵制，只是作为设计师，你应该尽可能消灭多余的体力和脑力劳动。</li>
+<li> 在我们做应用设计之前，首先应该了解目标客户是那些，他们有哪些需求，模拟用户使用app的流程和逻辑。简单的说，研究用户是在app设计之前就应该做的事，而不是上手就开始设计应用，这会让你偏离群众。</li>
+<li> 如果不是程序很大，需要载入很长时间，就不要滥用开场动画了，你做的不是游戏。</li>
+<li> Metro的设计很酷，是的，我也这么认为。你可以使用一些Metro的设计风格和设计元素，但千万不要以为自己真的是在给Windows Phone做应用。（或者android</li>
+<li> 易发现的手势来源于经验，如果有些手势在现实世界中可以做，或是在桌面软件控制可以做，那么人就会同样在触屏上试试能不能做。</li>
+<li> 设计手势的一个好方法就是观察用户的期望，比如在内置日历中，用户会期望通过左右滑动来切换月份。（可惜你只能按箭头）</li>
+<li> 手势操作应该做操作的一种补充，而不是主要的操作模式，因为他往往并不是那么直观，也不容易被用户发现，如果单单只有手势操作，会降低易用性。所谓的补充，就是当一些操作过于耗时或是要经常重复的时候，设计一个简洁的手势作为操作的一种快捷方式，就能提高可用性。</li>
+<li> 关于摇动这个手势，标准的用法应该是撤销，<del>因为当用户不小心做了一个误操作之后，他会NO NO NO的大喊，然后晃动手机，这时候弹出一个是否撤销，不是很贴心么。但是千万不要把摇动手势来做破坏性的操作，比如删除或者清空什么的，千万不要忘了你拿着的是一个移动电话，移动的，亲。</del> （用户完全没有这个摇动撤销的习惯，不要违背用户的习惯，在能看见的地方显示撤销按钮，摇动一般作为一种有趣的附加操作）</li>
+<li> 在3.5寸屏上面使用2根手指或以上的手势，就需要你使用两只手。而且，除了缩放操作之外，2根手指还没有任何一种手势是被人所熟悉的。（你知道地图应用里面两根手指单击可以缩小么？）</li>
+<li> 自卫设计是为了防止误操作，通过需要更复杂的一些操作来完成诸如删除之类的破坏性功能，iPhone的标准删除操作，就需要三个流程。不过，防止误操作的真正救命稻草是提供撤销。Google在这一点上做得很好，他的决定性和破坏性操作，都会产生一个临时的撤销选项，比如当你把情书发给错误的女孩，你还有那么几秒钟时间可以紧急抢救一把。</li>
+<li> 慎用模态警告框，因为他会打断操作，非真正紧急必要的情况，尽可能少的使用。可以用动作选单（iPad可以使用popover）来取代比如确认删除一类的操作。但是用弹出警告框来让用户打分评论，真的，这样做不够意思。（虽然貌似挺有效）</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Mac &#038; iOS的中文分词]]></title>
+    <link href="http://gracelancy.com/blog/2012/10/22/mac%3Aios-string-tokenizer/"/>
+    <updated>2012-10-22T00:00:00+08:00</updated>
+    <id>http://gracelancy.com/blog/2012/10/22/mac:ios-string-tokenizer</id>
+    <content type="html"><![CDATA[<h2>简介</h2>
+
+<p>封装了<code>CFStringTokenizer</code>的NSString Category，可以方便的应用于Mac或者iOS APP， 其不但支持西方语言，更支持中文和日文这样没有空格分词的语言。</p>
+
+<h2>使用方法</h2>
+
+<p>导入<strong>NSString + Tokenize.h</strong> 和 <strong>NSString + Tokenize.m</strong>后，
+即可使用这两个接口</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSArray</span> <span class="o">*</span><span class="p">)</span><span class="nf">arrayWithWordTokenize</span><span class="p">;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nf">separatedStringWithSeparator:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">separator</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>示例</h2>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="cp">#import &quot;NSString+Tokenize.h&quot;</span>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">IBAction</span><span class="p">)</span><span class="nf">tapTokenizeButton:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">sender</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">NSString</span> <span class="o">*</span><span class="n">inputString</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">inputTextView</span><span class="p">.</span><span class="n">string</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;TokensArray = %@&quot;</span><span class="p">,</span> <span class="n">inputString</span><span class="p">.</span><span class="n">arrayWithWordTokenize</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">[</span><span class="n">self</span><span class="p">.</span><span class="n">outputTextView</span> <span class="nl">setString:</span><span class="p">[</span><span class="n">inputString</span> <span class="nl">separatedStringWithSeparator:</span><span class="s">@&quot;/&quot;</span><span class="p">]];</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
 
-
-
-</body>
-</html>
+]]></content>
+  </entry>
+  
+</feed>
