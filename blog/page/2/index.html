@@ -7,7 +7,7 @@
 	<meta name="author" content="Lancy">
 
 	
-	<meta name="description" content="简洁 这里不讨论传统的多线程编程，而讨论OS X/iOS特有的异步技术，GCD和Operation Queue。 Grand Central Dispatch (GCD)： C语言的系统管理线程，不需要编写线程代码，只需要定义需要执行的任务，然后以block的形式添加到适当的dispatch &hellip;">
+	<meta name="description" content="前言 Objective-C已经出道了30多年，即使是iOS，也已经面世了5年之久，期间Objective-C和LLVM Clang都已经有了巨大的变化，这篇文章主要是描述一下Modern Objective-C Style。 在写这篇文章的时候， &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -84,6 +84,143 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/03/05/modern-objective-c/">
+		
+			Modern Objective-C</a>
+	</h2>
+	<div class="entry-content">
+		<h2>前言</h2>
+
+<p>Objective-C已经出道了30多年，即使是iOS，也已经面世了5年之久，期间Objective-C和LLVM Clang都已经有了巨大的变化，这篇文章主要是描述一下Modern Objective-C Style。</p>
+
+<p>在写这篇文章的时候，我本打算完整的描述一下我理解的现代Objective-C是如何，然后发现唐巧的blog上已经有一了一篇很好的博文：<a href="http://blog.devtang.com/blog/2012/08/05/use-modern-objective-c/">Objective-C新特性</a>，大家可以先行阅读，我主要对他的博文进行补充。</p>
+
+<h2>使用ARC</h2>
+
+<p>我不想解释更多了，ARC虽说不是万能的，但在工程效率高于一切，速度就是王道的今天，ARC可以省下大量的时间。更何况，为什么总有人认为这些机械的内存管理，自己要做的比机器好呢？</p>
+
+<p>想了解更多的ARC的信息，推荐Ray的arc教程</p>
+
+<ul>
+<li><a href="http://www.raywenderlich.com/5677/beginning-arc-in-ios-5-part-1">http://www.raywenderlich.com/5677/beginning-arc-in-ios-5-part-1</a></li>
+<li><p><a href="http://www.raywenderlich.com/5773/beginning-arc-in-ios-5-tutorial-part-2">http://www.raywenderlich.com/5773/beginning-arc-in-ios-5-tutorial-part-2</a></p>
+
+<h2>New Object Literals 和 Subscripting</h2>
+
+参见唐巧的博文
+
+<h2>关于instance variables和property和methods</h2>
+
+<p>我之前写了一篇<a href="http://gracelancy.com/?p=88">博文</a>，引起了一些朋友的讨论。这里主要描述，在modern objective-c下，我们怎么写类里面的各种成员。</p></li>
+<li><p>你不再需要声明声明property的时候又声明instance variables，当你声明一个property的时候，编译器就会自动的帮你声明一个instance variable。</p></li>
+<li>你不再需要@synthesize，当你声明了@property的时候，编译器会自动帮你@synthesize，同时帮你指定好你的instance variable的名称为_var。</li>
+<li>即使你确实喜欢自己声明instance variables和自己@synthesize，那么你也不应该违反_var的命名形式。</li>
+<li>你不再需要Forward declaration，（只适用OBJC）</li>
+<li><strong>把所有私有的东西从.h文件移动到.m文件</strong></li>
+</ul>
+
+
+<p>强调一下，上面说的第五条，把所有私有的东西从.h文件移动到.m文件，可以说就是“old-fashioned” 和 modern OBJC的最大区别。具体有如下几点：</p>
+
+<ol>
+<li>你可以把需要私有的property从h文件移到m文件，这样外界将无法直接访问。
+
+<ul>
+<li>记住IBOutlet也是可以移到m文件的。</li>
+</ul>
+</li>
+<li>你可以把私有的instance variables从h文件移到m文件。这里可以移到两个地方：
+
+<ul>
+<li>.m文件的@interace</li>
+<li>.m文件的@implementation</li>
+</ul>
+</li>
+<li>你可以把类需要实现的protocol从h文件移到m文件，当你认为其不需要暴露给外部知道时。</li>
+<li>如之前所说，你不再需要前置声明，所以私有方法，可以直接从.h文件中删除。当然你也可以放在.m文件的@interface里。
+
+<ul>
+<li>记住IBOutlet也可以直接连到.m文件中，不需要连到@interface里面做前置声明。</li>
+</ul>
+</li>
+</ol>
+
+
+<p>注意：有时候你会奇怪，为什么有的程序有instance variables，有些却没有。这里暂时还没有一个明确的定论，只是不同风格有不同的写法。有些人喜欢为所有的东西创建property，而有些人却不愿意为私有成员创建property。</p>
+
+<p>就我个人而言，是习惯于为所有的东西创建property的，然后将私有的proerty移到m文件中。为什么使用property呢？这里有一个来自苹果工程师Paul（在stanford上课的那位）在课上的解释：</p>
+
+<p>Why property？</p>
+
+<p>Most importantly, it provides safety and subclassablility for instance variables. Also provides “value” for lazy instantiation, UI updating, consistency checking, etc.</p>
+
+<h2>使用Block</h2>
+
+<ul>
+<li>可以使用block来代替delegate</li>
+<li>可以使用block来遍历容器。</li>
+</ul>
+
+
+<p>Block通常意味着Do more with less code</p>
+
+<h2>关于property的权限，对外readonly对内readwrite的property</h2>
+
+<p>你可以在.h文件里设置一个权限readonly的property，并在.m文件设置一个权限为readwrite的同样的property，这时，你的property对外是只读的，对内却是可读写。</p>
+
+<p>EDIT:补充关于最后这个的样例说明
+在类的.h文件的interface下声明一个</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">testString</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再在.m文件的interface下声明一个</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">testString</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>此时在类内部可以对该变量进行修改，但在类外部修改会被编译器报错为readonly。</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-05T00:00:00+08:00" pubdate data-updated="true">Mar 5<span>th</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/ios/'>iOS</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2013/03/05/modern-objective-c/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -1248,7 +1385,7 @@ ASCII PDF XML HTML URL RTF HTTP TIFF JPG PNG GIF LZW ROM RGB CMYK MIDI FTP</p>
 <ul>
 <li><a href="https://github.com/lancy">Follow my github</a></li>
 <li><a href="http://weibo.com/lancy1014">Follow my weibo</a></li>
-<li>Send Email to me: <a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#x6f;&#58;&#x6c;&#97;&#110;&#x63;&#121;&#49;&#x30;&#x31;&#x34;&#64;&#103;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#111;&#109;">&#108;&#x61;&#110;&#99;&#x79;&#49;&#x30;&#x31;&#52;&#x40;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a></li>
+<li>Send Email to me: <a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#58;&#108;&#x61;&#110;&#99;&#121;&#49;&#48;&#x31;&#x34;&#64;&#x67;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#109;">&#108;&#x61;&#110;&#99;&#121;&#x31;&#x30;&#49;&#52;&#64;&#x67;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;</a></li>
 </ul>
 
 
@@ -1386,7 +1523,7 @@ ASCII PDF XML HTML URL RTF HTTP TIFF JPG PNG GIF LZW ROM RGB CMYK MIDI FTP</p>
 <li><a href="https://github.com/lancy">Follow my github</a></li>
 <li><a href="http://weibo.com/lancy1014">Follow my weibo</a></li>
 <li><a href="https://github.com/lancy/Bayesian/issues">Write an issue</a></li>
-<li>Send Email to me: <a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#108;&#x61;&#x6e;&#99;&#121;&#x31;&#x30;&#x31;&#x34;&#x40;&#x67;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;">&#x6c;&#97;&#x6e;&#x63;&#x79;&#x31;&#48;&#x31;&#52;&#64;&#103;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;</a></li>
+<li>Send Email to me: <a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#111;&#x3a;&#108;&#x61;&#x6e;&#99;&#x79;&#x31;&#48;&#x31;&#52;&#64;&#103;&#109;&#x61;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;">&#108;&#x61;&#110;&#x63;&#121;&#49;&#48;&#x31;&#52;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a></li>
 </ul>
 
 
@@ -1681,19 +1818,30 @@ getter，也就不会有后面一连串的连锁反应。之后顺利在<code>vi
 <p>这段奇葩代码带给我最大的感触就是，不好好写规范的代码，各种问题都会坑死你。我认为规范的写法应该是</p>
 
 <ol>
-<li>不要重写getter和setter函数，使用property生成的getter和setter</li>
-<li>不要在vc的init的函数里面初始化，尤其是初始化视图。而应该在viewdidload里面初始化，保证self.view已经生成。</li>
+<li><del>不要重写getter和setter函数，使用property生成的getter和setter</del></li>
+<li>不要在vc的init的函数里面初始化，尤其是初始化视图。而应该在viewdidload里面初始化，保证self.view已经生成。（非ARC环境下还需要注意memory warning导致的viewdidload多次加载而多次初始化所带来的内存泄露问题。最安全的做法是lazy instantiation）</li>
 <li>应该使用自顶向下的程序设计方法，保证程序的顺序执行和层次关系。不应该出现如上程序的跳来跳去的调用。</li>
 </ol>
 
 
 <h2>后记</h2>
 
-<p>帮人debug这种事情真心蛋疼，看不规范的代码像噩梦。</p>
+<p>帮人debug还是有好处的，让我结识了这位bug兄。也让我更加深入的了解了cocoa的变量访问机制，debug的时候顺带还测试了KVO。</p>
 
-<p>P.S.好想看objc和cocoa源码。。</p>
+<h2>Edit</h2>
+
+<p>我又重新去看了property和getter，setter的资料，也看了苹果对property的解释。最后我修正关于不要重写getter和setter函数的观点，更正为可以重写getter和setter，目的可以为lazy instantiation, UI updating, consistency checking，等。但需要注意如上程序的连锁反应。代码的灵活性和安全性</p>
+
+<p>关于@property,经过和大家的讨论也有了一个结论:</p>
+
+<p>Why property？</p>
+
+<p>Most importantly, it provides safety and subclassablility for instance variables.
+Also provides “value” for lazy instantiation, UI updating, consistency checking, etc.</p>
 
 <p>Lancy</p>
+
+<p>11.27.2012</p>
 
 		
 		

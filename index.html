@@ -7,7 +7,7 @@
 	<meta name="author" content="Lancy">
 
 	
-	<meta name="description" content="什么是 Toll-Free Bridging 有一些数据类型是能够在 Core Foundation Framework 和 Foundation Framework 之间交换使用的。这意味着，对于同一个数据类型，你既可以将其作为参数传入 Core Foundation 函数， &hellip;">
+	<meta name="description" content="Variable argument lists 使用方法 可变参数函数（Variadic Function），即是指一个可以接受可变数量的参数的函数。在C语言中，对该特性的支持，即是通过可变参数列表（Variable Argument list）来实现的，其定义在stdarg.h头文件。( &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -84,6 +84,239 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/05/05/variable-argument-lists/">
+		
+			Variable Argument Lists</a>
+	</h2>
+	<div class="entry-content">
+		<h2>Variable argument lists 使用方法</h2>
+
+<p>可变参数函数（Variadic Function），即是指一个可以接受可变数量的参数的函数。在C语言中，对该特性的支持，即是通过可变参数列表（Variable Argument list）来实现的，其定义在<code>stdarg.h</code>头文件。(若使用C++则在<code>cstdarg</code>头文件)。</p>
+
+<p>以如下C代码为例说明，该函数接受可变数量的整数作为参数，求和：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="nf">addemUp</span> <span class="p">(</span><span class="kt">int</span> <span class="n">firstNum</span><span class="p">,</span> <span class="p">...)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// 1. 参数后面添加省略号...</span>
+</span><span class='line'>    <span class="kt">va_list</span> <span class="n">args</span><span class="p">;</span>  <span class="c1">// 2. 创建一个va_list类型的变量</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">firstNum</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">number</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">va_start</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">firstNum</span><span class="p">);</span> <span class="c1">// 3. 初始化va_list，此时va_list指向firstNum之后的第一个参数</span>
+</span><span class='line'>    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">number</span> <span class="o">=</span> <span class="n">va_arg</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span> <span class="c1">// 4. 获取当前指向的参数的值，并移动到下一个参数</span>
+</span><span class='line'>        <span class="n">sum</span> <span class="o">+=</span> <span class="n">number</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">number</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>          <span class="c1">// 用0表示结束</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="n">va_end</span><span class="p">(</span><span class="n">args</span><span class="p">);</span> <span class="c1">// 5. 清理</span>
+</span><span class='line'>    <span class="k">return</span>  <span class="n">sum</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="c1">// 调用</span>
+</span><span class='line'><span class="n">sum</span> <span class="o">=</span> <span class="n">addemUp</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// sum = 15</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>要创建一个可变参数函数，需要把一个省略号（&hellip;)放在函数的参数列表后面。</li>
+<li>接着需要声明一个一个<code>va_list</code>类型的变量，这个<code>va_list</code>类型的变量类似于一个指向参数的指针。</li>
+<li>接着我们调用<code>va_start()</code>并传入函数的最后一个声明的参数的变量名，来使得<code>va_list</code>变量指向第一个附加的参数。</li>
+<li>接着我们调用<code>va_arg()</code>并传入我们期待的参数类型，程序就会返回与该类型匹配数量的字节（即参数的值），并且移动<code>va_list</code>指向下一个参数。之后不断的调用<code>va_arg()</code>，获得更多的参数的值，直到完成整个参数处理的过程。</li>
+<li>最后调用<code>va_end()</code>来进行清理。</li>
+</ol>
+
+
+<h2>variable argument lists 的内部机制</h2>
+
+<p>如我们之前所说，当我们调用<code>va_start()</code>并将<code>va_list</code>和函数最后定义的参数传入时，实际上是将<code>va_list</code>内在的一个指针指向函数调用栈 （<a href="http://en.wikipedia.org/wiki/Call_stack#Functions_of_the_call_stack">call stack</a>）中参数所在的区域的一端，每一次我们调用<code>va_arg()</code>，其都会根据提供的类型，返回当前指针所指向的地址开始对应的字节数的数据，即参数的值，并移动指针相应字节数的距离。我们传给<code>va_arg()</code>的类型，即是其用来判定需要取得得数据的大小，以及指针需要移动的距离。如图描述了这个过程：</p>
+
+<p><img src="/assets/post/val0.png" alt="call stack" style="width: 600px;"/></p>
+
+<p>事实上，这是一个很危险的事情，你总是需要提供正确的类型来让<code>va_arg()</code>正确执行，而且<code>va_arg()</code>并不知道何时停止，你需要提供一个标记或一个参数的总数来停止<code>va_arg()</code>继续执行。若你提供了不正确的类型，或者没有在该停止的时候停止，你将会获得不可预测的值，并且很有可能导致程序崩溃。</p>
+
+<h2>解决方案</h2>
+
+<p>一般而言，为了确保参数的获取正确进行，有如下两种解决方案：</p>
+
+<h3>Format string</h3>
+
+<p>如C语言中的<code>printf</code>，Cocoa中的<code>NSLog</code>，<code>[NSString stringWithFormat:]</code>就是使用了Format String的解决方案。通常，该函数的第一个参数既为一个format string，函数内部实现会扫描这个format string，来确定之后接着的可变参数的数量和类型。例如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">str</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithFormat:</span><span class="s">@&quot;int %d, str %@, float %g&quot;</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span> <span class="s">@&quot;ok&quot;</span><span class="p">,</span> <span class="mf">123.4</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这里使用了%作为转义符，其后跟着的d代表int，@代表id，g代表float/double，这表示后面必须有三个参数，其类型必须与format string所指定的一致。</p>
+
+<p>如之前所说，提供的参数的数量或者类型若与提供的format string不一致，则会发生不可预知的问题。而在运行的时候，我们没有任何的办法去保证其正确性，幸运的是编译器提供了一些方法，能让我们在编译的时候做一些检查：</p>
+
+<p>gcc中定义了<code>__attribute__((format))</code>来标示一个可变参函数使用了format string，从而在编译时对其进行检查。其定义为<code>format (archetype, string-index, first-to-check)</code>，其中<code>archetype</code>代表format string的类型，它可以是<code>printf</code>，<code>scanf</code>，<code>strftime</code>或者<code>strfmon</code>，Cocoa开发者还可以使用<code>__NSString__</code>来指定其使用和<code>[NSString stringWithFormat:]</code>与<code>NSLog()</code>一致的format string规则。<code>string-index</code>代表format string是第几个参数，<code>first-to-check</code>则代表了可变参数列表从第几个参数开始。示例：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// 第一个参数是format，第二个参数起是可变参数列表，format的格式规则与printf一致</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">customPrintf</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">format</span><span class="p">,</span> <span class="p">...)</span> <span class="n">__attribute__</span><span class="p">((</span><span class="n">format</span><span class="p">(</span><span class="n">printf</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)));</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 使用的时候，若format和参数不符，则会报warning</span>
+</span><span class='line'><span class="n">customPrintf</span><span class="p">(</span><span class="s">&quot;what? %d&quot;</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cocoa开发者可以使用<code>NS_FORMAT_FUNCTION(F,A)</code>宏来替代<code>__atribute__format</code>，F和A即对应<code>string-index</code>和<code>first-to-check</code>，事实上，他的实现类似于：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#define NS_FORMAT_FUNCTION(F,A) __attribute__((format(__NSString__, F, A)))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>示例如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">FOUNDATION_EXPORT</span> <span class="kt">void</span> <span class="nf">NSLog</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="n">format</span><span class="p">,</span> <span class="p">...)</span> <span class="n">NS_FORMAT_FUNCTION</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Sentinel value</h3>
+
+<p>哨兵值是另一种可变参数列表所常用的方案，如前一节我们的示例代码，即是使用了数字0作为哨兵值。当程序发现当前读取到的参数值为0时，则停止继续读取程序。在Cocoa中，我们经常使用<code>nil</code>作为哨兵值，比如<code>[NSArray arrayWithObjects:]</code>方法，其接受数量不等的对象作为参数，而在最后则必须使用nil结尾。如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">NSArray</span> <span class="nl">arrayWithObjects:</span><span class="err">@</span><span class="mi">1</span><span class="p">,</span> <span class="err">@</span><span class="mi">2</span><span class="p">,</span> <span class="err">@</span><span class="mi">3</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="c1">//备注：我们现在通常使用@[@1, @2, @3]来代替这一行代码，且不需要在最后添加nil，这称为字面量（Literals)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>同format string一样危险的是，若开发者调用方法（函数）的时候，忘记在最后添加上哨兵值，则会发生不可预知的问题。同样幸运的是，编译器也为我们提供了一些方法来在编译时进行检查。</p>
+
+<p>gcc中定义了<code>___attribute__((sentinel))</code>来标示一个函数需要在编译的时候对哨兵值进行检查。用法如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="nf">addemUp</span> <span class="p">(</span><span class="kt">int</span> <span class="n">firstNum</span><span class="p">,</span> <span class="p">...)</span> <span class="n">__attribute__</span><span class="p">((</span><span class="n">sentinel</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cocoa开发者可以使用<code>NS_REQUIRES_NIL_TERMINATION</code>宏来替代，其实现基本等同于上述代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">+</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">arrayWithObjects:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">firstObj</span><span class="p">,</span> <span class="p">...</span> <span class="n">NS_REQUIRES_NIL_TERMINATION</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>工程实例</h2>
+
+<p>我在开发猿题库iOS客户端时，由于产品的需要会有许多alert弹框。但传统的<code>UIAlertView</code>经常需要实现相应的<code>UIAlertViewDelegate</code>，使用起来非常不便。我写了一个能够接收block作为回调的自定义的AlertView组件，同时为了保证其接口与<code>UIAlertView</code>基本一致，使用了可变参数列表。其接口定义如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@interface</span> <span class="nc">CYAlertView</span> : <span class="nc">UIAlertView</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">initWithTitle:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">title</span>
+</span><span class='line'>            <span class="nf">message:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">message</span>
+</span><span class='line'>         <span class="nf">clickedBlock:</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">CYAlertView</span> <span class="o">*</span><span class="n">alertView</span><span class="p">,</span> <span class="kt">BOOL</span> <span class="n">cancelled</span><span class="p">,</span> <span class="n">NSInteger</span> <span class="n">buttonIndex</span><span class="p">))</span><span class="nv">clickedBlock</span>
+</span><span class='line'>  <span class="nf">cancelButtonTitle:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">cancelButtonTitle</span>
+</span><span class='line'>  <span class="nf">otherButtonTitles:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">otherButtonTitles</span><span class="p">,</span> <span class="p">...</span> <span class="n">NS_REQUIRES_NIL_TERMINATION</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>完整的代码开源托管在GitHub（<a href="https://github.com/lancy/cyalertview">传送门</a>），有兴趣的同学可以参考。</p>
+
+<h2>联系我</h2>
+
+<p>水平有限，若有任何关于该文章的疑问或者指正，欢迎和我讨论</p>
+
+<ul>
+<li>写邮件：lancy1014#gmail.com</li>
+<li>关注我的<a href="http://weibo.com/lancy1014/">微博</a></li>
+<li>Fo我的<a href="http://github.com/lancy">Github</a></li>
+<li>在这里写评论留言</li>
+</ul>
+
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://clang.llvm.org/docs/AttributeReference.html#format-gnu-format">Clang 3.5 documentation: Attributes in Clang</a></li>
+<li><a href="http://gcc.gnu.org/onlinedocs/gcc/Function-Attributes.html">GCC documentation: Function Attributes</a></li>
+<li><a href="http://nshipster.com/__attribute__/">NSHisper: <strong>attribute</strong> </a></li>
+<li>Advanced Mac OS X Programming</li>
+</ul>
+
+
+<p>lancy</p>
+
+<p>2014.5.12</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-05T00:11:00+08:00" pubdate data-updated="true">May 5<span>th</span>, 2014</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/ios/'>iOS</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2014/05/05/variable-argument-lists/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -193,7 +426,7 @@
 <span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// objc to cf</span>
 </span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">nsStr</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="n">createSomeNSString</span><span class="p">];</span>
-</span><span class='line'><span class="n">CFStringRef</span> <span class="o">*</span><span class="n">cfStr</span> <span class="o">=</span> <span class="p">(</span><span class="n">__bridge</span> <span class="n">CFStringRef</span><span class="p">)</span><span class="n">nsStr</span><span class="p">;</span>
+</span><span class='line'><span class="n">CFStringRef</span> <span class="n">cfStr</span> <span class="o">=</span> <span class="p">(</span><span class="n">__bridge</span> <span class="n">CFStringRef</span><span class="p">)</span><span class="n">nsStr</span><span class="p">;</span>
 </span><span class='line'><span class="n">CFUseCFString</span><span class="p">(</span><span class="n">cfStr</span><span class="p">);</span>
 </span><span class='line'><span class="c1">// CFRelease(cfStr); 不需要</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -229,7 +462,7 @@
 <span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// objc to cf</span>
 </span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">nsStr</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="n">createSomeNSString</span><span class="p">];</span>
-</span><span class='line'><span class="n">CFStringRef</span> <span class="o">*</span><span class="n">cfStr</span> <span class="o">=</span> <span class="p">(</span><span class="n">__bridge_retained</span> <span class="n">CFStringRef</span><span class="p">)</span><span class="n">nsStr</span><span class="p">;</span>
+</span><span class='line'><span class="n">CFStringRef</span> <span class="n">cfStr</span> <span class="o">=</span> <span class="p">(</span><span class="n">__bridge_retained</span> <span class="n">CFStringRef</span><span class="p">)</span><span class="n">nsStr</span><span class="p">;</span>
 </span><span class='line'><span class="n">CFUseCFString</span><span class="p">(</span><span class="n">cfStr</span><span class="p">);</span>
 </span><span class='line'><span class="n">CFRelease</span><span class="p">(</span><span class="n">cfStr</span><span class="p">);</span> <span class="c1">// 需要</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -2171,143 +2404,6 @@
 </div>
 	
 	<div class="comments"><a href="/blog/2013/05/02/OSX-iOS-Threading-Programming/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/03/05/modern-objective-c/">
-		
-			Modern Objective-C</a>
-	</h2>
-	<div class="entry-content">
-		<h2>前言</h2>
-
-<p>Objective-C已经出道了30多年，即使是iOS，也已经面世了5年之久，期间Objective-C和LLVM Clang都已经有了巨大的变化，这篇文章主要是描述一下Modern Objective-C Style。</p>
-
-<p>在写这篇文章的时候，我本打算完整的描述一下我理解的现代Objective-C是如何，然后发现唐巧的blog上已经有一了一篇很好的博文：<a href="http://blog.devtang.com/blog/2012/08/05/use-modern-objective-c/">Objective-C新特性</a>，大家可以先行阅读，我主要对他的博文进行补充。</p>
-
-<h2>使用ARC</h2>
-
-<p>我不想解释更多了，ARC虽说不是万能的，但在工程效率高于一切，速度就是王道的今天，ARC可以省下大量的时间。更何况，为什么总有人认为这些机械的内存管理，自己要做的比机器好呢？</p>
-
-<p>想了解更多的ARC的信息，推荐Ray的arc教程</p>
-
-<ul>
-<li><a href="http://www.raywenderlich.com/5677/beginning-arc-in-ios-5-part-1">http://www.raywenderlich.com/5677/beginning-arc-in-ios-5-part-1</a></li>
-<li><p><a href="http://www.raywenderlich.com/5773/beginning-arc-in-ios-5-tutorial-part-2">http://www.raywenderlich.com/5773/beginning-arc-in-ios-5-tutorial-part-2</a></p>
-
-<h2>New Object Literals 和 Subscripting</h2>
-
-参见唐巧的博文
-
-<h2>关于instance variables和property和methods</h2>
-
-<p>我之前写了一篇<a href="http://gracelancy.com/?p=88">博文</a>，引起了一些朋友的讨论。这里主要描述，在modern objective-c下，我们怎么写类里面的各种成员。</p></li>
-<li><p>你不再需要声明声明property的时候又声明instance variables，当你声明一个property的时候，编译器就会自动的帮你声明一个instance variable。</p></li>
-<li>你不再需要@synthesize，当你声明了@property的时候，编译器会自动帮你@synthesize，同时帮你指定好你的instance variable的名称为_var。</li>
-<li>即使你确实喜欢自己声明instance variables和自己@synthesize，那么你也不应该违反_var的命名形式。</li>
-<li>你不再需要Forward declaration，（只适用OBJC）</li>
-<li><strong>把所有私有的东西从.h文件移动到.m文件</strong></li>
-</ul>
-
-
-<p>强调一下，上面说的第五条，把所有私有的东西从.h文件移动到.m文件，可以说就是“old-fashioned” 和 modern OBJC的最大区别。具体有如下几点：</p>
-
-<ol>
-<li>你可以把需要私有的property从h文件移到m文件，这样外界将无法直接访问。
-
-<ul>
-<li>记住IBOutlet也是可以移到m文件的。</li>
-</ul>
-</li>
-<li>你可以把私有的instance variables从h文件移到m文件。这里可以移到两个地方：
-
-<ul>
-<li>.m文件的@interace</li>
-<li>.m文件的@implementation</li>
-</ul>
-</li>
-<li>你可以把类需要实现的protocol从h文件移到m文件，当你认为其不需要暴露给外部知道时。</li>
-<li>如之前所说，你不再需要前置声明，所以私有方法，可以直接从.h文件中删除。当然你也可以放在.m文件的@interface里。
-
-<ul>
-<li>记住IBOutlet也可以直接连到.m文件中，不需要连到@interface里面做前置声明。</li>
-</ul>
-</li>
-</ol>
-
-
-<p>注意：有时候你会奇怪，为什么有的程序有instance variables，有些却没有。这里暂时还没有一个明确的定论，只是不同风格有不同的写法。有些人喜欢为所有的东西创建property，而有些人却不愿意为私有成员创建property。</p>
-
-<p>就我个人而言，是习惯于为所有的东西创建property的，然后将私有的proerty移到m文件中。为什么使用property呢？这里有一个来自苹果工程师Paul（在stanford上课的那位）在课上的解释：</p>
-
-<p>Why property？</p>
-
-<p>Most importantly, it provides safety and subclassablility for instance variables. Also provides “value” for lazy instantiation, UI updating, consistency checking, etc.</p>
-
-<h2>使用Block</h2>
-
-<ul>
-<li>可以使用block来代替delegate</li>
-<li>可以使用block来遍历容器。</li>
-</ul>
-
-
-<p>Block通常意味着Do more with less code</p>
-
-<h2>关于property的权限，对外readonly对内readwrite的property</h2>
-
-<p>你可以在.h文件里设置一个权限readonly的property，并在.m文件设置一个权限为readwrite的同样的property，这时，你的property对外是只读的，对内却是可读写。</p>
-
-<p>EDIT:补充关于最后这个的样例说明
-在类的.h文件的interface下声明一个</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">readonly</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">testString</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>再在.m文件的interface下声明一个</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="k">@property</span> <span class="p">(</span><span class="n">nonatomic</span><span class="p">,</span> <span class="n">strong</span><span class="p">,</span> <span class="n">readwrite</span><span class="p">)</span> <span class="n">NSString</span> <span class="o">*</span><span class="n">testString</span><span class="p">;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>此时在类内部可以对该变量进行修改，但在类外部修改会被编译器报错为readonly。</p>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-05T00:00:00+08:00" pubdate data-updated="true">Mar 5<span>th</span>, 2013</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/ios/'>iOS</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2013/03/05/modern-objective-c/#disqus_thread">Comments</a></div>
 	
 </div>
 </article>

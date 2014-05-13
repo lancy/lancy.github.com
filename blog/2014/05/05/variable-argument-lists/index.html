@@ -1,0 +1,362 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Variable Argument Lists - Lancy's Blog</title>
+	<meta name="author" content="Lancy">
+
+	
+	<meta name="description" content="Variable argument lists 使用方法 可变参数函数（Variadic Function），即是指一个可以接受可变数量的参数的函数。在C语言中，对该特性的支持，即是通过可变参数列表（Variable Argument list）来实现的，其定义在stdarg.h头文件。(若使用C &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Lancy's Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">Lancy's Blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="https://github.com/lancy/cyhelper">CYHelper</a></li>
+	<li><a href="/about">About Me</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="https://github.com/lancy/cyhelper">CYHelper</a></li>
+	<li><a href="/about">About Me</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:gracelancy.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="weibo" href="http://weibo.com/lancy1014"
+            title="Weibo">Weibo</a>
+		
+		
+		<a class="github" href="https://github.com/lancy" title="GitHub">GitHub</a>
+		
+    
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+    
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:gracelancy.com">
+	</form>
+</nav>
+
+</header>
+	
+		
+	
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Variable Argument Lists</h2>
+	<div class="entry-content"><h2>Variable argument lists 使用方法</h2>
+
+<p>可变参数函数（Variadic Function），即是指一个可以接受可变数量的参数的函数。在C语言中，对该特性的支持，即是通过可变参数列表（Variable Argument list）来实现的，其定义在<code>stdarg.h</code>头文件。(若使用C++则在<code>cstdarg</code>头文件)。</p>
+
+<p>以如下C代码为例说明，该函数接受可变数量的整数作为参数，求和：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="nf">addemUp</span> <span class="p">(</span><span class="kt">int</span> <span class="n">firstNum</span><span class="p">,</span> <span class="p">...)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="c1">// 1. 参数后面添加省略号...</span>
+</span><span class='line'>    <span class="kt">va_list</span> <span class="n">args</span><span class="p">;</span>  <span class="c1">// 2. 创建一个va_list类型的变量</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">firstNum</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">number</span><span class="p">;</span>
+</span><span class='line'>    <span class="n">va_start</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">firstNum</span><span class="p">);</span> <span class="c1">// 3. 初始化va_list，此时va_list指向firstNum之后的第一个参数</span>
+</span><span class='line'>    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">number</span> <span class="o">=</span> <span class="n">va_arg</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span> <span class="c1">// 4. 获取当前指向的参数的值，并移动到下一个参数</span>
+</span><span class='line'>        <span class="n">sum</span> <span class="o">+=</span> <span class="n">number</span><span class="p">;</span>
+</span><span class='line'>        <span class="k">if</span> <span class="p">(</span><span class="n">number</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>          <span class="c1">// 用0表示结束</span>
+</span><span class='line'>            <span class="k">break</span><span class="p">;</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="n">va_end</span><span class="p">(</span><span class="n">args</span><span class="p">);</span> <span class="c1">// 5. 清理</span>
+</span><span class='line'>    <span class="k">return</span>  <span class="n">sum</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="c1">// 调用</span>
+</span><span class='line'><span class="n">sum</span> <span class="o">=</span> <span class="n">addemUp</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+</span><span class='line'><span class="c1">// sum = 15</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ol>
+<li>要创建一个可变参数函数，需要把一个省略号（&hellip;)放在函数的参数列表后面。</li>
+<li>接着需要声明一个一个<code>va_list</code>类型的变量，这个<code>va_list</code>类型的变量类似于一个指向参数的指针。</li>
+<li>接着我们调用<code>va_start()</code>并传入函数的最后一个声明的参数的变量名，来使得<code>va_list</code>变量指向第一个附加的参数。</li>
+<li>接着我们调用<code>va_arg()</code>并传入我们期待的参数类型，程序就会返回与该类型匹配数量的字节（即参数的值），并且移动<code>va_list</code>指向下一个参数。之后不断的调用<code>va_arg()</code>，获得更多的参数的值，直到完成整个参数处理的过程。</li>
+<li>最后调用<code>va_end()</code>来进行清理。</li>
+</ol>
+
+
+<h2>variable argument lists 的内部机制</h2>
+
+<p>如我们之前所说，当我们调用<code>va_start()</code>并将<code>va_list</code>和函数最后定义的参数传入时，实际上是将<code>va_list</code>内在的一个指针指向函数调用栈 （<a href="http://en.wikipedia.org/wiki/Call_stack#Functions_of_the_call_stack">call stack</a>）中参数所在的区域的一端，每一次我们调用<code>va_arg()</code>，其都会根据提供的类型，返回当前指针所指向的地址开始对应的字节数的数据，即参数的值，并移动指针相应字节数的距离。我们传给<code>va_arg()</code>的类型，即是其用来判定需要取得得数据的大小，以及指针需要移动的距离。如图描述了这个过程：</p>
+
+<p><img src="/assets/post/val0.png" alt="call stack" style="width: 600px;"/></p>
+
+<p>事实上，这是一个很危险的事情，你总是需要提供正确的类型来让<code>va_arg()</code>正确执行，而且<code>va_arg()</code>并不知道何时停止，你需要提供一个标记或一个参数的总数来停止<code>va_arg()</code>继续执行。若你提供了不正确的类型，或者没有在该停止的时候停止，你将会获得不可预测的值，并且很有可能导致程序崩溃。</p>
+
+<h2>解决方案</h2>
+
+<p>一般而言，为了确保参数的获取正确进行，有如下两种解决方案：</p>
+
+<h3>Format string</h3>
+
+<p>如C语言中的<code>printf</code>，Cocoa中的<code>NSLog</code>，<code>[NSString stringWithFormat:]</code>就是使用了Format String的解决方案。通常，该函数的第一个参数既为一个format string，函数内部实现会扫描这个format string，来确定之后接着的可变参数的数量和类型。例如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">str</span> <span class="o">=</span> <span class="p">[</span><span class="n">NSString</span> <span class="nl">stringWithFormat:</span><span class="s">@&quot;int %d, str %@, float %g&quot;</span><span class="p">,</span> <span class="mi">123</span><span class="p">,</span> <span class="s">@&quot;ok&quot;</span><span class="p">,</span> <span class="mf">123.4</span><span class="p">];</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这里使用了%作为转义符，其后跟着的d代表int，@代表id，g代表float/double，这表示后面必须有三个参数，其类型必须与format string所指定的一致。</p>
+
+<p>如之前所说，提供的参数的数量或者类型若与提供的format string不一致，则会发生不可预知的问题。而在运行的时候，我们没有任何的办法去保证其正确性，幸运的是编译器提供了一些方法，能让我们在编译的时候做一些检查：</p>
+
+<p>gcc中定义了<code>__attribute__((format))</code>来标示一个可变参函数使用了format string，从而在编译时对其进行检查。其定义为<code>format (archetype, string-index, first-to-check)</code>，其中<code>archetype</code>代表format string的类型，它可以是<code>printf</code>，<code>scanf</code>，<code>strftime</code>或者<code>strfmon</code>，Cocoa开发者还可以使用<code>__NSString__</code>来指定其使用和<code>[NSString stringWithFormat:]</code>与<code>NSLog()</code>一致的format string规则。<code>string-index</code>代表format string是第几个参数，<code>first-to-check</code>则代表了可变参数列表从第几个参数开始。示例：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="c1">// 第一个参数是format，第二个参数起是可变参数列表，format的格式规则与printf一致</span>
+</span><span class='line'><span class="kt">void</span> <span class="nf">customPrintf</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">format</span><span class="p">,</span> <span class="p">...)</span> <span class="n">__attribute__</span><span class="p">((</span><span class="n">format</span><span class="p">(</span><span class="n">printf</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)));</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// 使用的时候，若format和参数不符，则会报warning</span>
+</span><span class='line'><span class="n">customPrintf</span><span class="p">(</span><span class="s">&quot;what? %d&quot;</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cocoa开发者可以使用<code>NS_FORMAT_FUNCTION(F,A)</code>宏来替代<code>__atribute__format</code>，F和A即对应<code>string-index</code>和<code>first-to-check</code>，事实上，他的实现类似于：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#define NS_FORMAT_FUNCTION(F,A) __attribute__((format(__NSString__, F, A)))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>示例如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="n">FOUNDATION_EXPORT</span> <span class="kt">void</span> <span class="nf">NSLog</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="n">format</span><span class="p">,</span> <span class="p">...)</span> <span class="n">NS_FORMAT_FUNCTION</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Sentinel value</h3>
+
+<p>哨兵值是另一种可变参数列表所常用的方案，如前一节我们的示例代码，即是使用了数字0作为哨兵值。当程序发现当前读取到的参数值为0时，则停止继续读取程序。在Cocoa中，我们经常使用<code>nil</code>作为哨兵值，比如<code>[NSArray arrayWithObjects:]</code>方法，其接受数量不等的对象作为参数，而在最后则必须使用nil结尾。如：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">NSArray</span> <span class="nl">arrayWithObjects:</span><span class="err">@</span><span class="mi">1</span><span class="p">,</span> <span class="err">@</span><span class="mi">2</span><span class="p">,</span> <span class="err">@</span><span class="mi">3</span><span class="p">,</span> <span class="nb">nil</span><span class="p">];</span>
+</span><span class='line'><span class="c1">//备注：我们现在通常使用@[@1, @2, @3]来代替这一行代码，且不需要在最后添加nil，这称为字面量（Literals)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>同format string一样危险的是，若开发者调用方法（函数）的时候，忘记在最后添加上哨兵值，则会发生不可预知的问题。同样幸运的是，编译器也为我们提供了一些方法来在编译时进行检查。</p>
+
+<p>gcc中定义了<code>___attribute__((sentinel))</code>来标示一个函数需要在编译的时候对哨兵值进行检查。用法如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="nf">addemUp</span> <span class="p">(</span><span class="kt">int</span> <span class="n">firstNum</span><span class="p">,</span> <span class="p">...)</span> <span class="n">__attribute__</span><span class="p">((</span><span class="n">sentinel</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Cocoa开发者可以使用<code>NS_REQUIRES_NIL_TERMINATION</code>宏来替代，其实现基本等同于上述代码：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">+</span> <span class="p">(</span><span class="n">instancetype</span><span class="p">)</span><span class="nf">arrayWithObjects:</span><span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nv">firstObj</span><span class="p">,</span> <span class="p">...</span> <span class="n">NS_REQUIRES_NIL_TERMINATION</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>工程实例</h2>
+
+<p>我在开发猿题库iOS客户端时，由于产品的需要会有许多alert弹框。但传统的<code>UIAlertView</code>经常需要实现相应的<code>UIAlertViewDelegate</code>，使用起来非常不便。我写了一个能够接收block作为回调的自定义的AlertView组件，同时为了保证其接口与<code>UIAlertView</code>基本一致，使用了可变参数列表。其接口定义如下：</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="k">@interface</span> <span class="nc">CYAlertView</span> : <span class="nc">UIAlertView</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">-</span> <span class="p">(</span><span class="kt">id</span><span class="p">)</span><span class="nf">initWithTitle:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">title</span>
+</span><span class='line'>            <span class="nf">message:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">message</span>
+</span><span class='line'>         <span class="nf">clickedBlock:</span><span class="p">(</span><span class="kt">void</span> <span class="p">(</span><span class="o">^</span><span class="p">)(</span><span class="n">CYAlertView</span> <span class="o">*</span><span class="n">alertView</span><span class="p">,</span> <span class="kt">BOOL</span> <span class="n">cancelled</span><span class="p">,</span> <span class="n">NSInteger</span> <span class="n">buttonIndex</span><span class="p">))</span><span class="nv">clickedBlock</span>
+</span><span class='line'>  <span class="nf">cancelButtonTitle:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">cancelButtonTitle</span>
+</span><span class='line'>  <span class="nf">otherButtonTitles:</span><span class="p">(</span><span class="n">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nv">otherButtonTitles</span><span class="p">,</span> <span class="p">...</span> <span class="n">NS_REQUIRES_NIL_TERMINATION</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">@end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>完整的代码开源托管在GitHub（<a href="https://github.com/lancy/cyalertview">传送门</a>），有兴趣的同学可以参考。</p>
+
+<h2>联系我</h2>
+
+<p>水平有限，若有任何关于该文章的疑问或者指正，欢迎和我讨论</p>
+
+<ul>
+<li>写邮件：lancy1014#gmail.com</li>
+<li>关注我的<a href="http://weibo.com/lancy1014/">微博</a></li>
+<li>Fo我的<a href="http://github.com/lancy">Github</a></li>
+<li>在这里写评论留言</li>
+</ul>
+
+
+<h2>参考</h2>
+
+<ul>
+<li><a href="http://clang.llvm.org/docs/AttributeReference.html#format-gnu-format">Clang 3.5 documentation: Attributes in Clang</a></li>
+<li><a href="http://gcc.gnu.org/onlinedocs/gcc/Function-Attributes.html">GCC documentation: Function Attributes</a></li>
+<li><a href="http://nshipster.com/__attribute__/">NSHisper: <strong>attribute</strong> </a></li>
+<li>Advanced Mac OS X Programming</li>
+</ul>
+
+
+<p>lancy</p>
+
+<p>2014.5.12</p>
+</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-05T00:11:00+08:00" pubdate data-updated="true">May 5<span>th</span>, 2014</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/ios/'>iOS</a>
+
+
+</div>
+	
+	<div class="comments"><a href="#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		
+		
+		
+	</div>
+	
+</div>
+
+
+
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</section>
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2014
+
+    Lancy
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'gracelancy';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://gracelancy.com/blog/2014/05/05/variable-argument-lists/';
+        var disqus_url = 'http://gracelancy.com/blog/2014/05/05/variable-argument-lists/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+</body>
+</html>

@@ -184,7 +184,7 @@
 <span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// objc to cf</span>
 </span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">nsStr</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="n">createSomeNSString</span><span class="p">];</span>
-</span><span class='line'><span class="n">CFStringRef</span> <span class="o">*</span><span class="n">cfStr</span> <span class="o">=</span> <span class="p">(</span><span class="n">__bridge</span> <span class="n">CFStringRef</span><span class="p">)</span><span class="n">nsStr</span><span class="p">;</span>
+</span><span class='line'><span class="n">CFStringRef</span> <span class="n">cfStr</span> <span class="o">=</span> <span class="p">(</span><span class="n">__bridge</span> <span class="n">CFStringRef</span><span class="p">)</span><span class="n">nsStr</span><span class="p">;</span>
 </span><span class='line'><span class="n">CFUseCFString</span><span class="p">(</span><span class="n">cfStr</span><span class="p">);</span>
 </span><span class='line'><span class="c1">// CFRelease(cfStr); 不需要</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -220,7 +220,7 @@
 <span class='line-number'>5</span>
 </pre></td><td class='code'><pre><code class='objective-c'><span class='line'><span class="c1">// objc to cf</span>
 </span><span class='line'><span class="n">NSString</span> <span class="o">*</span><span class="n">nsStr</span> <span class="o">=</span> <span class="p">[</span><span class="n">self</span> <span class="n">createSomeNSString</span><span class="p">];</span>
-</span><span class='line'><span class="n">CFStringRef</span> <span class="o">*</span><span class="n">cfStr</span> <span class="o">=</span> <span class="p">(</span><span class="n">__bridge_retained</span> <span class="n">CFStringRef</span><span class="p">)</span><span class="n">nsStr</span><span class="p">;</span>
+</span><span class='line'><span class="n">CFStringRef</span> <span class="n">cfStr</span> <span class="o">=</span> <span class="p">(</span><span class="n">__bridge_retained</span> <span class="n">CFStringRef</span><span class="p">)</span><span class="n">nsStr</span><span class="p">;</span>
 </span><span class='line'><span class="n">CFUseCFString</span><span class="p">(</span><span class="n">cfStr</span><span class="p">);</span>
 </span><span class='line'><span class="n">CFRelease</span><span class="p">(</span><span class="n">cfStr</span><span class="p">);</span> <span class="c1">// 需要</span>
 </span></code></pre></td></tr></table></div></figure>
