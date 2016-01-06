@@ -7,7 +7,7 @@
 	<meta name="author" content="Lancy">
 
 	
-	<meta name="description" content="Variable argument lists 使用方法 可变参数函数（Variadic Function），即是指一个可以接受可变数量的参数的函数。在C语言中，对该特性的支持，即是通过可变参数列表（Variable Argument list）来实现的，其定义在stdarg.h头文件。( &hellip;">
+	<meta name="description" content="序 猿题库是一个拥有数千万用户的创业公司，从2013年题库项目起步到2015年，团队保持了极高的生产效率，使我们的产品完成了五个大版本和数十个小版本的高速迭代。在如此快速的开发过程中，如何保证代码的质量，降低后期维护的成本，以及为项目越来越快的版本迭代速度提供支持，成为了我们关注的重要问题。 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -82,6 +82,495 @@
 		
 	
 	<div id="content" class="inner">
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2016/01/06/ape-ios-arch-design/">
+		
+			猿题库 iOS 客户端架构设计</a>
+	</h2>
+	<div class="entry-content">
+		<h2>序</h2>
+
+<p>猿题库是一个拥有数千万用户的创业公司，从2013年题库项目起步到2015年，团队保持了极高的生产效率，使我们的产品完成了五个大版本和数十个小版本的高速迭代。在如此快速的开发过程中，如何保证代码的质量，降低后期维护的成本，以及为项目越来越快的版本迭代速度提供支持，成为了我们关注的重要问题。这篇文章将阐明我们在猿题库 iOS 客户端的架构设计。</p>
+
+<h2>MVC</h2>
+
+<p>MVC，Model-View-Controller，我们从这个古老而经典的设计模式入手。采用 MVC 这个架构的最大的优点在于其概念简单，易于理解，几乎任何一个程序员都会有所了解，几乎每一所计算机院校都教过相关的知识。而在 iOS 客户端开发中，MVC 作为官方推荐的主流架构，不但 SDK 已经为我们实现好了 UIView、UIViewController 等相关的组件，更是有大量的文档和范例供我们参考学习，可以说是一种非常通用而成熟的架构设计。</p>
+
+<p>但 MVC 也有他的坏处。由于 MVC 的概念过于简单朴素，已经越来越难以适应如今客户端的需求，大量的代码逻辑在 MVC 中并没有定义得很清楚究竟应该放在什么地方，导致他们很容易就会堆积在 Controller 里，成为了人们所说的 Massive View Controller。</p>
+
+<h2>MVVM</h2>
+
+<p>MVVM，Model-View-ViewModel，一个从 MVC 模式中进化而来的设计模式，最早于2005年被微软的 WPF 和 Silverlight 的架构师 John Gossman 提出。在 iOS 开发中实践 MVVM 的话，通常会把大量原来放在 ViewController 里的视图逻辑和数据逻辑移到 ViewModel 里，从而有效的减轻了 ViewController 的负担。另外通过分离出来的 ViewModel 获得了更好的测试性，我们可以针对 ViewModel 来测试，解决了界面元素难于测试的问题。MVVM 通常还会和一个强大的绑定机制一同工作，一旦 ViewModel 所对应的 Model 发生变化时，ViewModel 的属性也会发生变化，而相对应的 View 也随即产生变化。</p>
+
+<p>同样的，MVVM 也有他的缺点：</p>
+
+<p>一个首要的缺点是，MVVM 的学习成本和开发成本都很高。MVVM 是一个年轻的设计模式，大多数人对他的了解都不如 MVC 熟悉，基于绑定机制来进行编程需要一定的学习才能较好的上手。同时在 iOS 客户端开发中，并没有现成的绑定机制可以使用，要么使用 KVO，要么引入类似 ReactiveCocoa 这样的第三方库，使得学习成本和开发成本进一步提高。</p>
+
+<p>另一个缺点是，数据绑定使 Debug 变得更难了。数据绑定使程序异常能快速的传递到其他位置，在界面上发现的 Bug 有可能是由 ViewModel 造成的，也有可能是由 Model 层造成的，传递链越长，对 Bug 的定位就越困难。</p>
+
+<p>同时还必须指出的是，在传统的 MVVM 架构中，ViewModel 依然承载的大量的逻辑，包括业务逻辑，界面逻辑，数据存储和网络相关，使得 ViewModel 仍然有可能变得和 MVC 中 ViewController 一样臃肿。</p>
+
+<h2>在两种架构中权衡而产生的架构</h2>
+
+<p>两种架构的优点都想要，缺点又都想避开，我们在两种架构中权衡了他们的优缺点，设计出了一个新的架构，起了一个名字叫：MVVM without Binding with DataController，架构图如下：</p>
+
+<p><img src="/assets/post/arch0.png" alt="Drawing" style="width: 640px;"/></p>
+
+<h3>ViewModel</h3>
+
+<p>先来看右边视图相关的部分，传统的 MVC 当中 ViewController 中有大量的数据展示和样式定制的逻辑，我们引入 MVVM 中 ViewModel 的概念，将这部分视图逻辑移到了 ViewModel 当中。在这个设计中，每一个 View 都会有一个对应的 ViewModel，其包含了这个 View 数据展示和样式定制所需要的所有数据。同时，我们不引入双向绑定机制或者观察机制，而是通过传统的代理回调或是通知来将 UI 事件传递给外界。而 ViewController 只需要生成一个 ViewModel 并把这个装配给对应的 View，并接受相应的 UI 事件即可。</p>
+
+<p>这样做有几个好处：首先是 View 的完全解耦合，对于 View 来说，只需要确定好相应的 ViewModel 和 UI 事件的回调接口即可与 Model 层完全隔离；而 ViewController 可以避免与 View 的具体表现打交道，这部分职责被转交给了 ViewModel，有效的减轻了 ViewController 的负担；同时我们弃用了传统绑定机制，使用了传统的易于理解的回调机制来传递 UI 事件，降低了学习成本，同时使得数据的流入和流出变得易于观察和控制，降低了维护了调适的成本。</p>
+
+<h3>DataController</h3>
+
+<p>接下来我们关注 Model 和 VC 之间的关系。如之前提到，在传统的 MVVM 中，ViewModel 接管了 ViewController 的大部分职责，包括数据获取，处理，加工等等，导致其很有可能变得臃肿。我们将这部分逻辑抽离出来，引入一个新的部件，DataController。</p>
+
+<p>ViewController 可以向 DataController 请求获取或是操作数据，也可以将一些事件传递给 DataController，这些事件可以是 UI 事件触发的。DataController 在收到这些请求后，再向 Model 层获取或是更新数据，最后再将得到的数据加工成 ViewController 最终需要的数据返回。</p>
+
+<p>这样做之后，使得数据相关的逻辑解耦合，数据的获取、修改、加工都放在 Data Controller 中处理，View Controller 不关心数据如何获得，如何处理，Data Controller 也不关心界面如何展示，如何交互。同时 Data Controller 因为完全和界面无关，所以可以有更好的测试性和复用性。</p>
+
+<p>DataController 层和 Model 层之间的界限并不是僵硬的，但需要保证每一个 ViewController 都有一个对应的 DataController。Data Controller 更强调的是其作为业务逻辑对外的接口。而在 DataController 中调用更底层的 Model 层逻辑是我们推荐的编程范式，例如数据加工层，网络层，持久层等。</p>
+
+<p>在后面的例子中，我们会更详细的讲解 DataController 的实现细节。</p>
+
+<h2>Show me the code</h2>
+
+<p>我们以猿题库主页为例，展示我们是如何使用应用这个架构的。</p>
+
+<p><img src="/assets/post/arch1.png" alt="Drawing" style="width: 320px;"/></p>
+
+<p>主页有几个部分组成，最上面的小猴子 Banner 页，用于滚动展示一些活动信息；中间有一个用户名字的页面，用于展示用户信息和答题情况以及一些心灵鸡汤；最底下的这部分是一个课目选择页面，展示了用户开启的科目入口，在更多选项里面可以进一步配置这些科目入口。接下来我们会以科目页面（SubjectView）为例展示一些细节。</p>
+
+<h3>ViewController</h3>
+
+<p>我们会给每一个 ViewController 都创建一个对应的 DataController。
+例如我们给主页建一个类起名叫<code>APEHomePraticeViewController</code>，同时他会有一个对应的 DataController 起名叫 <code>APEHomePraticeDataController</code>。同时我们把页面拆分为几个部分，每个部分有一个相对应的 SubView。代码如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@interface APEHomePracticeViewController () &lt;APEHomePracticeSubjectsViewDelegate&gt;
+</span><span class='line'>  
+</span><span class='line'>@property (nonatomic, strong, nullable) UIScrollView *contentView;
+</span><span class='line'>
+</span><span class='line'>@property (nonatomic, strong, nullable) APEHomePracticeBannerView *bannerView;
+</span><span class='line'>@property (nonatomic, strong, nullable) APEHomePracticeActivityView *activityView;
+</span><span class='line'>@property (nonatomic, strong, nullable) APEHomePracticeSubjectsView *subjectsView;
+</span><span class='line'>  
+</span><span class='line'>@property (nonatomic, strong, nullable) APEHomePracticeDataController *dataController;
+</span><span class='line'>  
+</span><span class='line'>@end
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在 <code>viewDidLoad</code> 的时候，初始化好各个 SubView，并设置好布局：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>- (void)setupContentView {
+</span><span class='line'>    self.contentView = [[UIScrollView alloc] init];
+</span><span class='line'>    [self.view addSubview:self.contentView];
+</span><span class='line'>
+</span><span class='line'>    self.bannerView = [[APEHomePracticeBannerView alloc] init];
+</span><span class='line'>    self.activityView = [[APEHomePracticeActivityView alloc] init];
+</span><span class='line'>    self.subjectsView = [[APEHomePracticeSubjectsView alloc] init];
+</span><span class='line'>    self.subjectsView.delegate = self;
+</span><span class='line'>
+</span><span class='line'>    [self.contentView addSubview:self.bannerView];
+</span><span class='line'>    [self.contentView addSubview:self.activityView];
+</span><span class='line'>    [self.contentView addSubview:self.subjectsView];
+</span><span class='line'>    // Layout Views ...
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接下来，ViewController 会向 DataController 请求 Subject 相关的数据，并在请求完成后，用获得的数据生成 ViewModel，将其装配给 SubjectView，完成界面渲染，代码如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>- (void)fetchSubjectData {
+</span><span class='line'>    [self.dataController requestSubjectDataWithCallback:^(NSError *error) {
+</span><span class='line'>        if (error == nil) {
+</span><span class='line'>            [self renderSubjectView];
+</span><span class='line'>      }
+</span><span class='line'>  }];
+</span><span class='line'>}
+</span><span class='line'>- (void)renderSubjectView {
+</span><span class='line'>    APEHomePracticeSubjectsViewModel *viewModel =
+</span><span class='line'>        [APEHomePracticeSubjectsViewModel viewModelWithSubjects:self.dataController.openSubjects];
+</span><span class='line'>    [self.subjectsView bindDataWithViewModel:viewModel];
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>数据结构</h3>
+
+<p>为了更好的演示，我们接下来要介绍一下 Subject 相关的数据结构：</p>
+
+<p><code>APESubject</code> 是科目的资源结构，包含了 Subject 的 id 和 name 等资源属性，这部分属性是用户无关的；<code>APEUserSubject</code> 是用户的科目信息，包含了用户是否打开某个学科的属性。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@interface APESubject : NSObject
+</span><span class='line'>
+</span><span class='line'>@property (nonatomic, strong, nullable) NSNumber *id;
+</span><span class='line'>@property (nonatomic, strong, nullable) NSString *name;
+</span><span class='line'>
+</span><span class='line'>@end
+</span><span class='line'>
+</span><span class='line'>@interface APEUserSubject : NSObject
+</span><span class='line'>
+</span><span class='line'>@property (nonatomic, strong, nullable) NSNumber *id;
+</span><span class='line'>@property (nonatomic, strong, nullable) NSNumber *updatedTime;
+</span><span class='line'>///  On or Off
+</span><span class='line'>@property (nonatomic) APEUserSubjectStatus status;
+</span><span class='line'>
+</span><span class='line'>@end
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>DataController</h3>
+
+<p>如我们之前所说，每一个 ViewController 都会有一个对应的 DataController，这一类 DataController 的主要职责是处理这个页面上的所有数据相关的逻辑，我们称其为 View Related Data Controller。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// APEHomePracticeDataController.h
+</span><span class='line'>@interface APEHomePracticeDataController : APEBaseDataController
+</span><span class='line'>// 1
+</span><span class='line'>@property (nonatomic, strong, nonnull, readonly) NSArray&lt;APESubject *&gt; *openSubjects;
+</span><span class='line'>// 2
+</span><span class='line'>- (void)requestSubjectDataWithCallback:(nonnull APECompletionCallback)callback;
+</span><span class='line'>
+</span><span class='line'>@end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面的这个代码</p>
+
+<ol>
+<li>我们定义了一个界面最终需要的数据的 property，这里是 <code>openSubjects</code>，这个 property 会存储用户打开的科目列表，他的类型是<code>APESubject</code>。</li>
+<li>我们还会定义一个接口来请求 openSubject 数据。</li>
+</ol>
+
+
+<p>DataController 这一层是一个灵活性很高的部件，一个 DataController 可以复用更小的 DataController，这一类更小的 DataController 通常只会包含纯粹的或是更抽象的 Model 相关的逻辑，例如网络请求，数据库请求，或是数据加工等。我们称这一类 DataController 为 Model Related Data Controller。</p>
+
+<p>Model Related Data Controller 通常会为上层提供正交的数据：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// APEHomePracticeDataController.m
+</span><span class='line'>@interface APEHomePracticeDataController ()
+</span><span class='line'>
+</span><span class='line'>@property (nonatomic, strong, nonnull) APESubjectDataController *subjectDataController;
+</span><span class='line'>
+</span><span class='line'>@end
+</span><span class='line'>
+</span><span class='line'>@implementation APEHomePracticeDataController
+</span><span class='line'>
+</span><span class='line'>- (void)requestSubjectDataWithCallback:(nonnull APECompletionCallback)callback {
+</span><span class='line'>    APEDataCallback dataCallback = ^(NSError *error, id data) {
+</span><span class='line'>        callback(error);
+</span><span class='line'>    };
+</span><span class='line'>    [self.subjectDataController requestAllSubjectsWithCallback:dataCallback];
+</span><span class='line'>    [self.subjectDataController requestUserSubjectsWithCallback:dataCallback];
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>- (nonnull NSArray&lt;APESubject *&gt; *)openSubjects {
+</span><span class='line'>    return self.subjectDataController.openSubjectsWithCurrentPhase ?: @[];
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>@end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在我们的 <code>APEHomePraticeDataController</code> 的实现中，就包含了一个 <code>APESubjectDataController</code>，这个 <code>subjectDataController</code> 会负责请求 All Subjects 和 User Subjects，并将其加工成上层所最终需要的 Open Subjects。（备注：这个例子里面的 callback 会回调多次是猿题库产品的需求，如有需要，可在这一层控制请求都完成后再调用上层回调）</p>
+
+<p>事实上，Model Related Data Controller 可以一般性的认为就是大家经常在写的 Model 层代码，例如 UserAgent，UserService，PostService 之类的服务。之后读者若想重构就项目成这个架构，大可以不必纠结于形式，直接在 DataController 里调用旧有代码的逻辑即可，如图下面这样的行为都是允许的：</p>
+
+<p><img src="/assets/post/arch2.png" alt="Drawing" style="width: 640px;"/></p>
+
+<h3>ViewModel</h3>
+
+<p>每一个 View 都会有一个对应的 ViewModel，这个 ViewModel 会包含展示这个 View 所需要的所有数据。</p>
+
+<p>我们会使用工厂方法来创建 View Model，例如这个例子里，Subject View Model 不需要关心传递给他是什么样的 Subject，所有的课目或者只是用户开启的科目。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@interface APEHomePracticeSubjectsViewModel : NSObject
+</span><span class='line'>
+</span><span class='line'>@property (nonatomic, strong, nonnull) NSArray&lt;APEHomePracticeSubjectsCollectionCellViewModel *&gt;
+</span><span class='line'>*cellViewModels;
+</span><span class='line'>
+</span><span class='line'>@property (nonatomic, strong, nonnull) UIColor *backgroundColor;
+</span><span class='line'>
+</span><span class='line'>+ (nonnull APEHomePracticeSubjectsViewModel *)viewModelWithSubjects:(nonnull NSArray&lt;APESubject *&gt;
+</span><span class='line'> *)subjects;
+</span><span class='line'>
+</span><span class='line'>@end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ViewModel 可以包含更小的 ViewModel，就像 View 可以有 SubView 一样。SubjectView 的内部是由一个<code>UICollectionView</code>实现的，所以我们也给了对应的 Cell 设计了一个 ViewModel。</p>
+
+<p>需要额外注意的是，ViewModel 一般来说会包含的显示界面所需要的所有元素，但粒度是可以控制。一般来说，我们只把会因为业务变化而变化的部分设为 ViewModel 的一部分，例如这里的 titleColor 和 backgroundColor 会因为主题不同而变化，但字体的大小（titleFont）却是不会变的，所以不需要事无巨细的都加到 ViewModel 里。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@interface APEHomePracticeSubjectsCollectionCellViewModel : NSObject
+</span><span class='line'>
+</span><span class='line'>@property (nonatomic, strong, nonnull) UIImage *image;
+</span><span class='line'>@property (nonatomic, strong, nonnull) UIImage *highlightedImage;
+</span><span class='line'>@property (nonatomic, strong, nonnull) NSString *title;
+</span><span class='line'>@property (nonatomic, strong, nonnull) UIColor *titleColor;
+</span><span class='line'>@property (nonatomic, strong, nonnull) UIColor *backgroundColor;
+</span><span class='line'>
+</span><span class='line'>+ (nonnull APEHomePracticeSubjectsCollectionCellViewModel *)viewModelWithSubject:(nonnull
+</span><span class='line'>APESubject *)subject;
+</span><span class='line'>+ (nonnull APEHomePracticeSubjectsCollectionCellViewModel *)viewModelForMore;
+</span><span class='line'>
+</span><span class='line'>@end
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>View</h3>
+
+<p>View 只需要定义好装配 ViewModel 的接口和定义好 UI 回调事件即可：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@protocol APEHomePracticeSubjectsViewDelegate &lt;NSObject&gt;
+</span><span class='line'>
+</span><span class='line'>- (void)homePracticeSubjectsView:(nonnull APEHomePracticeSubjectsView *)subjectView
+</span><span class='line'>             didPressItemAtIndex:(NSInteger)index;
+</span><span class='line'>
+</span><span class='line'>@end
+</span><span class='line'>
+</span><span class='line'>@interface APEHomePracticeSubjectsView : UIView
+</span><span class='line'>
+</span><span class='line'>@property (nonatomic, strong, nullable, readonly) APEHomePracticeSubjectsViewModel *viewModel;
+</span><span class='line'>@property (nonatomic, weak, nullable) id&lt;APEHomePracticeSubjectsViewDelegate&gt; delegate;
+</span><span class='line'>
+</span><span class='line'>- (void)bindDataWithViewModel:(nonnull APEHomePracticeSubjectsViewModel *)viewModel;
+</span><span class='line'>
+</span><span class='line'>@end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>渲染界面的时候，完全依靠 ViewModel 进行，包括 View 的 SubView 也会使用 ViewModel 里面的子 ViewModel 渲染。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>- (void)bindDataWithViewModel:(nonnull APEHomePracticeSubjectsViewModel *)viewModel {
+</span><span class='line'>    self.viewModel = viewModel;
+</span><span class='line'>    self.backgroundColor = viewModel.backgroundColor;
+</span><span class='line'>    [self.collectionView reloadData];
+</span><span class='line'>    [self setNeedsUpdateConstraints];
+</span><span class='line'>}
+</span><span class='line'>- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:
+</span><span class='line'>(NSIndexPath *)indexPath {
+</span><span class='line'>    APEHomePracticeSubjectsCollectionViewCell *cell = [collectionView
+</span><span class='line'>dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
+</span><span class='line'>    if (0 &lt;= indexPath.row && indexPath.row &lt; self.viewModel.cellViewModels.count) {
+</span><span class='line'>        APEHomePracticeSubjectsCollectionCellViewModel *vm =
+</span><span class='line'>self.viewModel.cellViewModels[indexPath.row];
+</span><span class='line'>        [cell bindDataWithViewModel:vm];
+</span><span class='line'>}
+</span><span class='line'>    return cell;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>至此，我们就完成了所有的步骤。我们回过头再看一下 ViewController 的职责就回变的非常简单，装配好 View，向 DataController 请求数据，装配 ViewModel，配置给 View，接收 View 的UI事，一切复杂的操作都能够的代理出去。</p>
+
+<h2>总结</h2>
+
+<h3>优点</h3>
+
+<p>通过上面的例子我们可以看到，这个架构有几个优点：</p>
+
+<p><strong>层次清晰，职责明确</strong>：和界面有关的逻辑完全划到 ViewModel 和 View 一遍，其中 ViewModel 负责界面相关逻辑，View 负责绘制；Data Controller 负责页面相关的数据逻辑，而 Model 还是负责纯粹的数据层逻辑。 ViewController 仅仅只是充当简单的胶水作用。</p>
+
+<p><strong>耦合度低，测试性高</strong>：除开 ViewController 外，各个部件可以说是完全解耦合的，各个部分也是可以完全独立测试的。同一个功能，可以分别由不同的开发人员分别进行开发界面和逻辑，只需要确立好接口即可。</p>
+
+<p><strong>复用性高</strong>：解耦合带来的额外好处就是复用性高，例如同一个View，只需要多一个工厂方法生成 ViewModel，就可以直接复用。数据逻辑代码不放在 ViewController 层也可以更方便的复用。</p>
+
+<p><strong>学习成本低</strong>: 本质上来说，这个架构属于对 MVC 的优化，主要在于解决 Massive View Controller 问题，把原本属于 View Controller 的职责根据界面和逻辑部分相应的拆到 ViewModel 和 DataController 当中，所以是一个非常易于理解的架构设计，即使是新手也可以很快上手。</p>
+
+<p><strong>开发成本低</strong>: 完全不需要引入任何第三方库就可以进行开发，也避免了因为 MVVM 维护成本高的问题。</p>
+
+<p><strong>实施性高，重构成本低</strong>：可以在 MVC 架构上逐步重构的架构，不需要整体重写，是一种和 MVC 兼容的设计。</p>
+
+<h3>缺点</h3>
+
+<p>不可否认的是，这个设计也有其相应的缺点，由于其把传统 MVVM 里面的 VM 拆成两部分，会照成下面的一些情况：</p>
+
+<ol>
+<li>当页面的交互逻辑非常多时，需要频繁的在 DC-VC-VM 里来回传递信息，造成了大量胶水代码。</li>
+<li>另外，由于在传统的 MVVM 中 VM 原本是一体的，一些复杂的交互本来可以在 VM 中直接完成测试，如今却需要同时使用 DC 和 VM 并附上一些胶水代码才能进行测试。</li>
+<li>没有了 Binding，代码写起来会更费劲一点（仁者见仁，智者见智）。</li>
+</ol>
+
+
+<h2>后记</h2>
+
+<p>MVVM 是一个很棒的架构，私底下我也会用其来做一些个人项目，但在公司项目里，我会更慎重的考虑个中利弊。我做这个设计的时候，心仪 MVVM 的种种好处，又忌惮于它的种种坏处，再考虑到团队的开发和维护成本，所以最终设计成了如今这样。</p>
+
+<p>个人认为，好的架构设计的都是和团队以及业务场景息息相关的。我们这套架构帮助我们解决了 ViewController 代码堆积的问题，也带来了更清晰明了的代码层级和模块职责，同时没有引入过多的复杂性。希望大家也能充分理解这套架构的适用场景，在自己的 APP 架构设计中有所借鉴。</p>
+
+<p>Lancy</p>
+
+<p>2015.12.30</p>
+
+		
+		
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-01-06T00:00:00+08:00" pubdate data-updated="true">Jan 6<span>th</span>, 2016</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/ios/'>iOS</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2016/01/06/ape-ios-arch-design/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
 
 
     <article class="post">
@@ -2255,157 +2744,6 @@
 </div>
 </article>
 
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/05/02/OSX-iOS-Threading-Programming/">
-		
-			OS X/iOS 多线程编程小结</a>
-	</h2>
-	<div class="entry-content">
-		<h2>前言</h2>
-
-<p>我来填坑了。欠下的多线程，趁着假期无聊，赶紧码了。</p>
-
-<p>好吧，如我的这篇博文《<a href="http://gracelancy.com/?p=116">OS X/iOS 并发编程小结</a>》最后一段所说，虽然queue那样的并发编程非常方便，但在音频、视频这些需求最小延时的情况下，queue并发编程即使有优先级也并不能保证任务在特定的时间得到执行。故而，这种情况下还是需要我们直接操作线程。</p>
-
-<p>注：除开这种情况外，我建议（苹果也建议），各位还是乖乖用queue并发编程就好了。</p>
-
-<h2>什么是多线程</h2>
-
-<p>简而言之，主要有三个术语：线程、进程、任务。
-这里不想给大家上操作系统课啦，大家不明白的google一下或者回去翻翻书就好。</p>
-
-<h2>APPLE的多线程技术</h2>
-
-<h3>APPLE关于多线程的整个架构</h3>
-
-<p><img src="http://lianxu.me/images/post/threadlayout.jpg" alt="image" />
-（注：NSOperationQueue是在GCD上面的）</p>
-
-<p>ok，我一个一个介绍：</p>
-
-<ol>
-<li>多线程底层实现的机制是Mach的线程。坦白的说，mach我压根不懂。苹果也说了，你几乎不会用到。不过如果你真的有兴趣研究，可以看这里：<a href="https://developer.apple.com/library/mac/#documentation/Darwin/Conceptual/KernelProgramming/Mach/Mach.html">Kernel Programming Guide</a> 里面的关于Mach的那部分。</li>
-<li>pthread(POSIX threads)。这是传统的多线程，C-based interface，非常灵活。如果你写的不是Cocoa应用，这是实现多线程的最好选择。</li>
-<li>NSThread，Cocoa的线程实现。当你在写Cocoa应用而又需要进行直接的线程操作的时候，我认为NSThread是比pthread更好的选择。虽然你依然可以使用pthread在Cocoa程序上，但是会有一些在Cocoa程序需要遵循的规则。我会在后面说明。</li>
-<li>GCD和NSOperationQueue略</li>
-</ol>
-
-
-<h3>同步工具</h3>
-
-<p>锁(locks)，条件(condition)，原子操作(atomic)</p>
-
-<h3>线程间通信</h3>
-
-<ol>
-<li>Direct messaging: Cocoa应用可以直接perform某个selector在指定线程</li>
-<li>全局变量，共享内存和对象。</li>
-<li>Conditions：一种特殊类型的锁</li>
-<li>Run loop sources：简单的来说，run loop是用来在线程上管理时间异步到达的工具。run loop能为线程监听一个或多个事件源(event sources)。run loop能把线程置于休眠状态，而当事件到达时，系统能唤醒线程并把事件分发给run loop，而后run loop能将事件分发给特定的handler。</li>
-<li>Ports and sockets：也使用run loop，不同之处在于可以进行多进程通信</li>
-<li>Message queues：历史遗物，一种多进程通信的玩意，才用FIFO的信息队列，但是有效率问题，</li>
-<li>Cocoa distributed objects：好高级的技术，可以在call不同cocoa应用的object，甚至跨越网络的不同计算机上的cocoa应用。</li>
-</ol>
-
-
-<p>（老实说，后面几种我原先压根就没见过，为了弄懂他们是啥，看了好几篇文档。总结到这里，我的压力也感觉越来越大。觉得自己图样图拿衣服。。写了点多线程代码，就想总结OSX\iOS多线程编程。这才发现里面内容之多，细节之细令人发指。远不是整理一个并发编程能比的。我水平恐怕也就能堪堪掌握个大概框架，就操作系统课上的那点东西，跟生产环节下的多线程相比真是弱爆了。。）</p>
-
-<p>所以从这里开始，后面我打算走实用主义，直接小结一下如何写多线程程序好了。</p>
-
-<h2>线程管理</h2>
-
-<h3>使用NSThread创建线程</h3>
-
-<ul>
-<li>类方法detachNewThreadSelector:toTarget:withObject:</li>
-<li>创建一个NSThread对象initWithTarget:selector:object:，并调用start方法</li>
-</ul>
-
-
-<p>需要注意的是，这两种方法创建的线程，是分离（detach）的线程。detached的意思即，当线程退出的时候，系统会自动回收线程资源。当线程运行的时候，可以使用performSelector:onThread:withObject:waitUntilDone:modes来进行线程通信。其中modes用来指定run loop</p>
-
-<p>注意：在大部分情况下，脱离线程更适用，因为它允许系统在线程完成的时候自动回收。如果你想创建可连接的线程（Joinable thread），唯一的办法是使用pthread。</p>
-
-<h3>使用pthread创建线程</h3>
-
-<p><a href="http://developer.apple.com/library/ios/#documentation/System/Conceptual/ManPages_iPhoneOS/man3/pthread.3.html#//apple_ref/doc/man/3/pthread">参看pthread手册</a></p>
-
-<p>需要注意的几点：</p>
-
-<ol>
-<li>在cocoa程序上仅使用pthread，你需要先使用NSThread生成一个线程之后立即退出。就能保证Cocoa框架切换到多线程模式，来启用一些锁或者其他的同步技术来保证Cocoa框架代码的正确执行。如果你不这么做，当涉及到Cocoa框架的操作时有可能会照成不可预料的后果。</li>
-<li>pthread和Cocoa的锁是完全可以混用的，（我就这么做过，因为pthread的锁更灵活），但是对于指定的一个锁，必须使用同类型的接口来操作，即你不能同时用pthread和NSLock同时操作一个锁。</li>
-</ol>
-
-
-<h3>使用NSObject创建线程</h3>
-
-<p>performSelectorInBackground:withObject:也会生成一个脱离线程。你还可以在该线程里面使用performSelectorOnMainThread:withObject:waitUntilDone:modes:</p>
-
-<h3>线程的优先级</h3>
-
-<p>创建的线程的优先级和所处在的线程是相同的，优先级高的线程比优先级低的线程能获得更多运行机会，但并不能保证线程的具体执行时间和顺序。内核的调度算法会决定该运行哪个线程。</p>
-
-<p>NSThread 的 setThreadPriority:以及pthread_setschedparam 可以改变线程的优先级。</p>
-
-<p>注意：一般来说，保持默认优先级是一个不错的选择。更改某些线程的优先级，会增加某些较低优先级的线程的饥饿。若高优先级和低优先级的线程又有交互的需求，那么低优先级就有可能因为得到运行机会的难度而阻塞其他线程，造成线程瓶颈。</p>
-
-<h3>关于自动释放池 （autorelease pool）</h3>
-
-<p>autorelease pool用于自动释放pool里面捕获的autorelease对象。</p>
-
-<p>理论上来说，每一个线程都应该有一个autorelease pool，主
-线程在main.m里面XCode会为你创建一个。但当你创建一个线程的时候，你第一件应该做的事，就是创建一个autorelease pool。</p>
-
-<p>非ARC之前，你使用NSAutoreleasePool，之后你可以使用@autoreleasepool。</p>
-
-<p>注意：在ARC环境下你仍然不能忽略autorelease pool，因为ARC仍然使用autorelease来进行release操作，且他并不会为你自动的创建autorelease pool。BTW，除了在线程里面你会需要autorelease pool之外，在次数巨大或者多重的for-loop里面你也会使用autorelease pool，来避免一次alloc和release数量巨大的对象。</p>
-
-<h3>中断线程</h3>
-
-<p>（未完待续。。。写不动了。。）</p>
-
-<h2>Run Loop 详解</h2>
-
-<h2>线程同步 详解</h2>
-
-<h2>Cocoa的线程安全</h2>
-
-		
-		
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-02T00:00:00+08:00" pubdate data-updated="true">May 2<span>nd</span>, 2013</time></div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/ios/'>iOS</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2013/05/02/OSX-iOS-Threading-Programming/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
 <nav id="pagenavi">
     
     
@@ -2414,7 +2752,7 @@
     <div class="center"><a href="/blog/archives">Blog Archives</a></div>
 </nav>
 </div>
-	<footer id="footer" class="inner">Copyright &copy; 2014
+	<footer id="footer" class="inner">Copyright &copy; 2016
 
     Lancy
 
